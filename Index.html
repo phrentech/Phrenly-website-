@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Phrenly — Not a Chatbot. A Real Wellness Partner.</title>
+<meta name="description" content="Phrenly is a clinically-grounded AI wellness partner built on CBT, DBT, and ACT frameworks. Real therapeutic tools. Available 24/7."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+–sage:        #8B9D83;
+–sage2:       #6B8060;
+–sage3:       #4A5D43;
+–sage-light:  #B4C4A8;
+–sage-pale:   #EEF3EB;
+–sage-dim:    rgba(139,157,131,0.1);
+–sage-border: rgba(139,157,131,0.22);
+–sage-glow:   rgba(139,157,131,0.25);
+–white:       #FFFFFF;
+–off:         #F4F6F2;
+–ink:         #1a2318;
+–ink2:        #4a5e48;
+–ink3:        #8a9e88;
+–border:      rgba(26,35,24,0.08);
+–border2:     rgba(26,35,24,0.14);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+font-family: ‘Plus Jakarta Sans’, sans-serif;
+font-weight: 400;
+font-size: 15px;
+line-height: 1.65;
+color: var(–ink);
+background: #FFFFFF;
+-webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+font-family: ‘Plus Jakarta Sans’, sans-serif;
+font-weight: 800;
+letter-spacing: -0.03em;
+line-height: 1.05;
+}
+
+/* ── NAV ── */
+.nav {
+display: flex; align-items: center; justify-content: space-between;
+padding: 16px 48px;
+border-bottom: 0.5px solid var(–border);
+position: sticky; top: 0; z-index: 100;
+background: #FFFFFF;
+}
+.nav-logo { font-weight: 800; font-size: 20px; letter-spacing: -0.03em; color: var(–ink); text-decoration: none; }
+.nav-logo span { color: var(–sage); }
+.nav-links { display: flex; gap: 28px; list-style: none; font-size: 13px; font-weight: 500; color: var(–ink3); }
+.nav-links a { color: inherit; text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: var(–sage2); }
+.nav-cta {
+font-size: 13px; font-weight: 700; padding: 9px 22px;
+background: var(–sage); color: #fff;
+border: none; border-radius: 100px;
+cursor: pointer; text-decoration: none; transition: all 0.2s;
+}
+.nav-cta:hover { background: var(–sage2); }
+
+/* ── HERO ── */
+.hero {
+display: grid; grid-template-columns: 1fr 1fr;
+gap: 64px; align-items: center;
+padding: 80px 48px 88px;
+max-width: 1200px; margin: 0 auto;
+}
+
+.not-badge {
+display: inline-flex; align-items: center; gap: 8px;
+font-size: 11px; font-weight: 700;
+letter-spacing: 0.1em; text-transform: uppercase;
+color: var(–sage2);
+background: var(–sage-dim);
+border: 1px solid var(–sage-border);
+padding: 6px 14px; border-radius: 100px; margin-bottom: 28px;
+}
+.live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(–sage); animation: blink 2s ease-in-out infinite; display: inline-block; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+.hero h1 { font-size: clamp(36px,4vw,58px); color: var(–ink); margin-bottom: 20px; }
+.hero h1 em { color: var(–sage); font-style: normal; }
+.hero-p { font-size: 17px; color: var(–ink2); font-weight: 400; line-height: 1.75; margin-bottom: 36px; max-width: 420px; }
+
+.btn-primary {
+font-size: 15px; font-weight: 700; padding: 14px 32px;
+background: var(–sage); color: #fff;
+border: none; border-radius: 100px;
+cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.2s;
+}
+.btn-primary:hover { background: var(–sage2); transform: translateY(-1px); }
+.btn-outline {
+font-size: 14px; font-weight: 500; padding: 14px 26px;
+background: transparent; color: var(–ink2);
+border: 1.5px solid var(–border2);
+border-radius: 100px; cursor: pointer; text-decoration: none; transition: all 0.2s;
+}
+.btn-outline:hover { border-color: var(–sage); color: var(–sage2); }
+.hero-note { margin-top: 14px; font-size: 12px; color: var(–ink3); }
+
+.fw-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 40px; padding-top: 32px; border-top: 0.5px solid var(–border); }
+.fw-tag { font-size: 11px; font-weight: 600; padding: 5px 13px; border-radius: 100px; background: var(–sage-dim); border: 1px solid var(–sage-border); color: var(–sage2); }
+
+/* HERO VISUAL */
+.hero-visual { display: flex; flex-direction: column; gap: 14px; }
+
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+.animate-float { animation: float 6s ease-in-out infinite; }
+
+.chat-card {
+background: #FFFFFF;
+border-radius: 20px;
+border: 1px solid var(–border);
+box-shadow: 0 4px 24px rgba(139,157,131,0.12), 0 1px 4px rgba(0,0,0,0.04);
+overflow: hidden;
+}
+.chat-header {
+padding: 14px 18px;
+background: var(–off);
+border-bottom: 0.5px solid var(–border);
+display: flex; align-items: center; gap: 10px;
+}
+.chat-avatar {
+width: 32px; height: 32px; border-radius: 50%;
+background: var(–sage);
+display: flex; align-items: center; justify-content: center;
+font-size: 13px; font-weight: 800; color: #fff;
+}
+.chat-name { font-size: 13px; font-weight: 700; color: var(–ink); }
+.chat-status { font-size: 10px; color: var(–sage); font-weight: 600; }
+.chat-messages { padding: 16px; background: #FFFFFF; display: flex; flex-direction: column; gap: 10px; }
+.bubble { max-width: 85%; font-size: 13px; padding: 11px 15px; border-radius: 16px; line-height: 1.55; }
+.bubble-ai { background: var(–off); color: var(–ink); align-self: flex-start; border-bottom-left-radius: 4px; border: 1px solid var(–border); }
+.bubble-user { background: var(–sage); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
+
+.ex-card {
+background: #FFFFFF;
+border-radius: 20px;
+border: 1px solid var(–border);
+box-shadow: 0 4px 24px rgba(139,157,131,0.08), 0 1px 4px rgba(0,0,0,0.04);
+padding: 22px 24px;
+}
+.ex-badge { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(–sage2); background: var(–sage-dim); border: 1px solid var(–sage-border); padding: 3px 10px; border-radius: 100px; margin-bottom: 12px; }
+.ex-title { font-size: 14px; font-weight: 700; color: var(–ink); margin-bottom: 14px; }
+.ex-steps { display: flex; flex-direction: column; gap: 9px; }
+.ex-step { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(–ink2); line-height: 1.5; }
+.step-num { width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; margin-top: 1px; }
+.step-active { background: var(–sage); color: #fff; }
+.step-inactive { background: var(–sage-dim); border: 1px solid var(–sage-border); color: var(–sage2); }
+.step-active-text { color: var(–ink); font-weight: 600; }
+
+/* ── DIFF BAR ── */
+.diff-bar {
+background: var(–off);
+border-top: 0.5px solid var(–border);
+border-bottom: 0.5px solid var(–border);
+display: grid; grid-template-columns: repeat(4,1fr);
+}
+.diff-item { padding: 28px 32px; border-right: 0.5px solid var(–border); }
+.diff-item:last-child { border-right: none; }
+.diff-dot { width: 28px; height: 28px; border-radius: 50%; background: var(–sage-dim); border: 1px solid var(–sage-border); display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+.diff-dot-inner { width: 10px; height: 10px; border-radius: 50%; background: var(–sage); }
+.diff-title { font-size: 14px; font-weight: 700; color: var(–ink); margin-bottom: 5px; }
+.diff-desc { font-size: 12px; color: var(–ink3); font-weight: 400; line-height: 1.5; }
+
+/* ── SECTIONS ── */
+.section { padding: 88px 48px; max-width: 1100px; margin: 0 auto; }
+.section-lbl { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(–ink3); margin-bottom: 10px; }
+.section-h2 { font-size: clamp(28px,3.5vw,44px); margin-bottom: 14px; color: var(–ink); }
+.section-h2 em { color: var(–sage); font-style: normal; }
+.section-sub { font-size: 16px; color: var(–ink2); max-width: 520px; margin-bottom: 52px; font-weight: 400; line-height: 1.75; }
+
+/* FRAMEWORK */
+.framework-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 20px; }
+.framework-card {
+background: #FFFFFF;
+border-radius: 22px; padding: 32px 28px;
+border: 1px solid var(–border);
+transition: all 0.3s;
+}
+.framework-card:hover { border-color: var(–sage-border); box-shadow: 0 8px 32px rgba(139,157,131,0.12); transform: translateY(-3px); }
+.fw-card-tag { display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(–sage2); background: var(–sage-dim); border: 1px solid var(–sage-border); padding: 4px 12px; border-radius: 100px; margin-bottom: 16px; }
+.framework-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; color: var(–ink); }
+.framework-card p { font-size: 14px; color: var(–ink2); line-height: 1.75; }
+.fw-example { margin-top: 16px; background: var(–sage-pale); border-radius: 12px; padding: 14px 16px; border-left: 3px solid var(–sage); font-size: 12px; color: var(–ink2); line-height: 1.65; font-style: italic; }
+.fw-example strong { color: var(–sage2); font-style: normal; font-weight: 700; }
+
+/* EXERCISES */
+.ex-zone { background: var(–off); }
+.exercises-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.exercise-card {
+background: #FFFFFF;
+border-radius: 22px; padding: 30px 28px;
+border: 1px solid var(–border);
+transition: all 0.3s;
+}
+.exercise-card:hover { border-color: var(–sage-border); box-shadow: 0 8px 32px rgba(139,157,131,0.1); transform: translateY(-3px); }
+.ex-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.ex-type-badge { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(–sage2); background: var(–sage-dim); border: 1px solid var(–sage-border); padding: 3px 10px; border-radius: 100px; }
+.ex-framework-label { font-size: 10px; font-weight: 600; color: var(–ink3); }
+.exercise-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: var(–ink); }
+.exercise-card p { font-size: 13px; color: var(–ink2); line-height: 1.65; margin-bottom: 18px; }
+.ex-step-list { display: flex; flex-direction: column; gap: 9px; }
+.ex-step-item { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(–ink2); line-height: 1.5; }
+.ex-step-badge { width: 22px; height: 22px; border-radius: 50%; background: var(–sage-dim); border: 1px solid var(–sage-border); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 800; color: var(–sage2); flex-shrink: 0; margin-top: 1px; }
+
+/* CRISIS */
+.crisis-wrap { padding: 0 48px 88px; max-width: 1100px; margin: 0 auto; }
+.crisis-card {
+background: var(–ink);
+border-radius: 28px; padding: 56px 52px;
+display: grid; grid-template-columns: 1fr 1fr;
+gap: 52px; align-items: center;
+}
+.crisis-card h2 { font-size: clamp(24px,3vw,36px); color: #f1f5f9; margin-bottom: 14px; }
+.crisis-card h2 em { color: var(–sage-light); font-style: normal; }
+.crisis-card p { font-size: 14px; color: rgba(241,245,249,0.55); line-height: 1.8; margin-bottom: 14px; }
+.crisis-feat { display: flex; align-items: flex-start; gap: 12px; font-size: 13px; color: rgba(241,245,249,0.7); line-height: 1.55; margin-bottom: 12px; }
+.crisis-feat-dot { width: 22px; height: 22px; border-radius: 50%; background: var(–sage-dim); border: 1px solid var(–sage-border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.crisis-feat-dot-inner { width: 8px; height: 8px; border-radius: 50%; background: var(–sage-light); }
+.crisis-mock { background: rgba(15,23,42,0.6); border: 1px solid rgba(255,255,255,0.07); border-radius: 18px; overflow: hidden; }
+.crisis-mock-top { padding: 12px 16px; background: rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 11px; color: rgba(255,255,255,0.35); display: flex; align-items: center; gap: 8px; }
+.crisis-sdot { width: 7px; height: 7px; border-radius: 50%; background: var(–sage-light); animation: blink 2s ease-in-out infinite; }
+.crisis-messages { padding: 18px; display: flex; flex-direction: column; gap: 10px; }
+.crisis-bubble { max-width: 90%; font-size: 12px; padding: 10px 14px; border-radius: 12px; line-height: 1.55; }
+.crisis-user { background: var(–sage-dim); color: rgba(241,245,249,0.8); align-self: flex-end; border-bottom-right-radius: 4px; border: 1px solid var(–sage-border); }
+.crisis-ai { background: rgba(255,255,255,0.06); color: rgba(241,245,249,0.75); align-self: flex-start; border-bottom-left-radius: 4px; border: 1px solid rgba(255,255,255,0.08); }
+.crisis-alert { margin: 0 18px 18px; background: var(–sage-dim); border: 1px solid var(–sage-border); border-radius: 10px; padding: 10px 12px; font-size: 11px; color: var(–sage-light); display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
+.alert-dot { width: 6px; height: 6px; border-radius: 50%; background: var(–sage-light); flex-shrink: 0; margin-top: 3px; }
+
+/* PRICING */
+.pricing-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 20px; }
+.pricing-card { background: #FFFFFF; border-radius: 22px; padding: 34px 30px; border: 1px solid var(–border); position: relative; transition: all 0.3s; }
+.pricing-card:hover { border-color: var(–sage-border); box-shadow: 0 8px 32px rgba(139,157,131,0.1); }
+.pricing-featured { background: var(–ink) !important; border-color: var(–ink) !important; box-shadow: 0 20px 60px rgba(26,35,24,0.2) !important; }
+.featured-badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; background: var(–sage); color: #fff; padding: 5px 16px; border-radius: 100px; white-space: nowrap; }
+.pricing-tier { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(–ink3); margin-bottom: 10px; }
+.pricing-featured .pricing-tier { color: rgba(241,245,249,0.4); }
+.pricing-price { font-size: 40px; font-weight: 800; letter-spacing: -0.04em; line-height: 1; color: var(–ink); margin-bottom: 5px; }
+.pricing-featured .pricing-price { color: #f1f5f9; }
+.pricing-price span { font-size: 15px; font-weight: 400; color: var(–ink3); }
+.pricing-desc { font-size: 13px; color: var(–ink2); margin-bottom: 26px; line-height: 1.5; }
+.pricing-featured .pricing-desc { color: rgba(241,245,249,0.45); }
+.pricing-features { list-style: none; display: flex; flex-direction: column; gap: 11px; margin-bottom: 30px; }
+.pricing-features li { display: flex; align-items: flex-start; gap: 9px; font-size: 13px; color: var(–ink2); }
+.pricing-featured .pricing-features li { color: rgba(241,245,249,0.65); }
+.pf-check { width: 18px; height: 18px; border-radius: 50%; background: var(–sage-dim); border: 1px solid var(–sage-border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.pf-check-dot { width: 6px; height: 6px; border-radius: 50%; background: var(–sage); }
+.pricing-btn { width: 100%; font-size: 14px; font-weight: 700; padding: 14px; background: var(–sage); color: #fff; border: none; border-radius: 100px; cursor: pointer; text-decoration: none; display: block; text-align: center; transition: all 0.2s; }
+.pricing-btn:hover { background: var(–sage2); }
+.pricing-btn-outline { background: transparent !important; color: var(–ink) !important; border: 1.5px solid var(–border2) !important; }
+.pricing-btn-outline:hover { border-color: var(–sage) !important; color: var(–sage2) !important; background: transparent !important; }
+.pricing-note { text-align: center; font-size: 12px; color: var(–ink3); margin-top: 22px; }
+
+/* CTA */
+.cta-zone { background: var(–sage-pale); border-top: 1px solid var(–sage-border); }
+.cta-inner { padding: 88px 48px; text-align: center; max-width: 600px; margin: 0 auto; }
+.cta-inner h2 { font-size: clamp(30px,4vw,48px); margin-bottom: 16px; color: var(–ink); }
+.cta-inner h2 em { color: var(–sage2); font-style: normal; }
+.cta-inner p { font-size: 17px; color: var(–ink2); margin-bottom: 36px; line-height: 1.75; }
+
+/* FOOTER */
+.footer { background: var(–ink); padding: 40px 48px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: rgba(255,255,255,0.25); }
+.footer-logo { font-weight: 800; font-size: 19px; letter-spacing: -0.03em; color: #f1f5f9; text-decoration: none; }
+.footer-logo span { color: var(–sage-light); }
+.footer-links { display: flex; gap: 24px; list-style: none; }
+.footer-links a { color: inherit; text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: rgba(255,255,255,0.6); }
+.footer-pt a { color: inherit; text-decoration: none; }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+.nav { padding: 14px 20px; } .nav-links { display: none; }
+.hero { grid-template-columns: 1fr; padding: 48px 20px; gap: 40px; }
+.diff-bar { grid-template-columns: 1fr 1fr; }
+.diff-item { padding: 20px; }
+.section { padding: 56px 20px; }
+.framework-grid, .exercises-grid, .pricing-grid { grid-template-columns: 1fr; }
+.crisis-wrap { padding: 0 20px 56px; }
+.crisis-card { grid-template-columns: 1fr; padding: 32px 24px; gap: 32px; }
+.cta-inner { padding: 56px 20px; }
+.footer { flex-direction: column; gap: 20px; text-align: center; padding: 32px 20px; }
+.footer-links { flex-wrap: wrap; justify-content: center; }
+}
+</style>
+
+</head>
+<body>
+
+<!-- NAV -->
+
+<nav class="nav">
+  <a href="/" class="nav-logo">Phren<span>ly</span></a>
+  <ul class="nav-links">
+    <li><a href="#clinical">How it works</a></li>
+    <li><a href="#exercises">The tools</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="https://phrentech.com">PhrenTech</a></li>
+  </ul>
+  <a href="https://app.phrenly.com" class="nav-cta">Try Phrenly now</a>
+</nav>
+
+<!-- HERO -->
+
+<section>
+  <div class="hero">
+    <div>
+      <div class="not-badge"><span class="live-dot"></span> Not a chatbot</div>
+      <h1>A wellness partner built like a <em>therapist</em></h1>
+      <p class="hero-p">Phrenly isn't a generic AI with therapy prompts. It's a purpose-built wellness partner grounded in the same clinical frameworks your therapist uses — available every hour of every day.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="https://app.phrenly.com" class="btn-primary">Try Phrenly now</a>
+        <a href="#clinical" class="btn-outline">See how it works</a>
+      </div>
+      <p class="hero-note">Free to start. No referral. No waitlist.</p>
+      <div class="fw-tags">
+        <span class="fw-tag">Cognitive Behavioral Therapy</span>
+        <span class="fw-tag">Dialectical Behavior Therapy</span>
+        <span class="fw-tag">Acceptance & Commitment Therapy</span>
+        <span class="fw-tag">Crisis detection</span>
+      </div>
+    </div>
+    <div class="hero-visual animate-float">
+      <div class="chat-card">
+        <div class="chat-header">
+          <div class="chat-avatar">P</div>
+          <div>
+            <div class="chat-name">Phrenly</div>
+            <div class="chat-status">● Online — here for you</div>
+          </div>
+        </div>
+        <div class="chat-messages">
+          <div class="bubble bubble-ai">I'm noticing you've mentioned work stress a few times this week. Let's use a thought record to examine what's driving that anxiety.</div>
+          <div class="bubble bubble-user">Ok I'm willing to try that</div>
+          <div class="bubble bubble-ai">Good. First — what's the specific thought showing up most? Name it as precisely as you can.</div>
+        </div>
+      </div>
+      <div class="ex-card">
+        <span class="ex-badge">CBT · Thought Record</span>
+        <div class="ex-title">Identifying cognitive distortions</div>
+        <div class="ex-steps">
+          <div class="ex-step"><div class="step-num step-active">1</div><span class="step-active-text">Name the thought: <strong style="color:var(--sage2);">"I'm going to fail this presentation"</strong></span></div>
+          <div class="ex-step"><div class="step-num step-inactive">2</div><span>Identify the distortion — catastrophizing, mind reading, all-or-nothing?</span></div>
+          <div class="ex-step"><div class="step-num step-inactive">3</div><span>Generate a balanced alternative thought</span></div>
+          <div class="ex-step"><div class="step-num step-inactive">4</div><span>Rate anxiety before and after — track progress</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFF BAR -->
+
+<div class="diff-bar">
+  <div class="diff-item"><div class="diff-dot"><div class="diff-dot-inner"></div></div><div class="diff-title">Clinically grounded</div><div class="diff-desc">Built on CBT, DBT & ACT — not general AI</div></div>
+  <div class="diff-item"><div class="diff-dot"><div class="diff-dot-inner"></div></div><div class="diff-title">Crisis-aware</div><div class="diff-desc">Real-time detection with human escalation</div></div>
+  <div class="diff-item"><div class="diff-dot"><div class="diff-dot-inner"></div></div><div class="diff-title">Personalized</div><div class="diff-desc">Learns what works for you over time</div></div>
+  <div class="diff-item"><div class="diff-dot"><div class="diff-dot-inner"></div></div><div class="diff-title">Clinician-ready</div><div class="diff-desc">Supports — never replaces — your care team</div></div>
+</div>
+
+<!-- CLINICAL -->
+
+<section class="section" id="clinical">
+  <div class="section-lbl">The clinical foundation</div>
+  <h2 class="section-h2">Three frameworks. One <em>cohesive</em> experience.</h2>
+  <p class="section-sub">Most wellness apps pick one approach and bolt AI on top. Phrenly integrates all three evidence-based frameworks — seamlessly, in every conversation.</p>
+  <div class="framework-grid">
+    <div class="framework-card">
+      <span class="fw-card-tag">CBT</span>
+      <h3>Cognitive Behavioral Therapy</h3>
+      <p>Identifies the connection between thoughts, feelings, and behaviors. Phrenly uses CBT to help you spot unhelpful patterns and build more balanced thinking.</p>
+      <div class="fw-example"><strong>In practice:</strong> "I noticed you're using all-or-nothing language there. Let's look at what the evidence actually says..."</div>
+    </div>
+    <div class="framework-card">
+      <span class="fw-card-tag">DBT</span>
+      <h3>Dialectical Behavior Therapy</h3>
+      <p>Focuses on emotional regulation, distress tolerance, and interpersonal effectiveness. Especially effective for intense emotions and crisis moments.</p>
+      <div class="fw-example"><strong>In practice:</strong> "Let's try a TIPP skill right now — Temperature, Intense exercise, Paced breathing, Progressive relaxation."</div>
+    </div>
+    <div class="framework-card">
+      <span class="fw-card-tag">ACT</span>
+      <h3>Acceptance & Commitment Therapy</h3>
+      <p>Builds psychological flexibility — helping you accept difficult thoughts without letting them control your actions, and commit to what truly matters.</p>
+      <div class="fw-example"><strong>In practice:</strong> "Instead of fighting that thought, what if we just noticed it? You are not your anxiety."</div>
+    </div>
+  </div>
+</section>
+
+<!-- EXERCISES -->
+
+<div class="ex-zone">
+  <section class="section" id="exercises">
+    <div class="section-lbl">The tools</div>
+    <h2 class="section-h2">Real exercises. Not just <em>conversation.</em></h2>
+    <p class="section-sub">Phrenly guides you through structured therapeutic exercises — the same ones used in clinical practice — not just open-ended chat.</p>
+    <div class="exercises-grid">
+      <div class="exercise-card">
+        <div class="ex-card-header"><span class="ex-type-badge">Grounding</span><span class="ex-framework-label">DBT</span></div>
+        <h3>5-4-3-2-1 Technique</h3>
+        <p>Brings you back to the present moment when anxiety spikes. Works in minutes, anywhere.</p>
+        <div class="ex-step-list">
+          <div class="ex-step-item"><div class="ex-step-badge">5</div><span>Name 5 things you can see</span></div>
+          <div class="ex-step-item"><div class="ex-step-badge">4</div><span>Name 4 things you can physically feel</span></div>
+          <div class="ex-step-item"><div class="ex-step-badge">3</div><span>Name 3 things you can hear</span></div>
+          <div class="ex-step-item"><div class="ex-step-badge">2</div><span>Name 2 things you can smell</span></div>
+          <div class="ex-step-item"><div class="ex-step-badge">1</div><span>Name 1 thing you can taste</span></div>
+        </div>
+      </div>
+      <div class="exercise-card">
+        <div class="ex-card-header"><span class="ex-type-badge">Thought Record</span><span class="ex-framework-label">CBT</span></div>
+        <h3>Cognitive Restructuring</h3>
+        <p>Examines the thoughts driving anxiety or low mood and builds more balanced alternatives.</p>
+        <div class="ex-step-list">
+          <div class="ex-step-item"><div class="ex-step-badge">1</div><span>Identify the triggering situation</span></div>
+          <div class="ex-step-item"><div class="ex-step-badge">2</div><span>Name the automatic thought</span></div>
+          <div class="ex-step-item"><div class="ex-step-badge">3</div><span>Spot the cognitive distortion</span></div>
+          <div class="ex-step-item"><div class="ex-step-badge">4</div><span>Generate a balanced alternative</span></div>
+        </div>
+      </div>
+      <div class="exercise-card">
+        <div class="ex-card-header"><span class="ex-type-badge">Values Compass</span><span class="ex-framework-label">ACT</span></div>
+        <h3>Values Clarification</h3>
+        <p>Identifies what truly matters to you and aligns your daily actions with those values.</p>
+        <div class="ex-step-list">
+          <div class="ex-step-item"><div class="ex-step-badge">1</div><span>Explore your core life domains</span></div>
+          <div class="ex-step-item"><div class="ex-step-badge">2</div><span>Rate current alignment in each area</span></div>
+          <div class="ex-step-item"><div class="ex-step-badge">3</div><span>Identify one committed action today</span></div>
+        </div>
+      </div>
+      <div class="exercise-card">
+        <div class="ex-card-header"><span class="ex-type-badge">Coping Plan</span><span class="ex-framework-label">DBT · CBT</span></div>
+        <h3>Personalized Crisis Plan</h3>
+        <p>A custom toolkit built together over time — what works for you when things get hard.</p>
+        <div class="ex-step-list">
+          <div class="ex-step-item"><div class="ex-step-badge">1</div><span>Identify your personal warning signs</span></div>
+          <div class="ex-step-item"><div class="ex-step-badge">2</div><span>List your most effective coping strategies</span></div>
+          <div class="ex-step-item"><div class="ex-step-badge">3</div><span>Name your support contacts</span></div>
+          <div class="ex-step-item"><div class="ex-step-badge">4</div><span>Commit to one reason to keep going</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- CRISIS -->
+
+<div class="crisis-wrap">
+  <div class="crisis-card">
+    <div>
+      <div class="section-lbl" style="color:rgba(241,245,249,0.25);margin-bottom:10px;">Safety first</div>
+      <h2>Built to recognize when you need <em>more than an app</em></h2>
+      <p>Phrenly monitors every conversation for signs of crisis — not just keywords, but context, tone, and pattern. When it detects elevated risk, it responds immediately and connects you to human support.</p>
+      <div class="crisis-feat"><div class="crisis-feat-dot"><div class="crisis-feat-dot-inner"></div></div>Real-time crisis detection across every conversation</div>
+      <div class="crisis-feat"><div class="crisis-feat-dot"><div class="crisis-feat-dot-inner"></div></div>Immediate connection to crisis resources when needed</div>
+      <div class="crisis-feat"><div class="crisis-feat-dot"><div class="crisis-feat-dot-inner"></div></div>Clinician escalation pathway for high-risk situations</div>
+      <div class="crisis-feat"><div class="crisis-feat-dot"><div class="crisis-feat-dot-inner"></div></div>Never dismisses or minimizes — always takes it seriously</div>
+    </div>
+    <div class="crisis-mock">
+      <div class="crisis-mock-top"><div class="crisis-sdot"></div>Phrenly · Safety monitoring active</div>
+      <div class="crisis-messages">
+        <div class="crisis-bubble crisis-user">I just don't see the point anymore. Everything feels hopeless.</div>
+        <div class="crisis-bubble crisis-ai">I hear you — and I want to make sure I understand. Are you having any thoughts of hurting yourself?</div>
+        <div class="crisis-bubble crisis-user">Sometimes yeah</div>
+        <div class="crisis-bubble crisis-ai">Thank you for telling me that. That takes courage. You're not alone right now, and I'm not going anywhere.</div>
+      </div>
+      <div class="crisis-alert"><div class="alert-dot"></div>Phrenly has flagged this conversation and is surfacing crisis resources. A human review has been initiated.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING -->
+
+<section class="section" id="pricing">
+  <div class="section-lbl">Pricing</div>
+  <h2 class="section-h2">Start free. No strings.</h2>
+  <p class="section-sub">Quality mental health support at a fraction of the cost of traditional therapy.</p>
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <div class="pricing-tier">Free</div>
+      <div class="pricing-price">$0<span> / month</span></div>
+      <div class="pricing-desc">Core tools to get started.</div>
+      <ul class="pricing-features">
+        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Daily check-ins</li>
+        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Foundational CBT/DBT tools</li>
+        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Basic mood tracking</li>
+        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Crisis detection & resources</li>
+      </ul>
+      <a href="https://app.phrenly.com" class="pricing-btn pricing-btn-outline">Get started free</a>
+    </div>
+    <div class="pricing-card pricing-featured">
+      <div class="featured-badge">Most popular</div>
+      <div class="pricing-tier">Plus</div>
+      <div class="pricing-price">$19<span> / month</span></div>
+      <div class="pricing-desc">Full clinical toolkit, unlimited sessions.</div>
+      <ul class="pricing-features">
+        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Unlimited sessions</li>
+        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Full CBT, DBT & ACT modules</li>
+        <li><div class="pf-check"><div class="pf-check-dot"></div></div>All structured exercises</li>
+        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Personalized coping plans</li>
+        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Progress tracking & insights</li>
+      </ul>
+      <a href="https://app.phrenly.com" class="pricing-btn">Try Plus now</a>
+    </div>
+    <div class="pricing-card">
+      <div class="pricing-tier">Pro</div>
+      <div class="pricing-price">$59<span> / month</span></div>
+      <div class="pricing-desc">Full experience plus clinical integration.</div>
+      <ul class="pricing-features">
+        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Everything in Plus</li>
+        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Clinician-ready progress reports</li>
+        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Priority access to new features</li>
+        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Wearable integration (coming soon)</li>
+      </ul>
+      <a href="https://app.phrenly.com" class="pricing-btn pricing-btn-outline">Get Pro</a>
+    </div>
+  </div>
+  <p class="pricing-note">Student discount available — $12/month on Plus and Pro. <a href="https://app.phrenly.com" style="color:var(--sage2);">Apply at signup.</a></p>
+</section>
+
+<!-- CTA -->
+
+<div class="cta-zone">
+  <div class="cta-inner">
+    <h2>You deserve support that <em>actually works</em></h2>
+    <p>Phrenly is free to start, clinically grounded, and available the moment you need it. No waitlist. No referral. No scheduling.</p>
+    <a href="https://app.phrenly.com" class="btn-primary">Try Phrenly now — it's free</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+
+<footer class="footer">
+  <a href="/" class="footer-logo">Phren<span>ly</span></a>
+  <ul class="footer-links">
+    <li><a href="/privacy">Privacy Policy</a></li>
+    <li><a href="/terms">Terms</a></li>
+    <li><a href="https://phrentech.com">PhrenTech</a></li>
+    <li><a href="mailto:hello@phrenly.com">Contact</a></li>
+  </ul>
+  <div class="footer-pt">A <a href="https://phrentech.com">PhrenTech</a> product · © 2025 PhrenTech Inc.</div>
+</footer>
+
+</body>
+</html>
