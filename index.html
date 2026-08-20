@@ -282,6 +282,31 @@ gap: 52px; align-items: center;
 .footer-links a:hover { color: rgba(255,255,255,0.6); }
 .footer-pt a { color: inherit; text-decoration: none; }
 
+/* VOICE */
+.voice-wrap { padding: 0 48px 88px; max-width: 1100px; margin: 0 auto; }
+.voice-card { background: var(--ink); border-radius: 28px; padding: 56px 52px; }
+.voice-card h2 { font-size: clamp(24px,3vw,40px); color: #f1f5f9; margin-bottom: 16px; }
+.voice-card h2 em { color: var(--sage-light); font-style: normal; }
+.voice-card p { font-size: 15px; color: rgba(241,245,249,0.5); line-height: 1.8; max-width: 560px; margin-bottom: 24px; }
+.voice-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+.voice-tag { font-size: 12px; font-weight: 600; color: var(--sage-light); background: var(--sage-dim); border: 1px solid var(--sage-border); padding: 7px 14px; border-radius: 100px; }
+.voice-note { font-size: 12px; color: rgba(241,245,249,0.3); }
+
+/* PERSONAS */
+.persona-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 16px; }
+.persona-card { background: #FFFFFF; border: 1px solid var(--border); border-radius: 18px; padding: 22px 20px; transition: all 0.3s; }
+.persona-card:hover { border-color: var(--sage-border); box-shadow: 0 8px 32px rgba(139,157,131,0.1); transform: translateY(-3px); }
+.persona-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; color: var(--ink); }
+.persona-card p { font-size: 13px; color: var(--ink2); line-height: 1.6; }
+.persona-note { font-size: 12px; color: var(--ink3); margin-top: 20px; }
+
+/* TOOLKIT */
+.toolkit { margin-top: 30px; padding-top: 30px; border-top: 0.5px solid var(--border); }
+.toolkit-h { font-size: 17px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+.toolkit-sub { font-size: 13px; color: var(--ink2); margin-bottom: 18px; }
+.toolkit-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(170px,1fr)); gap: 10px; }
+.toolkit-item { background: #FFFFFF; border: 1px solid var(--border); border-radius: 12px; padding: 13px 15px; font-size: 13px; color: var(--ink2); }
+
 /* RESPONSIVE */
 @media (max-width: 768px) {
 .nav { padding: 14px 20px; } .nav-links { display: none; }
@@ -290,6 +315,9 @@ gap: 52px; align-items: center;
 .diff-item { padding: 20px; }
 .section { padding: 56px 20px; }
 .framework-grid, .exercises-grid, .pricing-grid { grid-template-columns: 1fr; }
+.persona-grid { grid-template-columns: 1fr 1fr; }
+.voice-wrap { padding: 0 20px 56px; }
+.voice-card { padding: 32px 24px; }
 .crisis-wrap { padding: 0 20px 56px; }
 .crisis-card { grid-template-columns: 1fr; padding: 32px 24px; gap: 32px; }
 .cta-inner { padding: 56px 20px; }
@@ -389,7 +417,7 @@ gap: 52px; align-items: center;
       <span class="fw-card-tag">DBT</span>
       <h3>Dialectical Behavior Therapy</h3>
       <p>Focuses on emotional regulation, distress tolerance, and interpersonal effectiveness. Especially effective for intense emotions and crisis moments.</p>
-      <div class="fw-example"><strong>In practice:</strong> "Let's try a TIPP skill right now — Temperature, Intense exercise, Paced breathing, Progressive relaxation."</div>
+      <div class="fw-example"><strong>In practice:</strong> "Let's try the STOP skill — stop, step back, observe, then proceed on purpose rather than on impulse."</div>
     </div>
     <div class="framework-card">
       <span class="fw-card-tag">ACT</span>
@@ -398,6 +426,37 @@ gap: 52px; align-items: center;
       <div class="fw-example"><strong>In practice:</strong> "Instead of fighting that thought, what if we just noticed it? You are not your anxiety."</div>
     </div>
   </div>
+</section>
+
+<!-- VOICE -->
+
+<div class="voice-wrap">
+  <div class="voice-card">
+    <div class="section-lbl" style="color:rgba(241,245,249,0.25);margin-bottom:10px;">Voice sessions</div>
+    <h2>Talk it through, <em>out loud</em></h2>
+    <p>Speak, and Phrenly answers — a real conversation in real time. Interrupt, change direction, sit in silence. When an exercise would help, she opens it onto your screen and stays with you while you work through it.</p>
+    <div class="voice-tags">
+      <span class="voice-tag">Real-time conversation</span>
+      <span class="voice-tag">Exercises open as you talk</span>
+      <span class="voice-tag">Crisis-aware throughout</span>
+    </div>
+    <p class="voice-note">Included with Plus.</p>
+  </div>
+</div>
+
+<!-- PERSONAS -->
+
+<section class="section">
+  <div class="section-lbl">Companion personas</div>
+  <h2 class="section-h2">Support that meets you <em>your way</em></h2>
+  <p class="section-sub">People don't all want the same thing from support. Choose how Phrenly relates to you — the clinical framework underneath stays the same.</p>
+  <div class="persona-grid">
+    <div class="persona-card"><h3>Warm and gentle</h3><p>Soft, patient, unhurried</p></div>
+    <div class="persona-card"><h3>Direct and grounded</h3><p>Plain-spoken, no circling</p></div>
+    <div class="persona-card"><h3>Reflective and open</h3><p>More questions than answers</p></div>
+    <div class="persona-card"><h3>Culturally attuned</h3><p>Sensitive to background</p></div>
+  </div>
+  <p class="persona-note">Safety guidance never bends to tone — in a crisis, Phrenly responds the same way regardless.</p>
 </section>
 
 <!-- EXERCISES -->
@@ -453,6 +512,25 @@ gap: 52px; align-items: center;
         </div>
       </div>
     </div>
+    <div class="toolkit">
+      <div class="toolkit-h">The full toolkit</div>
+      <div class="toolkit-sub">Guided step by step, aloud, at your pace.</div>
+      <div class="toolkit-grid">
+        <div class="toolkit-item">Box Breathing</div>
+        <div class="toolkit-item">5-4-3-2-1 Grounding</div>
+        <div class="toolkit-item">Thought Record</div>
+        <div class="toolkit-item">STOP Skill</div>
+        <div class="toolkit-item">Worry Time</div>
+        <div class="toolkit-item">Do One Thing</div>
+        <div class="toolkit-item">Self-Kindness</div>
+        <div class="toolkit-item">Mindful Minute</div>
+        <div class="toolkit-item">What Matters</div>
+        <div class="toolkit-item">Hard Conversation</div>
+        <div class="toolkit-item">Weigh a Decision</div>
+        <div class="toolkit-item">Daily Reflection</div>
+        <div class="toolkit-item">Safety Plan</div>
+      </div>
+    </div>
   </section>
 </div>
 
@@ -466,7 +544,6 @@ gap: 52px; align-items: center;
       <p>Phrenly monitors every conversation for signs of crisis — not just keywords, but context, tone, and pattern. When it detects elevated risk, it responds immediately and connects you to crisis resources.</p>
       <div class="crisis-feat"><div class="crisis-feat-dot"><div class="crisis-feat-dot-inner"></div></div>Real-time crisis detection across every conversation</div>
       <div class="crisis-feat"><div class="crisis-feat-dot"><div class="crisis-feat-dot-inner"></div></div>Immediate connection to crisis resources when needed</div>
-      <div class="crisis-feat"><div class="crisis-feat-dot"><div class="crisis-feat-dot-inner"></div></div>Immediate connection to crisis resources and support lines</div>
       <div class="crisis-feat"><div class="crisis-feat-dot"><div class="crisis-feat-dot-inner"></div></div>Never dismisses or minimizes — always takes it seriously</div>
     </div>
     <div class="crisis-mock">
@@ -492,12 +569,13 @@ gap: 52px; align-items: center;
     <div class="pricing-card">
       <div class="pricing-tier">Free</div>
       <div class="pricing-price">$0<span> / month</span></div>
-      <div class="pricing-desc">Core tools to get started.</div>
+      <div class="pricing-desc">Everything you need to start.</div>
       <ul class="pricing-features">
-        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Daily check-ins</li>
-        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Foundational CBT/DBT tools</li>
-        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Basic mood tracking</li>
-        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Crisis detection & resources</li>
+        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Daily conversations</li>
+        <li><div class="pf-check"><div class="pf-check-dot"></div></div>The full exercise toolkit</li>
+        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Mood tracking and streaks</li>
+        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Crisis detection &amp; resources</li>
+        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Choose your companion persona</li>
       </ul>
       <a href="https://app.phrenly.com" class="pricing-btn pricing-btn-outline">Get started free</a>
     </div>
@@ -505,13 +583,13 @@ gap: 52px; align-items: center;
       <div class="featured-badge">Most popular</div>
       <div class="pricing-tier">Plus</div>
       <div class="pricing-price">$19<span> / month</span></div>
-      <div class="pricing-desc">Full clinical toolkit, unlimited sessions.</div>
+      <div class="pricing-desc">Unlimited support, and the freedom to talk out loud.</div>
       <ul class="pricing-features">
-        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Unlimited sessions</li>
-        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Full CBT, DBT & ACT modules</li>
-        <li><div class="pf-check"><div class="pf-check-dot"></div></div>All structured exercises</li>
-        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Personalized coping plans</li>
-        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Progress tracking & insights</li>
+        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Unlimited conversations</li>
+        <li><div class="pf-check"><div class="pf-check-dot"></div></div><strong style="font-weight:700;color:#f1f5f9;">Live voice sessions</strong></li>
+        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Exercises guided in Phrenly&rsquo;s voice</li>
+        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Progress tracking and insights</li>
+        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Daily check-in reminders</li>
       </ul>
       <a href="https://app.phrenly.com" class="pricing-btn">Try Plus now</a>
     </div>
@@ -551,4 +629,8 @@ gap: 52px; align-items: center;
     <li><a href="https://phrentech.com">PhrenTech</a></li>
     <li><a href="/cdn-cgi/l/email-protection#5d35383131321d2d352f38333124733e3230">Contact</a></li>
   </ul>
-  <div class="footer-pt">A <a href="https://phrentech.com">PhrenTech</a> product · © 2026 PhrenTech
+  <div class="footer-pt">A <a href="https://phrentech.com">PhrenTech</a> product · © 2026 PhrenTech</div>
+</footer>
+
+</body>
+</html>
