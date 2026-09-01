@@ -264,6 +264,11 @@ gap: 52px; align-items: center;
 .pricing-btn:hover { background: var(--sage2); }
 .pricing-btn-outline { background: transparent !important; color: var(--ink) !important; border: 1.5px solid var(--border2) !important; }
 .pricing-btn-outline:hover { border-color: var(--sage) !important; color: var(--sage2) !important; background: transparent !important; }
+.appstore-badge { display: inline-block; line-height: 0; margin: 4px 0; transition: opacity 0.2s; }
+.appstore-badge:hover { opacity: 0.82; }
+.appstore-badge img { height: 49px; width: auto; display: block; }
+.hero-badges { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 22px; }
+.cta-badges { display: flex; justify-content: center; margin-top: 22px; }
 .pricing-note { text-align: center; font-size: 12px; color: var(--ink3); margin-top: 22px; }
 
 /* CTA */
@@ -353,6 +358,9 @@ gap: 52px; align-items: center;
       <div style="display:flex;gap:12px;flex-wrap:wrap;">
         <a href="https://app.phrenly.com" class="btn-primary">Try Phrenly now</a>
         <a href="#clinical" class="btn-outline">See how it works</a>
+      </div>
+      <div class="hero-badges">
+        <a href="https://apps.apple.com/us/app/phrenly-ai-wellness-partner/id6751132542" class="appstore-badge" aria-label="Download Phrenly on the App Store"><img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us" alt="Download on the App Store" width="147" height="49" loading="lazy"/></a>
       </div>
       <p class="hero-note">Free to start. No referral. No waitlist.</p>
       <div class="fw-tags">
@@ -616,6 +624,7 @@ gap: 52px; align-items: center;
     <h2>You deserve support that <em>actually works</em></h2>
     <p>Phrenly is free to start, clinically grounded, and available the moment you need it. No waitlist. No referral. No scheduling.</p>
     <a href="https://app.phrenly.com" class="btn-primary">Try Phrenly now — it's free</a>
+    <div class="cta-badges"><a href="https://apps.apple.com/us/app/phrenly-ai-wellness-partner/id6751132542" class="appstore-badge" aria-label="Download Phrenly on the App Store"><img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us" alt="Download on the App Store" width="147" height="49" loading="lazy"/></a></div>
   </div>
 </div>
 
