@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -11,30 +10,28 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #FFFFFF !important; color-scheme: light !important; }
 :root {
---sage:        #8B9D83;
---sage2:       #6B8060;
---sage3:       #4A5D43;
---sage-light:  #B4C4A8;
---sage-pale:   #EEF3EB;
---sage-dim:    rgba(139,157,131,0.1);
+--sage: #8B9D83;
+--sage2: #6B8060;
+--sage3: #4A5D43;
+--sage-light: #B4C4A8;
+--sage-pale: #EEF3EB;
+--sage-dim: rgba(139,157,131,0.1);
 --sage-border: rgba(139,157,131,0.22);
---sage-glow:   rgba(139,157,131,0.25);
---white:       #FFFFFF;
---off:         #F4F6F2;
---ink:         #1a2318;
---ink2:        #4a5e48;
---ink3:        #8a9e88;
---border:      rgba(26,35,24,0.08);
---border2:     rgba(26,35,24,0.14);
+--sage-glow: rgba(139,157,131,0.25);
+--white: #FFFFFF;
+--off: #F4F6F2;
+--ink: #1a2318;
+--ink2: #4a5e48;
+--ink3: #8a9e88;
+--border: rgba(26,35,24,0.08);
+--border2: rgba(26,35,24,0.14);
 }
-
 html { scroll-behavior: smooth; color-scheme: light only; }
-
 body {
-font-family: ‘Plus Jakarta Sans’, sans-serif;
+font-family: 'Plus Jakarta Sans', sans-serif;
 font-weight: 400;
 font-size: 15px;
 line-height: 1.65;
@@ -42,14 +39,12 @@ color: var(--ink);
 background: #FFFFFF;
 -webkit-font-smoothing: antialiased;
 }
-
 h1, h2, h3 {
-font-family: ‘Plus Jakarta Sans’, sans-serif;
+font-family: 'Plus Jakarta Sans', sans-serif;
 font-weight: 800;
 letter-spacing: -0.03em;
 line-height: 1.05;
 }
-
 /* ── NAV ── */
 .nav {
 display: flex; align-items: center; justify-content: space-between;
@@ -70,7 +65,6 @@ border: none; border-radius: 100px;
 cursor: pointer; text-decoration: none; transition: all 0.2s;
 }
 .nav-cta:hover { background: var(--sage2); }
-
 /* ── HERO ── */
 .hero {
 display: grid; grid-template-columns: 1fr 1fr;
@@ -79,7 +73,6 @@ padding: 80px 48px 88px;
 max-width: 1200px; margin: 0 auto;
 background: #FFFFFF;
 }
-
 .not-badge {
 display: inline-flex; align-items: center; gap: 8px;
 font-size: 11px; font-weight: 700;
@@ -91,11 +84,9 @@ padding: 6px 14px; border-radius: 100px; margin-bottom: 28px;
 }
 .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sage); animation: blink 2s ease-in-out infinite; display: inline-block; }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
-
 .hero h1 { font-size: clamp(36px,4vw,58px); color: #1a2318; margin-bottom: 20px; }
 .hero h1 em { color: var(--sage); font-style: normal; }
 .hero-p { font-size: 17px; color: #4a5e48; font-weight: 400; line-height: 1.75; margin-bottom: 36px; max-width: 420px; }
-
 .btn-primary {
 font-size: 15px; font-weight: 700; padding: 14px 32px;
 background: var(--sage); color: #fff;
@@ -111,16 +102,12 @@ border-radius: 100px; cursor: pointer; text-decoration: none; transition: all 0.
 }
 .btn-outline:hover { border-color: var(--sage); color: var(--sage2); }
 .hero-note { margin-top: 14px; font-size: 12px; color: var(--ink3); }
-
 .fw-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 40px; padding-top: 32px; border-top: 0.5px solid var(--border); }
 .fw-tag { font-size: 11px; font-weight: 600; padding: 5px 13px; border-radius: 100px; background: var(--sage-dim); border: 1px solid var(--sage-border); color: var(--sage2); }
-
 /* HERO VISUAL */
 .hero-visual { display: flex; flex-direction: column; gap: 14px; }
-
 @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
 .animate-float { animation: float 6s ease-in-out infinite; }
-
 .chat-card {
 background: #FFFFFF;
 border-radius: 20px;
@@ -146,7 +133,6 @@ font-size: 13px; font-weight: 800; color: #fff;
 .bubble { max-width: 85%; font-size: 13px; padding: 11px 15px; border-radius: 16px; line-height: 1.55; }
 .bubble-ai { background: var(--off); color: var(--ink); align-self: flex-start; border-bottom-left-radius: 4px; border: 1px solid var(--border); }
 .bubble-user { background: var(--sage); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
-
 .ex-card {
 background: #FFFFFF;
 border-radius: 20px;
@@ -162,7 +148,6 @@ padding: 22px 24px;
 .step-active { background: var(--sage); color: #fff; }
 .step-inactive { background: var(--sage-dim); border: 1px solid var(--sage-border); color: var(--sage2); }
 .step-active-text { color: var(--ink); font-weight: 600; }
-
 /* ── DIFF BAR ── */
 .diff-bar {
 background: var(--off);
@@ -176,14 +161,12 @@ display: grid; grid-template-columns: repeat(4,1fr);
 .diff-dot-inner { width: 10px; height: 10px; border-radius: 50%; background: var(--sage); }
 .diff-title { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 5px; }
 .diff-desc { font-size: 12px; color: var(--ink3); font-weight: 400; line-height: 1.5; }
-
 /* ── SECTIONS ── */
 .section { padding: 88px 48px; max-width: 1100px; margin: 0 auto; }
 .section-lbl { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink3); margin-bottom: 10px; }
 .section-h2 { font-size: clamp(28px,3.5vw,44px); margin-bottom: 14px; color: var(--ink); }
 .section-h2 em { color: var(--sage); font-style: normal; }
 .section-sub { font-size: 16px; color: var(--ink2); max-width: 520px; margin-bottom: 52px; font-weight: 400; line-height: 1.75; }
-
 /* FRAMEWORK */
 .framework-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 20px; }
 .framework-card {
@@ -198,7 +181,6 @@ transition: all 0.3s;
 .framework-card p { font-size: 14px; color: var(--ink2); line-height: 1.75; }
 .fw-example { margin-top: 16px; background: var(--sage-pale); border-radius: 12px; padding: 14px 16px; border-left: 3px solid var(--sage); font-size: 12px; color: var(--ink2); line-height: 1.65; font-style: italic; }
 .fw-example strong { color: var(--sage2); font-style: normal; font-weight: 700; }
-
 /* EXERCISES */
 .ex-zone { background: var(--off); }
 .exercises-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
@@ -217,7 +199,6 @@ transition: all 0.3s;
 .ex-step-list { display: flex; flex-direction: column; gap: 9px; }
 .ex-step-item { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--ink2); line-height: 1.5; }
 .ex-step-badge { width: 22px; height: 22px; border-radius: 50%; background: var(--sage-dim); border: 1px solid var(--sage-border); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 800; color: var(--sage2); flex-shrink: 0; margin-top: 1px; }
-
 /* CRISIS */
 .crisis-wrap { padding: 0 48px 88px; max-width: 1100px; margin: 0 auto; }
 .crisis-card {
@@ -241,7 +222,6 @@ gap: 52px; align-items: center;
 .crisis-ai { background: rgba(255,255,255,0.06); color: rgba(241,245,249,0.75); align-self: flex-start; border-bottom-left-radius: 4px; border: 1px solid rgba(255,255,255,0.08); }
 .crisis-alert { margin: 0 18px 18px; background: var(--sage-dim); border: 1px solid var(--sage-border); border-radius: 10px; padding: 10px 12px; font-size: 11px; color: var(--sage-light); display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
 .alert-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sage-light); flex-shrink: 0; margin-top: 3px; }
-
 /* PRICING */
 .pricing-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 20px; }
 .pricing-card { background: #FFFFFF; border-radius: 22px; padding: 34px 30px; border: 1px solid var(--border); position: relative; transition: all 0.3s; }
@@ -284,14 +264,12 @@ gap: 52px; align-items: center;
 .safety-foot { margin-top: 26px; font-size: 12.5px; color: var(--ink3); line-height: 1.75; max-width: 700px; }
 @media (max-width: 768px) { .safety-grid { grid-template-columns: 1fr; } .safety-wrap { padding: 0 20px 56px; } }
 .pricing-note { text-align: center; font-size: 12px; color: var(--ink3); margin-top: 22px; }
-
 /* CTA */
 .cta-zone { background: var(--sage-pale); border-top: 1px solid var(--sage-border); }
 .cta-inner { padding: 88px 48px; text-align: center; max-width: 600px; margin: 0 auto; }
 .cta-inner h2 { font-size: clamp(30px,4vw,48px); margin-bottom: 16px; color: var(--ink); }
 .cta-inner h2 em { color: var(--sage2); font-style: normal; }
 .cta-inner p { font-size: 17px; color: var(--ink2); margin-bottom: 36px; line-height: 1.75; }
-
 /* FOOTER */
 .footer { background: var(--ink); padding: 40px 48px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: rgba(255,255,255,0.25); }
 .footer-logo { font-weight: 800; font-size: 19px; letter-spacing: -0.03em; color: #f1f5f9; text-decoration: none; }
@@ -300,7 +278,6 @@ gap: 52px; align-items: center;
 .footer-links a { color: inherit; text-decoration: none; transition: color 0.2s; }
 .footer-links a:hover { color: rgba(255,255,255,0.6); }
 .footer-pt a { color: inherit; text-decoration: none; }
-
 /* VOICE */
 .voice-wrap { padding: 0 48px 88px; max-width: 1100px; margin: 0 auto; }
 .voice-card { background: var(--ink); border-radius: 28px; padding: 56px 52px; }
@@ -310,7 +287,6 @@ gap: 52px; align-items: center;
 .voice-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
 .voice-tag { font-size: 12px; font-weight: 600; color: var(--sage-light); background: var(--sage-dim); border: 1px solid var(--sage-border); padding: 7px 14px; border-radius: 100px; }
 .voice-note { font-size: 12px; color: rgba(241,245,249,0.3); }
-
 /* PERSONAS */
 .persona-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 16px; }
 .persona-card { background: #FFFFFF; border: 1px solid var(--border); border-radius: 18px; padding: 22px 20px; transition: all 0.3s; }
@@ -318,14 +294,12 @@ gap: 52px; align-items: center;
 .persona-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; color: var(--ink); }
 .persona-card p { font-size: 13px; color: var(--ink2); line-height: 1.6; }
 .persona-note { font-size: 12px; color: var(--ink3); margin-top: 20px; }
-
 /* TOOLKIT */
 .toolkit { margin-top: 30px; padding-top: 30px; border-top: 0.5px solid var(--border); }
 .toolkit-h { font-size: 17px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
 .toolkit-sub { font-size: 13px; color: var(--ink2); margin-bottom: 18px; }
 .toolkit-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(170px,1fr)); gap: 10px; }
 .toolkit-item { background: #FFFFFF; border: 1px solid var(--border); border-radius: 12px; padding: 13px 15px; font-size: 13px; color: var(--ink2); }
-
 /* RESPONSIVE */
 @media (max-width: 768px) {
 .nav { padding: 14px 20px; } .nav-links { display: none; }
@@ -344,369 +318,350 @@ gap: 52px; align-items: center;
 .footer-links { flex-wrap: wrap; justify-content: center; }
 }
 </style>
-
 </head>
 <body>
-
 <!-- NAV -->
-
 <nav class="nav">
-  <a href="/" class="nav-logo">Phren<span>ly</span></a>
-  <ul class="nav-links">
-    <li><a href="#clinical">How it works</a></li>
-    <li><a href="#exercises">The tools</a></li>
-    <li><a href="#pricing">Pricing</a></li>
-    <li><a href="/universities">For universities</a></li>
-    <li><a href="https://phrentech.com">PhrenTech</a></li>
-  </ul>
-  <a href="https://app.phrenly.com" class="nav-cta">Try Phrenly now</a>
+<a href="/" class="nav-logo">Phren<span>ly</span></a>
+<ul class="nav-links">
+<li><a href="#clinical">How it works</a></li>
+<li><a href="#exercises">The tools</a></li>
+<li><a href="#pricing">Pricing</a></li>
+<li><a href="/universities">For universities</a></li>
+<li><a href="https://phrentech.com">PhrenTech</a></li>
+</ul>
+<a href="https://app.phrenly.com" class="nav-cta">Try Phrenly now</a>
 </nav>
 
 <!-- HERO -->
-
 <section>
-  <div class="hero">
-    <div>
-      <div class="not-badge"><span class="live-dot"></span> Not a chatbot</div>
-      <h1>A wellness partner built on <em>how therapy actually works</em></h1>
-      <p class="hero-p">Phrenly isn't a generic AI with therapy prompts. It's a purpose-built wellness partner grounded in the same clinical frameworks your therapist uses — with comprehensive clinical guardrails, real-time crisis detection, and immediate connection to crisis resources built in from day one. Available every hour of every day.</p>
-      <div style="display:flex;gap:12px;flex-wrap:wrap;">
-        <a href="https://app.phrenly.com" class="btn-primary">Try Phrenly now</a>
-        <a href="#clinical" class="btn-outline">See how it works</a>
-      </div>
-      <div class="hero-badges">
-        <a href="https://apps.apple.com/us/app/phrenly-ai-wellness-partner/id6751132542" class="appstore-badge" aria-label="Download Phrenly on the App Store"><img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us" alt="Download on the App Store" width="147" height="49" loading="lazy"/></a>
-      </div>
-      <p class="hero-note">Free to start. No referral. No waitlist.</p>
-      <div class="fw-tags">
-        <span class="fw-tag">Cognitive Behavioral Therapy</span>
-        <span class="fw-tag">Dialectical Behavior Therapy</span>
-        <span class="fw-tag">Acceptance & Commitment Therapy</span>
-        <span class="fw-tag">Crisis detection</span>
-      </div>
-    </div>
-    <div class="hero-visual animate-float">
-      <div class="chat-card">
-        <div class="chat-header">
-          <div class="chat-avatar">P</div>
-          <div>
-            <div class="chat-name">Phrenly</div>
-            <div class="chat-status">● Online — here for you</div>
-          </div>
-        </div>
-        <div class="chat-messages">
-          <div class="bubble bubble-ai">I'm noticing you've mentioned work stress a few times this week. Let's use a thought record to examine what's driving that anxiety.</div>
-          <div class="bubble bubble-user">Ok I'm willing to try that</div>
-          <div class="bubble bubble-ai">Good. First — what's the specific thought showing up most? Name it as precisely as you can.</div>
-        </div>
-      </div>
-      <div class="ex-card">
-        <span class="ex-badge">CBT · Thought Record</span>
-        <div class="ex-title">Identifying cognitive distortions</div>
-        <div class="ex-steps">
-          <div class="ex-step"><div class="step-num step-active">1</div><span class="step-active-text">Name the thought: <strong style="color:var(--sage2);">"I'm going to fail this presentation"</strong></span></div>
-          <div class="ex-step"><div class="step-num step-inactive">2</div><span>Identify the distortion — catastrophizing, mind reading, all-or-nothing?</span></div>
-          <div class="ex-step"><div class="step-num step-inactive">3</div><span>Generate a balanced alternative thought</span></div>
-          <div class="ex-step"><div class="step-num step-inactive">4</div><span>Rate anxiety before and after — track progress</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="hero">
+<div>
+<div class="not-badge"><span class="live-dot"></span> Not a chatbot</div>
+<h1>A wellness partner built on <em>how therapy actually works</em></h1>
+<p class="hero-p">Phrenly isn't a generic AI with therapy prompts. It's a purpose-built wellness partner grounded in the same clinical frameworks your therapist uses — with comprehensive clinical guardrails, real-time crisis detection, and immediate connection to crisis resources built in from day one. Available every hour of every day.</p>
+<div style="display:flex;gap:12px;flex-wrap:wrap;">
+<a href="https://app.phrenly.com" class="btn-primary">Try Phrenly now</a>
+<a href="#clinical" class="btn-outline">See how it works</a>
+</div>
+<div class="hero-badges">
+<a href="https://apps.apple.com/us/app/phrenly-ai-wellness-partner/id6751132542" class="appstore-badge" aria-label="Download Phrenly on the App Store"><img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us" alt="Download on the App Store" width="147" height="49" loading="lazy"/></a>
+</div>
+<p class="hero-note">Free to start. No referral. No waitlist.</p>
+<div class="fw-tags">
+<span class="fw-tag">Cognitive Behavioral Therapy</span>
+<span class="fw-tag">Dialectical Behavior Therapy</span>
+<span class="fw-tag">Acceptance & Commitment Therapy</span>
+<span class="fw-tag">Crisis detection</span>
+</div>
+</div>
+<div class="hero-visual animate-float">
+<div class="chat-card">
+<div class="chat-header">
+<div class="chat-avatar">P</div>
+<div>
+<div class="chat-name">Phrenly</div>
+<div class="chat-status">● Online — here for you</div>
+</div>
+</div>
+<div class="chat-messages">
+<div class="bubble bubble-ai">I'm noticing you've mentioned work stress a few times this week. Let's use a thought record to examine what's driving that anxiety.</div>
+<div class="bubble bubble-user">Ok I'm willing to try that</div>
+<div class="bubble bubble-ai">Good. First — what's the specific thought showing up most? Name it as precisely as you can.</div>
+</div>
+</div>
+<div class="ex-card">
+<span class="ex-badge">CBT · Thought Record</span>
+<div class="ex-title">Identifying cognitive distortions</div>
+<div class="ex-steps">
+<div class="ex-step"><div class="step-num step-active">1</div><span class="step-active-text">Name the thought: <strong style="color:var(--sage2);">"I'm going to fail this presentation"</strong></span></div>
+<div class="ex-step"><div class="step-num step-inactive">2</div><span>Identify the distortion — catastrophizing, mind reading, all-or-nothing?</span></div>
+<div class="ex-step"><div class="step-num step-inactive">3</div><span>Generate a balanced alternative thought</span></div>
+<div class="ex-step"><div class="step-num step-inactive">4</div><span>Rate anxiety before and after — track progress</span></div>
+</div>
+</div>
+</div>
+</div>
 </section>
 
 <!-- DIFF BAR -->
-
 <div class="diff-bar">
-  <div class="diff-item"><div class="diff-dot"><div class="diff-dot-inner"></div></div><div class="diff-title">Clinically grounded</div><div class="diff-desc">Built on CBT, DBT & ACT — not general AI</div></div>
-  <div class="diff-item"><div class="diff-dot"><div class="diff-dot-inner"></div></div><div class="diff-title">Crisis-aware</div><div class="diff-desc">Real-time detection with crisis resource connection</div></div>
-  <div class="diff-item"><div class="diff-dot"><div class="diff-dot-inner"></div></div><div class="diff-title">Personalized</div><div class="diff-desc">Learns what works for you over time</div></div>
-  <div class="diff-item"><div class="diff-dot"><div class="diff-dot-inner"></div></div><div class="diff-title">Clinician-ready</div><div class="diff-desc">Supports — never replaces — your care team</div></div>
+<div class="diff-item"><div class="diff-dot"><div class="diff-dot-inner"></div></div><div class="diff-title">Clinically grounded</div><div class="diff-desc">Built on CBT, DBT & ACT — not general AI</div></div>
+<div class="diff-item"><div class="diff-dot"><div class="diff-dot-inner"></div></div><div class="diff-title">Crisis-aware</div><div class="diff-desc">Real-time detection with crisis resource connection</div></div>
+<div class="diff-item"><div class="diff-dot"><div class="diff-dot-inner"></div></div><div class="diff-title">Personalized</div><div class="diff-desc">Learns what works for you over time</div></div>
+<div class="diff-item"><div class="diff-dot"><div class="diff-dot-inner"></div></div><div class="diff-title">Clinician-ready</div><div class="diff-desc">Supports — never replaces — your care team</div></div>
 </div>
 
 <!-- CLINICAL -->
-
 <section class="section" id="clinical">
-  <div class="section-lbl">The clinical foundation</div>
-  <h2 class="section-h2">Three frameworks. One <em>cohesive</em> experience.</h2>
-  <p class="section-sub">Most wellness apps pick one approach and bolt AI on top. Phrenly integrates all three evidence-based frameworks — seamlessly, in every conversation.</p>
-  <div class="framework-grid">
-    <div class="framework-card">
-      <span class="fw-card-tag">CBT</span>
-      <h3>Cognitive Behavioral Therapy</h3>
-      <p>Identifies the connection between thoughts, feelings, and behaviors. Phrenly uses CBT to help you spot unhelpful patterns and build more balanced thinking.</p>
-      <div class="fw-example"><strong>In practice:</strong> "I noticed you're using all-or-nothing language there. Let's look at what the evidence actually says..."</div>
-      <div class="fw-maps">
-        <div class="fw-maps-h">Where you'll meet it in the app</div>
-        <ul><li>Thought Record</li><li>Worry Time</li><li>Weigh a Decision</li><li>Daily Reflection</li></ul>
-        <div class="fw-src">Evidence: <a href="https://www.nimh.nih.gov/health/topics/psychotherapies" target="_blank" rel="noopener">National Institute of Mental Health</a></div>
-      </div>
-    </div>
-    <div class="framework-card">
-      <span class="fw-card-tag">DBT</span>
-      <h3>Dialectical Behavior Therapy</h3>
-      <p>Focuses on emotional regulation, distress tolerance, and interpersonal effectiveness. Especially effective for intense emotions and crisis moments.</p>
-      <div class="fw-example"><strong>In practice:</strong> "Let's try the STOP skill — stop, step back, observe, then proceed on purpose rather than on impulse."</div>
-      <div class="fw-maps">
-        <div class="fw-maps-h">Where you'll meet it in the app</div>
-        <ul><li>STOP Skill</li><li>Box Breathing</li><li>5-4-3-2-1 Grounding</li><li>Hard Conversation</li><li>Safety Plan</li></ul>
-        <div class="fw-src">Evidence: <a href="https://www.nimh.nih.gov/health/topics/psychotherapies" target="_blank" rel="noopener">National Institute of Mental Health</a></div>
-      </div>
-    </div>
-    <div class="framework-card">
-      <span class="fw-card-tag">ACT</span>
-      <h3>Acceptance & Commitment Therapy</h3>
-      <p>Builds psychological flexibility — helping you accept difficult thoughts without letting them control your actions, and commit to what truly matters.</p>
-      <div class="fw-example"><strong>In practice:</strong> "Instead of fighting that thought, what if we just noticed it? You are not your anxiety."</div>
-      <div class="fw-maps">
-        <div class="fw-maps-h">Where you'll meet it in the app</div>
-        <ul><li>What Matters</li><li>Do One Thing</li><li>Self-Kindness</li><li>Mindful Minute</li></ul>
-        <div class="fw-src">Evidence: <a href="https://contextualscience.org/act" target="_blank" rel="noopener">Association for Contextual Behavioral Science</a> · <a href="https://www.nccih.nih.gov/health/meditation-and-mindfulness-effectiveness-and-safety" target="_blank" rel="noopener">NCCIH on mindfulness</a></div>
-      </div>
-    </div>
-  </div>
+<div class="section-lbl">The clinical foundation</div>
+<h2 class="section-h2">Three frameworks. One <em>cohesive</em> experience.</h2>
+<p class="section-sub">Most wellness apps pick one approach and bolt AI on top. Phrenly integrates all three evidence-based frameworks — seamlessly, in every conversation.</p>
+<div class="framework-grid">
+<div class="framework-card">
+<span class="fw-card-tag">CBT</span>
+<h3>Cognitive Behavioral Therapy</h3>
+<p>Identifies the connection between thoughts, feelings, and behaviors. Phrenly uses CBT to help you spot unhelpful patterns and build more balanced thinking.</p>
+<div class="fw-example"><strong>In practice:</strong> "I noticed you're using all-or-nothing language there. Let's look at what the evidence actually says..."</div>
+<div class="fw-maps">
+<div class="fw-maps-h">Where you'll meet it in the app</div>
+<ul><li>Thought Record</li><li>Worry Time</li><li>Weigh a Decision</li><li>Daily Reflection</li></ul>
+<div class="fw-src">Evidence: <a href="https://www.nimh.nih.gov/health/topics/psychotherapies" target="_blank" rel="noopener">National Institute of Mental Health</a></div>
+</div>
+</div>
+<div class="framework-card">
+<span class="fw-card-tag">DBT</span>
+<h3>Dialectical Behavior Therapy</h3>
+<p>Focuses on emotional regulation, distress tolerance, and interpersonal effectiveness. Especially effective for intense emotions and crisis moments.</p>
+<div class="fw-example"><strong>In practice:</strong> "Let's try the STOP skill — stop, step back, observe, then proceed on purpose rather than on impulse."</div>
+<div class="fw-maps">
+<div class="fw-maps-h">Where you'll meet it in the app</div>
+<ul><li>STOP Skill</li><li>Box Breathing</li><li>5-4-3-2-1 Grounding</li><li>Hard Conversation</li><li>Safety Plan</li></ul>
+<div class="fw-src">Evidence: <a href="https://www.nimh.nih.gov/health/topics/psychotherapies" target="_blank" rel="noopener">National Institute of Mental Health</a></div>
+</div>
+</div>
+<div class="framework-card">
+<span class="fw-card-tag">ACT</span>
+<h3>Acceptance & Commitment Therapy</h3>
+<p>Builds psychological flexibility — helping you accept difficult thoughts without letting them control your actions, and commit to what truly matters.</p>
+<div class="fw-example"><strong>In practice:</strong> "Instead of fighting that thought, what if we just noticed it? You are not your anxiety."</div>
+<div class="fw-maps">
+<div class="fw-maps-h">Where you'll meet it in the app</div>
+<ul><li>What Matters</li><li>Do One Thing</li><li>Self-Kindness</li><li>Mindful Minute</li></ul>
+<div class="fw-src">Evidence: <a href="https://contextualscience.org/act" target="_blank" rel="noopener">Association for Contextual Behavioral Science</a> · <a href="https://www.nccih.nih.gov/health/meditation-and-mindfulness-effectiveness-and-safety" target="_blank" rel="noopener">NCCIH on mindfulness</a></div>
+</div>
+</div>
+</div>
 </section>
 
 <!-- VOICE -->
-
 <div class="voice-wrap">
-  <div class="voice-card">
-    <div class="section-lbl" style="color:rgba(241,245,249,0.25);margin-bottom:10px;">Voice sessions</div>
-    <h2>Talk it through, <em>out loud</em></h2>
-    <p>Speak, and Phrenly answers — a real conversation in real time. Interrupt, change direction, sit in silence. When an exercise would help, she opens it onto your screen and stays with you while you work through it.</p>
-    <div class="voice-tags">
-      <span class="voice-tag">Real-time conversation</span>
-      <span class="voice-tag">Exercises open as you talk</span>
-      <span class="voice-tag">Crisis-aware throughout</span>
-    </div>
-    <p class="voice-note">Included with Plus.</p>
-  </div>
+<div class="voice-card">
+<div class="section-lbl" style="color:rgba(241,245,249,0.25);margin-bottom:10px;">Voice sessions</div>
+<h2>Talk it through, <em>out loud</em></h2>
+<p>Speak, and Phrenly answers — a real conversation in real time. Interrupt, change direction, sit in silence. When an exercise would help, she opens it onto your screen and stays with you while you work through it.</p>
+<div class="voice-tags">
+<span class="voice-tag">Real-time conversation</span>
+<span class="voice-tag">Exercises open as you talk</span>
+<span class="voice-tag">Crisis-aware throughout</span>
+</div>
+<p class="voice-note">Included with Plus.</p>
+</div>
 </div>
 
 <!-- PERSONAS -->
-
 <section class="section">
-  <div class="section-lbl">Companion personas</div>
-  <h2 class="section-h2">Support that meets you <em>your way</em></h2>
-  <p class="section-sub">People don't all want the same thing from support. Choose how Phrenly relates to you — the clinical framework underneath stays the same.</p>
-  <div class="persona-grid">
-    <div class="persona-card"><h3>Warm and gentle</h3><p>Soft, patient, unhurried</p></div>
-    <div class="persona-card"><h3>Direct and grounded</h3><p>Plain-spoken, no circling</p></div>
-    <div class="persona-card"><h3>Reflective and open</h3><p>More questions than answers</p></div>
-    <div class="persona-card"><h3>Culturally attuned</h3><p>Sensitive to background</p></div>
-  </div>
-  <p class="persona-note">Safety guidance never bends to tone — in a crisis, Phrenly responds the same way regardless.</p>
+<div class="section-lbl">Companion personas</div>
+<h2 class="section-h2">Support that meets you <em>your way</em></h2>
+<p class="section-sub">People don't all want the same thing from support. Choose how Phrenly relates to you — the clinical framework underneath stays the same.</p>
+<div class="persona-grid">
+<div class="persona-card"><h3>Warm and gentle</h3><p>Soft, patient, unhurried</p></div>
+<div class="persona-card"><h3>Direct and grounded</h3><p>Plain-spoken, no circling</p></div>
+<div class="persona-card"><h3>Reflective and open</h3><p>More questions than answers</p></div>
+<div class="persona-card"><h3>Culturally attuned</h3><p>Sensitive to background</p></div>
+</div>
+<p class="persona-note">Safety guidance never bends to tone — in a crisis, Phrenly responds the same way regardless.</p>
 </section>
 
 <!-- EXERCISES -->
-
 <div class="ex-zone">
-  <section class="section" id="exercises">
-    <div class="section-lbl">The tools</div>
-    <h2 class="section-h2">Real exercises. Not just <em>conversation.</em></h2>
-    <p class="section-sub">Phrenly guides you through structured therapeutic exercises — the same ones used in clinical practice — not just open-ended chat.</p>
-    <div class="exercises-grid">
-      <div class="exercise-card">
-        <div class="ex-card-header"><span class="ex-type-badge">Grounding</span><span class="ex-framework-label">DBT</span></div>
-        <h3>5-4-3-2-1 Technique</h3>
-        <p>Brings you back to the present moment when anxiety spikes. Works in minutes, anywhere.</p>
-        <div class="ex-step-list">
-          <div class="ex-step-item"><div class="ex-step-badge">5</div><span>Name 5 things you can see</span></div>
-          <div class="ex-step-item"><div class="ex-step-badge">4</div><span>Name 4 things you can physically feel</span></div>
-          <div class="ex-step-item"><div class="ex-step-badge">3</div><span>Name 3 things you can hear</span></div>
-          <div class="ex-step-item"><div class="ex-step-badge">2</div><span>Name 2 things you can smell</span></div>
-          <div class="ex-step-item"><div class="ex-step-badge">1</div><span>Name 1 thing you can taste</span></div>
-        </div>
-      </div>
-      <div class="exercise-card">
-        <div class="ex-card-header"><span class="ex-type-badge">Thought Record</span><span class="ex-framework-label">CBT</span></div>
-        <h3>Cognitive Restructuring</h3>
-        <p>Examines the thoughts driving anxiety or low mood and builds more balanced alternatives.</p>
-        <div class="ex-step-list">
-          <div class="ex-step-item"><div class="ex-step-badge">1</div><span>Identify the triggering situation</span></div>
-          <div class="ex-step-item"><div class="ex-step-badge">2</div><span>Name the automatic thought</span></div>
-          <div class="ex-step-item"><div class="ex-step-badge">3</div><span>Spot the cognitive distortion</span></div>
-          <div class="ex-step-item"><div class="ex-step-badge">4</div><span>Generate a balanced alternative</span></div>
-        </div>
-      </div>
-      <div class="exercise-card">
-        <div class="ex-card-header"><span class="ex-type-badge">Values Compass</span><span class="ex-framework-label">ACT</span></div>
-        <h3>Values Clarification</h3>
-        <p>Identifies what truly matters to you and aligns your daily actions with those values.</p>
-        <div class="ex-step-list">
-          <div class="ex-step-item"><div class="ex-step-badge">1</div><span>Explore your core life domains</span></div>
-          <div class="ex-step-item"><div class="ex-step-badge">2</div><span>Rate current alignment in each area</span></div>
-          <div class="ex-step-item"><div class="ex-step-badge">3</div><span>Identify one committed action today</span></div>
-        </div>
-      </div>
-      <div class="exercise-card">
-        <div class="ex-card-header"><span class="ex-type-badge">Coping Plan</span><span class="ex-framework-label">DBT · CBT</span></div>
-        <h3>Personalized Crisis Plan</h3>
-        <p>A custom toolkit built together over time — what works for you when things get hard.</p>
-        <div class="ex-step-list">
-          <div class="ex-step-item"><div class="ex-step-badge">1</div><span>Identify your personal warning signs</span></div>
-          <div class="ex-step-item"><div class="ex-step-badge">2</div><span>List your most effective coping strategies</span></div>
-          <div class="ex-step-item"><div class="ex-step-badge">3</div><span>Name your support contacts</span></div>
-          <div class="ex-step-item"><div class="ex-step-badge">4</div><span>Commit to one reason to keep going</span></div>
-        </div>
-      </div>
-    </div>
-    <div class="toolkit">
-      <div class="toolkit-h">The full toolkit</div>
-      <div class="toolkit-sub">Guided step by step, aloud, at your pace.</div>
-      <div class="toolkit-grid">
-        <div class="toolkit-item">Box Breathing</div>
-        <div class="toolkit-item">5-4-3-2-1 Grounding</div>
-        <div class="toolkit-item">Thought Record</div>
-        <div class="toolkit-item">STOP Skill</div>
-        <div class="toolkit-item">Worry Time</div>
-        <div class="toolkit-item">Do One Thing</div>
-        <div class="toolkit-item">Self-Kindness</div>
-        <div class="toolkit-item">Mindful Minute</div>
-        <div class="toolkit-item">What Matters</div>
-        <div class="toolkit-item">Hard Conversation</div>
-        <div class="toolkit-item">Weigh a Decision</div>
-        <div class="toolkit-item">Daily Reflection</div>
-        <div class="toolkit-item">Safety Plan</div>
-      </div>
-    </div>
-  </section>
+<section class="section" id="exercises">
+<div class="section-lbl">The tools</div>
+<h2 class="section-h2">Real exercises. Not just <em>conversation.</em></h2>
+<p class="section-sub">Phrenly guides you through structured therapeutic exercises — the same ones used in clinical practice — not just open-ended chat.</p>
+<div class="exercises-grid">
+<div class="exercise-card">
+<div class="ex-card-header"><span class="ex-type-badge">Grounding</span><span class="ex-framework-label">DBT</span></div>
+<h3>5-4-3-2-1 Technique</h3>
+<p>Brings you back to the present moment when anxiety spikes. Works in minutes, anywhere.</p>
+<div class="ex-step-list">
+<div class="ex-step-item"><div class="ex-step-badge">5</div><span>Name 5 things you can see</span></div>
+<div class="ex-step-item"><div class="ex-step-badge">4</div><span>Name 4 things you can physically feel</span></div>
+<div class="ex-step-item"><div class="ex-step-badge">3</div><span>Name 3 things you can hear</span></div>
+<div class="ex-step-item"><div class="ex-step-badge">2</div><span>Name 2 things you can smell</span></div>
+<div class="ex-step-item"><div class="ex-step-badge">1</div><span>Name 1 thing you can taste</span></div>
+</div>
+</div>
+<div class="exercise-card">
+<div class="ex-card-header"><span class="ex-type-badge">Thought Record</span><span class="ex-framework-label">CBT</span></div>
+<h3>Cognitive Restructuring</h3>
+<p>Examines the thoughts driving anxiety or low mood and builds more balanced alternatives.</p>
+<div class="ex-step-list">
+<div class="ex-step-item"><div class="ex-step-badge">1</div><span>Identify the triggering situation</span></div>
+<div class="ex-step-item"><div class="ex-step-badge">2</div><span>Name the automatic thought</span></div>
+<div class="ex-step-item"><div class="ex-step-badge">3</div><span>Spot the cognitive distortion</span></div>
+<div class="ex-step-item"><div class="ex-step-badge">4</div><span>Generate a balanced alternative</span></div>
+</div>
+</div>
+<div class="exercise-card">
+<div class="ex-card-header"><span class="ex-type-badge">Values Compass</span><span class="ex-framework-label">ACT</span></div>
+<h3>Values Clarification</h3>
+<p>Identifies what truly matters to you and aligns your daily actions with those values.</p>
+<div class="ex-step-list">
+<div class="ex-step-item"><div class="ex-step-badge">1</div><span>Explore your core life domains</span></div>
+<div class="ex-step-item"><div class="ex-step-badge">2</div><span>Rate current alignment in each area</span></div>
+<div class="ex-step-item"><div class="ex-step-badge">3</div><span>Identify one committed action today</span></div>
+</div>
+</div>
+<div class="exercise-card">
+<div class="ex-card-header"><span class="ex-type-badge">Coping Plan</span><span class="ex-framework-label">DBT · CBT</span></div>
+<h3>Personalized Crisis Plan</h3>
+<p>A custom toolkit built together over time — what works for you when things get hard.</p>
+<div class="ex-step-list">
+<div class="ex-step-item"><div class="ex-step-badge">1</div><span>Identify your personal warning signs</span></div>
+<div class="ex-step-item"><div class="ex-step-badge">2</div><span>List your most effective coping strategies</span></div>
+<div class="ex-step-item"><div class="ex-step-badge">3</div><span>Name your support contacts</span></div>
+<div class="ex-step-item"><div class="ex-step-badge">4</div><span>Commit to one reason to keep going</span></div>
+</div>
+</div>
+</div>
+<div class="toolkit">
+<div class="toolkit-h">The full toolkit</div>
+<div class="toolkit-sub">Guided step by step, aloud, at your pace.</div>
+<div class="toolkit-grid">
+<div class="toolkit-item">Box Breathing</div>
+<div class="toolkit-item">5-4-3-2-1 Grounding</div>
+<div class="toolkit-item">Thought Record</div>
+<div class="toolkit-item">STOP Skill</div>
+<div class="toolkit-item">Worry Time</div>
+<div class="toolkit-item">Do One Thing</div>
+<div class="toolkit-item">Self-Kindness</div>
+<div class="toolkit-item">Mindful Minute</div>
+<div class="toolkit-item">What Matters</div>
+<div class="toolkit-item">Hard Conversation</div>
+<div class="toolkit-item">Weigh a Decision</div>
+<div class="toolkit-item">Daily Reflection</div>
+<div class="toolkit-item">Safety Plan</div>
+</div>
+</div>
+</section>
 </div>
 
 <!-- CRISIS -->
-
 <div class="crisis-wrap">
-  <div class="crisis-card">
-    <div>
-      <div class="section-lbl" style="color:rgba(241,245,249,0.25);margin-bottom:10px;">Safety first</div>
-      <h2>Built to recognize when you need <em>more than an app</em></h2>
-      <p>Phrenly monitors every conversation for signs of crisis — not just keywords, but context, tone, and pattern. When it detects elevated risk, it responds immediately and connects you to crisis resources.</p>
-      <div class="crisis-feat"><div class="crisis-feat-dot"><div class="crisis-feat-dot-inner"></div></div>Real-time crisis detection across every conversation</div>
-      <div class="crisis-feat"><div class="crisis-feat-dot"><div class="crisis-feat-dot-inner"></div></div>Immediate connection to crisis resources when needed</div>
-      <div class="crisis-feat"><div class="crisis-feat-dot"><div class="crisis-feat-dot-inner"></div></div>Never dismisses or minimizes — always takes it seriously</div>
-    </div>
-    <div class="crisis-mock">
-      <div class="crisis-mock-top"><div class="crisis-sdot"></div>Phrenly · Safety monitoring active</div>
-      <div class="crisis-messages">
-        <div class="crisis-bubble crisis-user">I just don't see the point anymore. Everything feels hopeless.</div>
-        <div class="crisis-bubble crisis-ai">I hear you — and I want to make sure I understand. Are you having any thoughts of hurting yourself?</div>
-        <div class="crisis-bubble crisis-user">Sometimes yeah</div>
-        <div class="crisis-bubble crisis-ai">Thank you for telling me that. That takes courage. You're not alone right now, and I'm not going anywhere.</div>
-      </div>
-      <div class="crisis-alert"><div class="alert-dot"></div>Phrenly has flagged this conversation and is surfacing crisis resources.</div>
-    </div>
-  </div>
+<div class="crisis-card">
+<div>
+<div class="section-lbl" style="color:rgba(241,245,249,0.25);margin-bottom:10px;">Safety first</div>
+<h2>Built to recognize when you need <em>more than an app</em></h2>
+<p>Phrenly monitors every conversation for signs of crisis — not just keywords, but context, tone, and pattern. When it detects elevated risk, it responds immediately and connects you to crisis resources.</p>
+<div class="crisis-feat"><div class="crisis-feat-dot"><div class="crisis-feat-dot-inner"></div></div>Real-time crisis detection across every conversation</div>
+<div class="crisis-feat"><div class="crisis-feat-dot"><div class="crisis-feat-dot-inner"></div></div>Immediate connection to crisis resources when needed</div>
+<div class="crisis-feat"><div class="crisis-feat-dot"><div class="crisis-feat-dot-inner"></div></div>Never dismisses or minimizes — always takes it seriously</div>
+</div>
+<div class="crisis-mock">
+<div class="crisis-mock-top"><div class="crisis-sdot"></div>Phrenly · Safety monitoring active</div>
+<div class="crisis-messages">
+<div class="crisis-bubble crisis-user">I just don't see the point anymore. Everything feels hopeless.</div>
+<div class="crisis-bubble crisis-ai">I hear you — and I want to make sure I understand. Are you having any thoughts of hurting yourself?</div>
+<div class="crisis-bubble crisis-user">Sometimes yeah</div>
+<div class="crisis-bubble crisis-ai">Thank you for telling me that. That takes courage. You're not alone right now, and I'm not going anywhere.</div>
+</div>
+<div class="crisis-alert"><div class="alert-dot"></div>Phrenly has flagged this conversation and is surfacing crisis resources.</div>
+</div>
+</div>
 </div>
 
 <!-- HOW SAFETY WORKS -->
-
 <div class="safety-wrap">
-  <section>
-    <div class="section-lbl">How safety works</div>
-    <h2 class="section-h2">What happens when things get <em>serious</em></h2>
-    <p class="section-sub">You should be able to know this before you rely on an app, not after. Here is exactly how Phrenly behaves when risk appears in a conversation.</p>
-    <div class="safety-grid">
-      <div class="safety-card">
-        <h3>What Phrenly watches for</h3>
-        <p>Every conversation is monitored for signs of crisis — not just keywords, but context, tone and pattern over time. Someone saying they no longer want to be here is treated seriously whether they say it directly or not.</p>
-      </div>
-      <div class="safety-card">
-        <h3>What it does</h3>
-        <p>It responds immediately, stays in the conversation, and surfaces the resources that match the situation — including the 988 Suicide &amp; Crisis Lifeline. It does not brush the subject aside or change the topic.</p>
-      </div>
-      <div class="safety-card">
-        <h3>Who it tells</h3>
-        <p><strong>Nobody.</strong> Phrenly does not notify family, employers, schools or emergency services, and it does not dispatch anyone. It is a confidential support tool, not a monitoring system. We would rather say that plainly than let anyone assume otherwise.</p>
-      </div>
-      <div class="safety-card">
-        <h3>What safety never bends to</h3>
-        <p>Tone and persona settings change how Phrenly talks with you day to day. They never change how it responds to risk. Safety guidance is identical regardless of which companion style you choose.</p>
-      </div>
-      <div class="safety-card">
-        <h3>What happens to that data</h3>
-        <p>Crisis-flagged conversations are logged internally so we can review and improve how the app responds. Those records are not readable by other users, are never sold, and are deleted along with everything else if you delete your account.</p>
-      </div>
-      <div class="safety-card">
-        <h3>What Phrenly is not</h3>
-        <p>It is not therapy, not a medical device, and not an emergency service. It is designed to support people alongside professional care and to point toward it — never to replace it.</p>
-      </div>
-    </div>
-    <p class="safety-foot">If you are in immediate danger, call or text <strong>988</strong> in the US, or contact your local emergency services. Outside the US, please use your national crisis line — Phrenly will tell you honestly when a resource it knows about does not apply where you are.</p>
-  </section>
+<section>
+<div class="section-lbl">How safety works</div>
+<h2 class="section-h2">What happens when things get <em>serious</em></h2>
+<p class="section-sub">You should be able to know this before you rely on an app, not after. Here is exactly how Phrenly behaves when risk appears in a conversation.</p>
+<div class="safety-grid">
+<div class="safety-card">
+<h3>What Phrenly watches for</h3>
+<p>Every conversation is monitored for signs of crisis — not just keywords, but context, tone and pattern over time. Someone saying they no longer want to be here is treated seriously whether they say it directly or not.</p>
+</div>
+<div class="safety-card">
+<h3>What it does</h3>
+<p>It responds immediately, stays in the conversation, and surfaces the resources that match the situation — including the 988 Suicide &amp; Crisis Lifeline. It does not brush the subject aside or change the topic.</p>
+</div>
+<div class="safety-card">
+<h3>Who it tells</h3>
+<p><strong>Nobody.</strong> Phrenly does not notify family, employers, schools or emergency services, and it does not dispatch anyone. It is a confidential support tool, not a monitoring system. We would rather say that plainly than let anyone assume otherwise.</p>
+</div>
+<div class="safety-card">
+<h3>What safety never bends to</h3>
+<p>Tone and persona settings change how Phrenly talks with you day to day. They never change how it responds to risk. Safety guidance is identical regardless of which companion style you choose.</p>
+</div>
+<div class="safety-card">
+<h3>What Phrenly is not</h3>
+<p>It is not therapy, not a medical device, and not an emergency service. It is designed to support people alongside professional care and to point toward it — never to replace it.</p>
+</div>
+</div>
+<p class="safety-foot">If you are in immediate danger, call or text <strong>988</strong> in the US, or contact your local emergency services. Outside the US, please use your national crisis line — Phrenly will tell you honestly when a resource it knows about does not apply where you are.</p>
+</section>
 </div>
 
 <!-- PRICING -->
-
 <section class="section" id="pricing">
-  <div class="section-lbl">Pricing</div>
-  <h2 class="section-h2">Start free. No strings.</h2>
-  <p class="section-sub">Quality mental health support at a fraction of the cost of traditional therapy.</p>
-  <div class="pricing-grid">
-    <div class="pricing-card">
-      <div class="pricing-tier">Free</div>
-      <div class="pricing-price">$0<span> / month</span></div>
-      <div class="pricing-desc">Everything you need to start.</div>
-      <ul class="pricing-features">
-        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Daily conversations</li>
-        <li><div class="pf-check"><div class="pf-check-dot"></div></div>The full exercise toolkit</li>
-        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Mood tracking and streaks</li>
-        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Crisis detection &amp; resources</li>
-        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Choose your companion persona</li>
-      </ul>
-      <a href="https://app.phrenly.com" class="pricing-btn pricing-btn-outline">Get started free</a>
-    </div>
-    <div class="pricing-card pricing-featured">
-      <div class="featured-badge">Most popular</div>
-      <div class="pricing-tier">Plus</div>
-      <div class="pricing-price">$19.99<span> / month</span></div>
-      <div class="pricing-desc">Unlimited support, and the freedom to talk out loud.</div>
-      <ul class="pricing-features">
-        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Unlimited conversations</li>
-        <li><div class="pf-check"><div class="pf-check-dot"></div></div><strong style="font-weight:700;color:#f1f5f9;">Live voice sessions</strong></li>
-        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Exercises guided in Phrenly&rsquo;s voice</li>
-        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Progress tracking and insights</li>
-        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Daily check-in reminders</li>
-      </ul>
-      <a href="https://app.phrenly.com" class="pricing-btn">Try Plus now</a>
-    </div>
-    <div class="pricing-card">
-      <div class="pricing-tier">Pro — Coming Soon</div>
-      <div class="pricing-price">$59<span> / month</span></div>
-      <div class="pricing-desc">Full experience plus clinical integration.</div>
-      <ul class="pricing-features">
-        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Everything in Plus</li>
-        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Clinician-ready progress reports</li>
-        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Priority access to new features</li>
-        <li><div class="pf-check"><div class="pf-check-dot"></div></div>Wearable integration (coming soon)</li>
-      </ul>
-      <span class="pricing-btn pricing-btn-outline" style="opacity:0.55;cursor:default;pointer-events:none;">Coming soon</span>
-    </div>
-  </div>
-  <p class="pricing-note">Student pricing available — $12.99/month, no verification required. <a href="https://app.phrenly.com" style="color:var(--sage2);">Choose it at signup.</a></p>
+<div class="section-lbl">Pricing</div>
+<h2 class="section-h2">Start free. No strings.</h2>
+<p class="section-sub">Quality mental health support at a fraction of the cost of traditional therapy.</p>
+<div class="pricing-grid">
+<div class="pricing-card">
+<div class="pricing-tier">Free</div>
+<div class="pricing-price">$0<span> / month</span></div>
+<div class="pricing-desc">Everything you need to start.</div>
+<ul class="pricing-features">
+<li><div class="pf-check"><div class="pf-check-dot"></div></div>Daily conversations</li>
+<li><div class="pf-check"><div class="pf-check-dot"></div></div>The full exercise toolkit</li>
+<li><div class="pf-check"><div class="pf-check-dot"></div></div>Mood tracking and streaks</li>
+<li><div class="pf-check"><div class="pf-check-dot"></div></div>Crisis detection &amp; resources</li>
+<li><div class="pf-check"><div class="pf-check-dot"></div></div>Choose your companion persona</li>
+</ul>
+<a href="https://app.phrenly.com" class="pricing-btn pricing-btn-outline">Get started free</a>
+</div>
+<div class="pricing-card pricing-featured">
+<div class="featured-badge">Most popular</div>
+<div class="pricing-tier">Plus</div>
+<div class="pricing-price">$19.99<span> / month</span></div>
+<div class="pricing-desc">Unlimited support, and the freedom to talk out loud.</div>
+<ul class="pricing-features">
+<li><div class="pf-check"><div class="pf-check-dot"></div></div>Unlimited conversations</li>
+<li><div class="pf-check"><div class="pf-check-dot"></div></div><strong style="font-weight:700;color:#f1f5f9;">Live voice sessions</strong></li>
+<li><div class="pf-check"><div class="pf-check-dot"></div></div>Exercises guided in Phrenly's voice</li>
+<li><div class="pf-check"><div class="pf-check-dot"></div></div>Progress tracking and insights</li>
+<li><div class="pf-check"><div class="pf-check-dot"></div></div>Daily check-in reminders</li>
+</ul>
+<a href="https://app.phrenly.com" class="pricing-btn">Try Plus now</a>
+</div>
+<div class="pricing-card">
+<div class="pricing-tier">Pro — Coming Soon</div>
+<div class="pricing-price">$59<span> / month</span></div>
+<div class="pricing-desc">Full experience plus clinical integration.</div>
+<ul class="pricing-features">
+<li><div class="pf-check"><div class="pf-check-dot"></div></div>Everything in Plus</li>
+<li><div class="pf-check"><div class="pf-check-dot"></div></div>Clinician-ready progress reports</li>
+<li><div class="pf-check"><div class="pf-check-dot"></div></div>Priority access to new features</li>
+<li><div class="pf-check"><div class="pf-check-dot"></div></div>Wearable integration (coming soon)</li>
+</ul>
+<span class="pricing-btn pricing-btn-outline" style="opacity:0.55;cursor:default;pointer-events:none;">Coming soon</span>
+</div>
+</div>
+<p class="pricing-note">Student pricing available — $12.99/month, no verification required. <a href="https://app.phrenly.com" style="color:var(--sage2);">Choose it at signup.</a></p>
 </section>
 
 <!-- CTA -->
-
 <div class="cta-zone">
-  <div class="cta-inner">
-    <h2>You deserve support that <em>actually works</em></h2>
-    <p>Phrenly is free to start, clinically grounded, and available the moment you need it. No waitlist. No referral. No scheduling.</p>
-    <a href="https://app.phrenly.com" class="btn-primary">Try Phrenly now — it's free</a>
-    <div class="cta-badges"><a href="https://apps.apple.com/us/app/phrenly-ai-wellness-partner/id6751132542" class="appstore-badge" aria-label="Download Phrenly on the App Store"><img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us" alt="Download on the App Store" width="147" height="49" loading="lazy"/></a></div>
-  </div>
+<div class="cta-inner">
+<h2>You deserve support that <em>actually works</em></h2>
+<p>Phrenly is free to start, clinically grounded, and available the moment you need it. No waitlist. No referral. No scheduling.</p>
+<a href="https://app.phrenly.com" class="btn-primary">Try Phrenly now — it's free</a>
+<div class="cta-badges"><a href="https://apps.apple.com/us/app/phrenly-ai-wellness-partner/id6751132542" class="appstore-badge" aria-label="Download Phrenly on the App Store"><img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us" alt="Download on the App Store" width="147" height="49" loading="lazy"/></a></div>
+</div>
 </div>
 
 <!-- FOOTER -->
-
 <footer class="footer">
-  <a href="/" class="footer-logo">Phren<span>ly</span></a>
-  <ul class="footer-links">
-    <li><a href="/privacy.html">Privacy Policy</a></li>
-    <li><a href="/terms.html">Terms</a></li>
-    <li><a href="https://phrentech.com">PhrenTech</a></li>
-    <li><a href="/cdn-cgi/l/email-protection#5d35383131321d2d352f38333124733e3230">Contact</a></li>
-  </ul>
-  <div class="footer-pt">A <a href="https://phrentech.com">PhrenTech</a> product · © 2026 PhrenTech</div>
+<a href="/" class="footer-logo">Phren<span>ly</span></a>
+<ul class="footer-links">
+<li><a href="/privacy.html">Privacy Policy</a></li>
+<li><a href="/terms.html">Terms</a></li>
+<li><a href="https://phrentech.com">PhrenTech</a></li>
+<li><a href="/cdn-cgi/l/email-protection#5d35383131321d2d352f38333124733e3230">Contact</a></li>
+</ul>
+<div class="footer-pt">A <a href="https://phrentech.com">PhrenTech</a> product · © 2026 PhrenTech</div>
 </footer>
-
 </body>
 </html>
