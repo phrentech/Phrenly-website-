@@ -365,6 +365,27 @@ gap: 52px; align-items: center;
 .uni-dash-cta { display:inline-block; background:#8B9D83; color:#12201A; font-weight:700; font-size:14px; padding:13px 24px; border-radius:100px; text-decoration:none; }
 .uni-dash-cta:hover { background:#9FB097; }
 @media (max-width:768px){ .uni-dash-stats{grid-template-columns:1fr;gap:18px;} .uni-dash-card{padding:24px 22px;} }
+
+.cta-wide { max-width: 720px; }
+.uni-form { text-align: left; margin-top: 34px; background: #fff; border: 1px solid var(--sage-border);
+  border-radius: 18px; padding: 30px 30px 26px; }
+.uni-form label { display: block; font-size: 12.5px; font-weight: 700; color: var(--ink2);
+  letter-spacing: .02em; margin-bottom: 14px; }
+.uni-form .f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.uni-form input, .uni-form select, .uni-form textarea {
+  display: block; width: 100%; margin-top: 7px; font: inherit; font-size: 14.5px; font-weight: 400;
+  color: var(--ink); background: #FCFDFB; border: 1px solid var(--border2); border-radius: 10px;
+  padding: 11px 13px; transition: border-color .15s; }
+.uni-form textarea { resize: vertical; min-height: 92px; }
+.uni-form input:focus, .uni-form select:focus, .uni-form textarea:focus {
+  outline: none; border-color: var(--sage2); background: #fff; }
+.uni-form input:invalid.touched { border-color: #E11D48; }
+.f-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 4px; }
+.f-note { font-size: 12.5px; color: var(--ink3); font-weight: 400; }
+.f-fallback { font-size: 12.5px; color: var(--ink3); margin: 16px 0 0; font-weight: 400; }
+.f-fallback a { color: var(--sage); }
+@media (max-width: 640px) { .uni-form .f-row { grid-template-columns: 1fr; gap: 0; }
+  .uni-form { padding: 22px 20px 20px; } }
 </style>
 
 </head>
@@ -378,7 +399,7 @@ gap: 52px; align-items: center;
     <li><a href="/#pricing">Pricing</a></li>
     <li><a href="https://phrentech.com">PhrenTech</a></li>
   </ul>
-  <a href="mailto:universities@phrenly.com" class="nav-cta">Talk to us</a>
+  <a href="mailto:universities@phrentech.com" class="nav-cta">Talk to us</a>
 </nav>
 
 <!-- HERO -->
@@ -388,7 +409,7 @@ gap: 52px; align-items: center;
     <h1>Support for the students on your <em>waitlist</em></h1>
     <p>Phrenly gives every student on your campus an evidence-based place to turn at 2am, on a Sunday, or during the six weeks they are waiting for a first appointment. It does not replace your counseling center. It holds the gap.</p>
     <div style="display:flex;gap:12px;flex-wrap:wrap;">
-      <a href="mailto:universities@phrenly.com" class="btn-primary">Start a conversation</a>
+      <a href="mailto:universities@phrentech.com" class="btn-primary">Start a conversation</a>
       <a href="/" class="btn-outline" style="color:rgba(241,245,249,0.7);border-color:rgba(255,255,255,0.18);">See the product</a>
     </div>
   </div>
@@ -487,17 +508,66 @@ gap: 52px; align-items: center;
     <h3>Campus site license</h3>
     <p>Priced per enrolled student, per year, with volume tiers that bring the rate down as enrollment rises. Every student on your campus gets full access to Phrenly Plus &mdash; unlimited conversations, live voice sessions, and the complete exercise toolkit. No eligibility checks, no seat management, no student ever sees a paywall.</p>
     <p>We would rather quote against your actual enrollment than publish a number that fits nobody. Tell us your student count and we will come back with a figure and a pilot proposal.</p>
-    <a href="mailto:universities@phrenly.com" class="btn-primary">Request pricing</a>
+    <a href="mailto:universities@phrentech.com" class="btn-primary">Request pricing</a>
   </div>
   <p class="uni-note">Prefer to start small? We can scope a single-department or single-cohort pilot for one academic term, with usage reporting, before you commit to a campus-wide agreement.</p>
 </section>
 
 <!-- CTA -->
 <div class="cta-zone">
-  <div class="cta-inner">
+  <div class="cta-inner cta-wide">
     <h2>Let&rsquo;s talk about your <em>waitlist</em></h2>
     <p>Tell us your enrollment and what your students are waiting for. We will tell you honestly whether Phrenly helps.</p>
-    <a href="mailto:universities@phrenly.com" class="btn-primary">Start a conversation</a>
+
+    <!-- Composes an email rather than posting anywhere. To switch to a real
+         endpoint later, set action/method on the form and delete the submit
+         handler at the bottom of this file — nothing else needs to change. -->
+    <form class="uni-form" id="uniForm" novalidate>
+      <div class="f-row">
+        <label>Your name
+          <input type="text" name="name" required placeholder="Dr. Alex Moreau">
+        </label>
+        <label>Institution
+          <input type="text" name="institution" required placeholder="Northfield State University">
+        </label>
+      </div>
+      <div class="f-row">
+        <label>Role
+          <input type="text" name="role" placeholder="Director, Counselling Services">
+        </label>
+        <label>Work email
+          <input type="email" name="email" required placeholder="a.moreau@northfield.edu">
+        </label>
+      </div>
+      <div class="f-row">
+        <label>Approximate enrollment
+          <select name="enrollment">
+            <option>Under 2,000</option>
+            <option>2,000 &ndash; 8,000</option>
+            <option selected>8,000 &ndash; 20,000</option>
+            <option>20,000 &ndash; 40,000</option>
+            <option>Over 40,000</option>
+          </select>
+        </label>
+        <label>Current wait for a first appointment
+          <select name="wait">
+            <option>Under a week</option>
+            <option>1 &ndash; 2 weeks</option>
+            <option selected>2 &ndash; 4 weeks</option>
+            <option>Over a month</option>
+            <option>We&rsquo;re not measuring it yet</option>
+          </select>
+        </label>
+      </div>
+      <label class="f-full">What would you want Phrenly to solve?
+        <textarea name="message" rows="4" placeholder="Optional, but it makes our first reply more useful than a calendar link."></textarea>
+      </label>
+      <div class="f-actions">
+        <button type="submit" class="btn-primary">Send</button>
+        <span class="f-note">Goes to a person, not a CRM. We reply to every one.</span>
+      </div>
+      <p class="f-fallback">Prefer email? <a href="mailto:universities@phrentech.com">universities@phrentech.com</a></p>
+    </form>
   </div>
 </div>
 
@@ -512,5 +582,35 @@ gap: 52px; align-items: center;
   <div class="footer-pt">A <a href="https://phrentech.com">PhrenTech</a> product · © 2026 PhrenTech</div>
 </footer>
 
+
+<script>
+// Builds a mailto: so the form works on a static site with no backend and no
+// third party holding enquiries from counselling directors. Swap in a real
+// endpoint by giving the form an action and removing this listener.
+document.getElementById('uniForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var f = e.target;
+  var required = ['name', 'institution', 'email'];
+  var missing = required.filter(function (n) { return !f[n].value.trim(); });
+  if (missing.length) {
+    required.forEach(function (n) { f[n].classList.add('touched'); });
+    f[missing[0]].focus();
+    return;
+  }
+  var body = [
+    'Name: ' + f.name.value,
+    'Institution: ' + f.institution.value,
+    'Role: ' + (f.role.value || '—'),
+    'Email: ' + f.email.value,
+    'Enrollment: ' + f.enrollment.value,
+    'Wait for first appointment: ' + f.wait.value,
+    '',
+    f.message.value || '(no message)'
+  ].join('\n');
+  window.location.href = 'mailto:universities@phrentech.com'
+    + '?subject=' + encodeURIComponent('Phrenly for ' + f.institution.value)
+    + '&body=' + encodeURIComponent(body);
+});
+</script>
 </body>
 </html>
