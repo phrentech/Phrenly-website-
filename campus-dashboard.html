@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phrenly Campus — Dashboard preview</title>
+<meta name="description" content="A live preview of the Phrenly Campus dashboard: what a counselling centre sees, and what it never can.">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
+<style>
+:root {
+  color-scheme: light;
+  --ink: #16241a; --ink2: #4a5e48; --ink3: #8a9488;
+  --sage: #5C7054; --sage2: #8B9D83; --sage-dim: #F1F4EC; --sage-border: #DCE4D6;
+  --bg: #FBFCFA; --card: #FFFFFF; --border: #E5E9E0;
+  --rose: #E11D48; --rose-dim: #FFF1F3; --rose-border: #FBD5DC;
+}
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--ink); font-size:15px; line-height:1.6;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif; }
+.wrap { max-width:1180px; margin:0 auto; padding:26px 26px 64px; }
+h1,h2,h3 { letter-spacing:-0.02em; }
+
+.top { display:flex; align-items:flex-start; justify-content:space-between; gap:20px; flex-wrap:wrap; }
+.brand { display:flex; align-items:center; gap:14px; }
+.mark { width:44px; height:44px; border-radius:13px; flex-shrink:0;
+  background:linear-gradient(135deg,var(--sage2),var(--sage)); display:flex; align-items:center;
+  justify-content:center; color:#fff; font-weight:800; font-size:19px; }
+.brand h1 { font-size:20px; margin:0; }
+.brand .sub { font-size:11.5px; color:var(--ink3); font-weight:700; letter-spacing:.09em; text-transform:uppercase; }
+.demo-badge { display:inline-flex; align-items:center; gap:7px; background:#FFF7ED; border:1px solid #FED7AA;
+  color:#9A3412; padding:7px 14px; border-radius:100px; font-size:12px; font-weight:700; }
+.dot-amber { width:7px; height:7px; border-radius:50%; background:#F59E0B; }
+
+.inst-bar { display:flex; align-items:center; gap:12px; flex-wrap:wrap; padding:15px 20px;
+  background:var(--card); border:1px solid var(--border); border-radius:14px; margin:18px 0 16px; }
+.inst-bar .name { font-weight:700; font-size:16px; }
+.inst-bar .meta { color:var(--ink3); font-size:13px; }
+.spacer { flex:1; }
+select, button.ghost { font:inherit; font-size:13px; padding:7px 13px; border-radius:9px;
+  border:1px solid var(--border); background:var(--card); color:var(--ink2); cursor:pointer; }
+button.ghost:hover { background:var(--sage-dim); border-color:var(--sage-border); color:var(--sage); }
+
+.tabs { display:flex; gap:4px; border-bottom:1px solid var(--border); margin-bottom:20px; overflow-x:auto; }
+.tab { font:inherit; font-size:13.5px; font-weight:600; padding:11px 16px; border:0; background:none;
+  color:var(--ink3); cursor:pointer; border-bottom:2px solid transparent; white-space:nowrap; }
+.tab:hover { color:var(--ink2); }
+.tab.on { color:var(--sage); border-bottom-color:var(--sage); }
+.panel { display:none; }
+.panel.on { display:block; }
+
+.kpis { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:13px; margin-bottom:13px; }
+.kpi { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:17px 19px; }
+.kpi .label { font-size:10.5px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--ink3); }
+.kpi .value { font-size:31px; font-weight:800; letter-spacing:-.03em; margin:5px 0 2px; }
+.kpi .note { font-size:12.5px; color:var(--ink2); }
+.kpi .note strong { color:var(--sage); }
+
+.grid2 { display:grid; grid-template-columns:1.35fr 1fr; gap:13px; margin-bottom:13px; }
+.grid2.even { grid-template-columns:1fr 1fr; }
+.card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:19px 21px; }
+.card h2 { font-size:15px; margin:0 0 3px; }
+.card .cap { font-size:12.5px; color:var(--ink3); margin:0 0 15px; }
+.chart-box { height:236px; position:relative; }
+.insight { margin-top:15px; padding:13px 15px; background:var(--sage-dim); border:1px solid var(--sage-border);
+  border-radius:11px; font-size:13.5px; color:var(--ink2); }
+.insight strong { color:var(--ink); }
+
+table { width:100%; border-collapse:collapse; font-size:13.5px; }
+th { text-align:left; font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink3);
+  font-weight:700; padding:0 8px 9px; cursor:pointer; user-select:none; white-space:nowrap; }
+th:hover { color:var(--sage); }
+th .arrow { opacity:.45; font-size:9px; }
+td { padding:9px 8px; border-top:1px solid #F1F3EF; color:var(--ink2); vertical-align:middle; }
+td.n { text-align:right; font-variant-numeric:tabular-nums; color:var(--ink); font-weight:600; }
+td.name { color:var(--ink); font-weight:500; }
+.bar-track { height:7px; background:#F1F4EC; border-radius:100px; overflow:hidden; min-width:70px; }
+.bar-fill { height:100%; background:linear-gradient(90deg,var(--sage2),var(--sage)); border-radius:100px; }
+.pill { display:inline-block; padding:2px 9px; border-radius:100px; font-size:11px; font-weight:700; }
+.pill.good { background:var(--sage-dim); color:var(--sage); }
+.pill.mid { background:#FEF9EC; color:#A16207; }
+
+.crisis-card { border-color:var(--rose-border); background:linear-gradient(180deg,var(--rose-dim),#fff 60%); }
+.crisis-stat { display:flex; gap:26px; flex-wrap:wrap; margin:13px 0 4px; }
+.crisis-stat .n { font-size:27px; font-weight:800; letter-spacing:-.02em; }
+.crisis-stat .l { font-size:12px; color:var(--ink2); max-width:150px; line-height:1.45; }
+
+.res-row { display:flex; align-items:center; gap:12px; padding:12px 0; border-top:1px solid #F1F3EF; }
+.res-row:first-of-type { border-top:0; }
+.res-main { flex:1; min-width:0; }
+.res-main .t { font-weight:600; color:var(--ink); font-size:14px; }
+.res-main .d { font-size:12.5px; color:var(--ink3); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.res-clicks { font-size:12.5px; color:var(--ink2); font-variant-numeric:tabular-nums; white-space:nowrap; }
+input[type=text] { font:inherit; font-size:13.5px; padding:9px 12px; border-radius:9px;
+  border:1px solid var(--border); background:#fff; color:var(--ink); width:100%; }
+input[type=text]:focus { outline:none; border-color:var(--sage2); }
+.add-row { display:flex; gap:8px; margin-top:14px; flex-wrap:wrap; }
+.add-row input { flex:1; min-width:150px; }
+button.primary { font:inherit; font-size:13px; font-weight:700; padding:9px 18px; border-radius:9px;
+  border:0; background:var(--sage); color:#fff; cursor:pointer; white-space:nowrap; }
+button.primary:hover { background:#4a5c44; }
+button.del { border:0; background:none; color:var(--ink3); cursor:pointer; font-size:17px; line-height:1; padding:4px 6px; }
+button.del:hover { color:var(--rose); }
+
+.privacy { background:#12201A; border-radius:16px; padding:27px 29px; color:#E8EEE6; }
+.privacy h2 { color:#fff; font-size:17px; margin:0 0 6px; }
+.privacy .cap { color:rgba(232,238,230,.55); font-size:13px; margin:0 0 19px; }
+.pgrid { display:grid; grid-template-columns:1fr 1fr; gap:26px; }
+.plist { list-style:none; margin:0; padding:0; }
+.plist li { display:flex; gap:10px; align-items:flex-start; padding:6px 0; font-size:13.5px; color:rgba(232,238,230,.88); }
+.tick { color:#8B9D83; font-weight:800; flex-shrink:0; }
+.cross { color:#F87171; font-weight:800; flex-shrink:0; }
+.plabel { font-size:10.5px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:rgba(232,238,230,.45); margin-bottom:6px; }
+.privacy .foot { margin:21px 0 0; padding-top:17px; border-top:1px solid rgba(255,255,255,.1);
+  font-size:13px; color:rgba(232,238,230,.7); }
+
+.seat-bar { height:11px; background:#EEF1EC; border-radius:100px; overflow:hidden; margin:12px 0 8px; }
+.seat-fill { height:100%; background:linear-gradient(90deg,var(--sage2),var(--sage)); border-radius:100px; }
+.code-box { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:19px; font-weight:700;
+  letter-spacing:.14em; background:var(--sage-dim); border:1px dashed var(--sage-border); color:var(--sage);
+  padding:14px 18px; border-radius:11px; text-align:center; margin:12px 0 6px; }
+
+@media (max-width:900px){ .kpis{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .grid2,.grid2.even{grid-template-columns:1fr;} .pgrid{grid-template-columns:1fr;gap:20px;} }
+/* ── NAV ── */
+.nav {
+display: flex; align-items: center; justify-content: space-between;
+padding: 16px 48px;
+border-bottom: 0.5px solid var(--border);
+position: sticky; top: 0; z-index: 100;
+background: #FFFFFF;
+}
+.nav-logo { font-weight: 800; font-size: 20px; letter-spacing: -0.03em; color: var(--ink); text-decoration: none; }
+.nav-logo span { color: var(--sage); }
+.nav-links { display: flex; gap: 28px; list-style: none; font-size: 13px; font-weight: 500; color: var(--ink3); }
+.nav-links a { color: inherit; text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: var(--sage2); }
+.nav-cta {
+font-size: 13px; font-weight: 700; padding: 9px 22px;
+background: var(--sage); color: #fff;
+border: none; border-radius: 100px;
+cursor: pointer; text-decoration: none; transition: all 0.2s;
+}
+.nav-cta:hover { background: var(--sage2); }
+/* FOOTER */
+.footer { background: var(--ink); padding: 40px 48px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: rgba(255,255,255,0.25); }
+.footer-logo { font-weight: 800; font-size: 19px; letter-spacing: -0.03em; color: #f1f5f9; text-decoration: none; }
+.footer-logo span { color: var(--sage-light); }
+.footer-links { display: flex; gap: 24px; list-style: none; }
+.footer-links a { color: inherit; text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: rgba(255,255,255,0.6); }
+.footer-pt a { color: inherit; text-decoration: none; }
+.nav { padding: 14px 20px; }
+.nav-links { display: none; }
+.footer { flex-direction: column; gap: 20px; text-align: center; padding: 32px 20px; }
+.footer-links { flex-wrap: wrap; justify-content: center; }
+.dash-intro { max-width:1180px; margin:0 auto; padding:34px 26px 0; }
+.dash-intro .lbl { font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--ink3); }
+.dash-intro h1 { font-size:clamp(28px,3.5vw,40px); margin:8px 0 12px; }
+.dash-intro p { font-size:16px; color:var(--ink2); max-width:640px; line-height:1.75; margin:0 0 4px; }
+.dash-intro .back { display:inline-block; margin-top:20px; font-size:13.5px; color:var(--sage); text-decoration:none; font-weight:600; }
+.dash-intro .back:hover { text-decoration:underline; }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="/" class="nav-logo">Phren<span>ly</span></a>
+  <ul class="nav-links">
+    <li><a href="/#clinical">How it works</a></li>
+    <li><a href="/#exercises">The tools</a></li>
+    <li><a href="/#pricing">Pricing</a></li>
+    <li><a href="https://phrentech.com">PhrenTech</a></li>
+  </ul>
+  <a href="mailto:universities@phrenly.com" class="nav-cta">Talk to us</a>
+</nav>
+
+<div class="dash-intro">
+  <div class="lbl">Phrenly Campus</div>
+  <h1>What your counselling centre would see</h1>
+  <p>This is the real dashboard, running on sample figures for a university that doesn&rsquo;t exist.
+  Move between the tabs, change the period, add one of your own resources &mdash; it all works.</p>
+  <p>The part worth reading first is <strong>Access &amp; privacy</strong>, because it says plainly
+  what an administrator can never see.</p>
+  <a class="back" href="/universities">&larr; Back to Phrenly for universities</a>
+</div>
+
+<div class="wrap">
+
+  <div class="top">
+    <div class="brand">
+      <div class="mark">P</div>
+      <div><h1>Phrenly Campus</h1><div class="sub">Institutional dashboard</div></div>
+    </div>
+    <div class="demo-badge"><span class="dot-amber"></span> Demo data</div>
+  </div>
+
+  <div class="inst-bar">
+    <span class="name">Northfield State University</span>
+    <span class="meta">2,400 seats · pilot began 14 Jan 2026</span>
+    <span class="spacer"></span>
+    <select id="period">
+      <option value="30">Last 30 days</option>
+      <option value="90">Last 90 days</option>
+      <option value="all">Full pilot</option>
+    </select>
+    <button class="ghost" id="export">Export CSV</button>
+  </div>
+
+  <div class="tabs" id="tabs">
+    <button class="tab on" data-p="overview">Overview</button>
+    <button class="tab" data-p="engagement">Engagement</button>
+    <button class="tab" data-p="wellbeing">Wellbeing signals</button>
+    <button class="tab" data-p="resources">Campus resources</button>
+    <button class="tab" data-p="access">Access &amp; privacy</button>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div class="panel on" id="p-overview">
+    <div class="kpis" id="kpis"></div>
+    <div class="grid2">
+      <div class="card">
+        <h2>When students actually reach out</h2>
+        <p class="cap">Sessions by hour. Counselling centre hours shaded.</p>
+        <div class="chart-box"><canvas id="c-hours"></canvas></div>
+        <div class="insight">
+          <strong>Peak use is 10pm–1am.</strong> <span id="afterHoursLine"></span> of sessions happen
+          when no one is at the desk — the hours this is meant to cover, not the ones it competes with.
+        </div>
+      </div>
+      <div class="card">
+        <h2>Monthly active students</h2>
+        <p class="cap">Since the pilot began</p>
+        <div class="chart-box"><canvas id="c-mau"></canvas></div>
+        <div class="insight">Growth has been word of mouth. No campus-wide email went out after January.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ENGAGEMENT -->
+  <div class="panel" id="p-engagement">
+    <div class="grid2 even">
+      <div class="card">
+        <h2>Exercise completion</h2>
+        <p class="cap">Click a column to sort</p>
+        <table id="ex-table">
+          <thead><tr>
+            <th data-k="name">Exercise <span class="arrow">▾</span></th>
+            <th data-k="started" style="text-align:right">Started <span class="arrow">▾</span></th>
+            <th data-k="completed" style="text-align:right">Completed <span class="arrow">▾</span></th>
+            <th data-k="rate" style="text-align:right">Rate <span class="arrow">▾</span></th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+        <div class="insight">
+          Completion matters more than starts. Grounding and breathing get used in the moment;
+          Thought Record and Safety Plan are started less but finished more reliably.
+        </div>
+      </div>
+      <div class="card">
+        <h2>Returning students</h2>
+        <p class="cap">Of students active in a given month, how many were active the next</p>
+        <div class="chart-box"><canvas id="c-ret"></canvas></div>
+        <div class="insight">
+          Month-over-month return rate. <strong>Retention, not downloads,</strong> is what tells you
+          whether a wellness tool is being used or merely installed.
+        </div>
+      </div>
+    </div>
+    <div class="grid2 even">
+      <div class="card">
+        <h2>Session length</h2>
+        <p class="cap">Distribution across all sessions in period</p>
+        <div class="chart-box"><canvas id="c-len"></canvas></div>
+      </div>
+      <div class="card">
+        <h2>How students use it</h2>
+        <p class="cap">Share of sessions by mode</p>
+        <div class="chart-box"><canvas id="c-mode"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WELLBEING -->
+  <div class="panel" id="p-wellbeing">
+    <div class="grid2">
+      <div class="card">
+        <h2>Aggregate mood trend</h2>
+        <p class="cap">Mean self-reported mood across all students who logged one, by week</p>
+        <div class="chart-box"><canvas id="c-mood"></canvas></div>
+        <div class="insight">
+          Self-reported, aggregate, and <strong>not a clinical measure.</strong> It is useful for
+          spotting a cohort-level dip around exam weeks, and for nothing else.
+        </div>
+      </div>
+      <div class="card crisis-card">
+        <h2>Crisis resource routing</h2>
+        <p class="cap">Counts only — no identities</p>
+        <div class="crisis-stat" id="crisis-stat"></div>
+        <div class="insight" style="background:var(--rose-dim);border-color:var(--rose-border);">
+          Aggregate counts across all enrolled students. You cannot see who they were. If you need
+          per-student intervention, Phrenly is the wrong tool and we will say so.
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Where students went next</h2>
+      <p class="cap">Click-throughs from a crisis moment to a resource you configured</p>
+      <div class="chart-box" style="height:200px"><canvas id="c-route"></canvas></div>
+    </div>
+  </div>
+
+  <!-- RESOURCES -->
+  <div class="panel" id="p-resources">
+    <div class="grid2">
+      <div class="card">
+        <h2>Your campus resources</h2>
+        <p class="cap">What Phrenly points students toward. Yours, not ours — edit any time.</p>
+        <div id="res-list"></div>
+        <div class="add-row">
+          <input type="text" id="res-name" placeholder="Resource name">
+          <input type="text" id="res-detail" placeholder="Phone, hours or URL">
+          <button class="primary" id="res-add">Add</button>
+        </div>
+        <div class="insight">
+          Phrenly surfaces these alongside national crisis lines. A student at 1am gets
+          <strong>your</strong> after-hours number, not a generic one.
+        </div>
+      </div>
+      <div class="card">
+        <h2>Resource click-throughs</h2>
+        <p class="cap">This period</p>
+        <div class="chart-box"><canvas id="c-res"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACCESS -->
+  <div class="panel" id="p-access">
+    <div class="grid2 even">
+      <div class="card">
+        <h2>Seat usage</h2>
+        <p class="cap">Licensed seats against enrolled students</p>
+        <div style="font-size:31px;font-weight:800;letter-spacing:-.03em;margin-top:8px;">2,412 <span style="font-size:17px;color:var(--ink3);font-weight:600;">/ 2,400</span></div>
+        <div class="seat-bar"><div class="seat-fill" style="width:100%"></div></div>
+        <p style="font-size:13px;color:var(--ink2);margin:0;">
+          At capacity. 148 students are on a waitlist. Seats can be added mid-term without a new agreement.
+        </p>
+      </div>
+      <div class="card">
+        <h2>Enrolment code</h2>
+        <p class="cap">Students enter this once, at signup</p>
+        <div class="code-box">NORTHFIELD26</div>
+        <p style="font-size:13px;color:var(--ink2);margin:0;">
+          No IT integration, no student directory, no SSO required. Distribute it however you already
+          reach students. It can be rotated at any time.
+        </p>
+      </div>
+    </div>
+    <div class="privacy">
+      <h2>What you can and cannot see</h2>
+      <p class="cap">The part worth reading before you decide anything else.</p>
+      <div class="pgrid">
+        <div>
+          <div class="plabel">Available to your institution</div>
+          <ul class="plist">
+            <li><span class="tick">✓</span> Enrolment and active-user counts</li>
+            <li><span class="tick">✓</span> Usage patterns by hour and by week</li>
+            <li><span class="tick">✓</span> Which exercises get completed</li>
+            <li><span class="tick">✓</span> Aggregate crisis-routing counts</li>
+            <li><span class="tick">✓</span> Campus resource click-throughs</li>
+          </ul>
+        </div>
+        <div>
+          <div class="plabel">Never available, to anyone</div>
+          <ul class="plist">
+            <li><span class="cross">✕</span> Any conversation, in whole or in part</li>
+            <li><span class="cross">✕</span> Which student used it, or when</li>
+            <li><span class="cross">✕</span> Which students were flagged for risk</li>
+            <li><span class="cross">✕</span> Mood entries or anything written in an exercise</li>
+            <li><span class="cross">✕</span> Names, emails, or student IDs</li>
+          </ul>
+        </div>
+      </div>
+      <p class="foot">
+        Aggregation happens before data reaches this dashboard, and no per-student view exists to be
+        granted. A student who believes they are being watched does not tell the truth at 1am — which
+        would defeat the point of running the pilot at all.
+      </p>
+    </div>
+  </div>
+</div>
+<footer class="footer">
+  <a href="/" class="footer-logo">Phren<span>ly</span></a>
+  <ul class="footer-links">
+    <li><a href="/privacy.html">Privacy Policy</a></li>
+    <li><a href="/terms.html">Terms</a></li>
+    <li><a href="https://phrentech.com">PhrenTech</a></li>
+    <li><a href="/cdn-cgi/l/email-protection#5d35383131321d2d352f38333124733e3230">Contact</a></li>
+  </ul>
+  <div class="footer-pt">A <a href="https://phrentech.com">PhrenTech</a> product · © 2026 PhrenTech</div>
+</footer>
+
+<script>
+/* ── data ──────────────────────────────────────────────────────────────────
+   Three periods so the filter does real work rather than decorating the page. */
+const SAGE='#5C7054', SAGE2='#8B9D83', PALE='#D8E0D2', GRID='#EEF1EC', ROSE='#E11D48';
+Chart.defaults.font.family='-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif';
+Chart.defaults.color='#8a9488';
+
+const DATA = {
+  '30': {
+    enrolled:2412, active:1038, sessions:7914, seats:2400,
+    hours:[186,121,74,41,28,22,31,58,97,142,168,191,204,178,166,182,211,247,318,402,489,571,624,538],
+    mau:{labels:['Jun','Jul','Aug'],v:[812,907,1038]},
+    ex:[['5-4-3-2-1 Grounding',1702,1284],['Box Breathing',1486,1147],['Thought Record',981,706],
+        ['STOP Skill',844,588],['Mindful Minute',712,512],['Worry Time',604,404],
+        ['Self-Kindness',528,371],['What Matters',401,266],['Safety Plan',146,118]],
+    ret:{labels:['Mar','Apr','May','Jun','Jul','Aug'],v:[38,44,47,51,54,58]},
+    len:[1204,2611,2388,1305,406],
+    mode:[62,26,12],
+    mood:{labels:['W1','W2','W3','W4'],v:[6.1,5.8,5.4,5.9]},
+    crisis:[312,94],
+    route:[41,23,18,12]
+  },
+  '90': {
+    enrolled:2412, active:1622, sessions:21486, seats:2400,
+    hours:[502,331,201,112,77,61,86,158,264,388,459,521,556,486,452,497,574,672,864,1092,1328,1551,1694,1462],
+    mau:{labels:['Apr','May','Jun','Jul','Aug'],v:[596,703,812,907,1038]},
+    ex:[['5-4-3-2-1 Grounding',4611,3478],['Box Breathing',4022,3106],['Thought Record',2657,1912],
+        ['STOP Skill',2286,1592],['Mindful Minute',1928,1387],['Worry Time',1636,1094],
+        ['Self-Kindness',1430,1005],['What Matters',1086,720],['Safety Plan',395,319]],
+    ret:{labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug'],v:[22,31,38,44,47,51,54,58]},
+    len:[3268,7086,6481,3542,1102],
+    mode:[59,28,13],
+    mood:{labels:['W1','W3','W5','W7','W9','W11'],v:[5.9,6.0,5.6,5.3,5.7,5.9]},
+    crisis:[847,261],
+    route:[112,64,49,36]
+  },
+  'all': {
+    enrolled:2412, active:1914, sessions:41208, seats:2400,
+    hours:[963,635,386,215,148,117,165,303,506,744,880,999,1066,932,867,953,1101,1289,1657,2094,2547,2975,3249,2804],
+    mau:{labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug'],v:[104,287,441,596,703,812,907,1038]},
+    ex:[['5-4-3-2-1 Grounding',8842,6669],['Box Breathing',7714,5957],['Thought Record',5096,3667],
+        ['STOP Skill',4384,3054],['Mindful Minute',3698,2661],['Worry Time',3138,2098],
+        ['Self-Kindness',2743,1928],['What Matters',2083,1381],['Safety Plan',758,612]],
+    ret:{labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug'],v:[22,31,38,44,47,51,54,58]},
+    len:[6268,13590,12432,6793,2125],
+    mode:[57,29,14],
+    mood:{labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug'],v:[5.7,5.9,6.0,5.6,5.3,5.7,5.9,6.0]},
+    crisis:[1624,503],
+    route:[214,123,94,72]
+  }
+};
+const RES_DEFAULT = [
+  { name:'Counselling & Psychological Services', detail:'(555) 014-2200 · Mon–Fri 9–5', clicks:214 },
+  { name:'After-hours crisis line', detail:'(555) 014-2299 · 24/7', clicks:123 },
+  { name:'Dean of Students', detail:'students@northfield.edu', clicks:94 },
+  { name:'Peer support drop-in', detail:'Student Union, Rm 240 · Tue & Thu evenings', clicks:72 },
+];
+
+let period = '30';
+const d = () => DATA[period];
+const charts = {};
+const fmt = n => n.toLocaleString();
+
+/* ── resources (persisted per viewer) ─────────────────────────────────── */
+let resources = RES_DEFAULT.slice();
+try {
+  const saved = localStorage.getItem('phrenly_campus_resources');
+  if (saved) resources = JSON.parse(saved);
+} catch (e) { /* storage can be unavailable; defaults are fine */ }
+const saveRes = () => {
+  try { localStorage.setItem('phrenly_campus_resources', JSON.stringify(resources)); } catch (e) {}
+};
+
+/* ── renderers ────────────────────────────────────────────────────────── */
+function renderKpis() {
+  const x = d();
+  const after = x.hours.reduce((s,v,h) => s + (h>=9&&h<17 ? 0 : v), 0);
+  const pct = Math.round(after / x.hours.reduce((a,b)=>a+b,0) * 100);
+  document.getElementById('afterHoursLine').textContent = pct + '%';
+  document.getElementById('kpis').innerHTML = `
+    <div class="kpi"><div class="label">Enrolled</div><div class="value">${fmt(x.enrolled)}</div>
+      <div class="note">Of ~14,200 students · <strong>17%</strong></div></div>
+    <div class="kpi"><div class="label">Active students</div><div class="value">${fmt(x.active)}</div>
+      <div class="note"><strong>${Math.round(x.active/x.enrolled*100)}%</strong> of those enrolled</div></div>
+    <div class="kpi"><div class="label">Sessions</div><div class="value">${fmt(x.sessions)}</div>
+      <div class="note">${(x.sessions/x.active).toFixed(1)} per active student</div></div>
+    <div class="kpi"><div class="label">Outside 9–5</div><div class="value">${pct}%</div>
+      <div class="note">When your centre is closed</div></div>`;
+  const c = x.crisis;
+  document.getElementById('crisis-stat').innerHTML = `
+    <div><div class="n">${fmt(c[0])}</div><div class="l">times crisis resources were surfaced</div></div>
+    <div><div class="n">${fmt(c[1])}</div><div class="l">tapped through to a campus resource</div></div>`;
+}
+
+let exSort = { k:'completed', dir:-1 };
+function renderExTable() {
+  const rows = d().ex.map(([name, started, completed]) =>
+    ({ name, started, completed, rate: completed/started*100 }));
+  rows.sort((a,b) => {
+    const k = exSort.k;
+    return (typeof a[k] === 'string' ? a[k].localeCompare(b[k]) : a[k]-b[k]) * exSort.dir;
+  });
+  const max = Math.max(...rows.map(r => r.completed));
+  document.querySelector('#ex-table tbody').innerHTML = rows.map(r => `
+    <tr>
+      <td class="name">${r.name}</td>
+      <td class="n">${fmt(r.started)}</td>
+      <td class="n">
+        <div style="display:flex;align-items:center;gap:9px;justify-content:flex-end;">
+          <span class="bar-track" style="width:60px"><span class="bar-fill" style="width:${(r.completed/max*100).toFixed(0)}%"></span></span>
+          ${fmt(r.completed)}
+        </div>
+      </td>
+      <td class="n"><span class="pill ${r.rate>=72?'good':'mid'}">${r.rate.toFixed(0)}%</span></td>
+    </tr>`).join('');
+}
+document.querySelectorAll('#ex-table th').forEach(th => th.addEventListener('click', () => {
+  const k = th.dataset.k;
+  exSort = { k, dir: exSort.k === k ? -exSort.dir : -1 };
+  renderExTable();
+}));
+
+function renderResources() {
+  document.getElementById('res-list').innerHTML = resources.map((r,i) => `
+    <div class="res-row">
+      <div class="res-main"><div class="t">${r.name}</div><div class="d">${r.detail}</div></div>
+      <div class="res-clicks">${fmt(r.clicks||0)} taps</div>
+      <button class="del" data-i="${i}" title="Remove">&times;</button>
+    </div>`).join('') || '<p style="color:var(--ink3);font-size:13.5px;">No resources yet. Add one below.</p>';
+  document.querySelectorAll('#res-list .del').forEach(b => b.addEventListener('click', () => {
+    resources.splice(+b.dataset.i, 1); saveRes(); renderResources(); upsertChart('c-res', resChart());
+  }));
+}
+document.getElementById('res-add').addEventListener('click', () => {
+  const n = document.getElementById('res-name'), v = document.getElementById('res-detail');
+  if (!n.value.trim()) return;
+  resources.push({ name:n.value.trim(), detail:v.value.trim() || '—', clicks:0 });
+  n.value = ''; v.value = ''; saveRes(); renderResources(); upsertChart('c-res', resChart());
+});
+
+/* ── charts ───────────────────────────────────────────────────────────── */
+const noLegend = { plugins:{ legend:{ display:false } }, responsive:true, maintainAspectRatio:false };
+const yGrid = { grid:{ color:GRID }, border:{ display:false }, ticks:{ font:{ size:10 } } };
+const xBare = { grid:{ display:false }, ticks:{ font:{ size:10 } } };
+
+function upsertChart(id, cfg) {
+  const el = document.getElementById(id);
+  if (!el || !el.offsetParent) return;          // invisible: Chart.js can't size it
+  if (charts[id]) charts[id].destroy();
+  charts[id] = new Chart(el, cfg);
+}
+const hoursChart = () => ({ type:'bar',
+  data:{ labels:['12a','1','2','3','4','5','6','7','8','9a','10','11','12p','1','2','3','4','5','6','7','8','9p','10','11'],
+    datasets:[{ data:d().hours, backgroundColor:d().hours.map((_,h)=> h>=9&&h<17 ? PALE : SAGE), borderRadius:4, borderSkipped:false }] },
+  options:{ ...noLegend, plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:c=>fmt(c.parsed.y)+' sessions' } } },
+    scales:{ x:{ ...xBare, ticks:{ maxRotation:0, autoSkipPadding:8, font:{size:10} } }, y:yGrid } } });
+const mauChart = () => ({ type:'line',
+  data:{ labels:d().mau.labels, datasets:[{ data:d().mau.v, borderColor:SAGE, backgroundColor:'rgba(92,112,84,.10)',
+    fill:true, tension:.35, pointRadius:3, pointBackgroundColor:SAGE, borderWidth:2.5 }] },
+  options:{ ...noLegend, scales:{ x:xBare, y:{ ...yGrid, beginAtZero:true } } } });
+const retChart = () => ({ type:'line',
+  data:{ labels:d().ret.labels, datasets:[{ data:d().ret.v, borderColor:SAGE2, backgroundColor:'rgba(139,157,131,.14)',
+    fill:true, tension:.3, pointRadius:3, pointBackgroundColor:SAGE2, borderWidth:2.5 }] },
+  options:{ ...noLegend, plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:c=>c.parsed.y+'% returned' } } },
+    scales:{ x:xBare, y:{ ...yGrid, beginAtZero:true, max:80, ticks:{ callback:v=>v+'%', font:{size:10} } } } } });
+const lenChart = () => ({ type:'bar',
+  data:{ labels:['<2 min','2–5','5–10','10–20','20+'], datasets:[{ data:d().len, backgroundColor:SAGE2, borderRadius:4 }] },
+  options:{ ...noLegend, plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:c=>fmt(c.parsed.y)+' sessions' } } },
+    scales:{ x:xBare, y:yGrid } } });
+const modeChart = () => ({ type:'doughnut',
+  data:{ labels:['Text chat','Guided exercise','Voice session'], datasets:[{ data:d().mode, backgroundColor:[SAGE,SAGE2,PALE], borderWidth:0 }] },
+  options:{ responsive:true, maintainAspectRatio:false, cutout:'62%',
+    plugins:{ legend:{ position:'bottom', labels:{ boxWidth:10, boxHeight:10, font:{size:11.5}, padding:14 } },
+      tooltip:{ callbacks:{ label:c=>c.label+' · '+c.parsed+'%' } } } } });
+const moodChart = () => ({ type:'line',
+  data:{ labels:d().mood.labels, datasets:[{ data:d().mood.v, borderColor:SAGE, backgroundColor:'rgba(92,112,84,.10)',
+    fill:true, tension:.35, pointRadius:3, pointBackgroundColor:SAGE, borderWidth:2.5 }] },
+  options:{ ...noLegend, plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:c=>'mean '+c.parsed.y+' / 10' } } },
+    scales:{ x:xBare, y:{ ...yGrid, min:1, max:10 } } } });
+const routeChart = () => ({ type:'bar',
+  data:{ labels:resources.map(r=>r.name), datasets:[{ data:d().route.slice(0,resources.length), backgroundColor:ROSE, borderRadius:4 }] },
+  options:{ ...noLegend, indexAxis:'y',
+    plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:c=>fmt(c.parsed.x)+' from a crisis moment' } } },
+    scales:{ x:{ ...yGrid, beginAtZero:true }, y:{ grid:{display:false}, ticks:{ font:{size:11} } } } } });
+const resChart = () => ({ type:'bar',
+  data:{ labels:resources.map(r=>r.name), datasets:[{ data:resources.map(r=>r.clicks||0), backgroundColor:SAGE, borderRadius:4 }] },
+  options:{ ...noLegend, indexAxis:'y', plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:c=>fmt(c.parsed.x)+' taps' } } },
+    scales:{ x:{ ...yGrid, beginAtZero:true }, y:{ grid:{display:false}, ticks:{ font:{size:11} } } } } });
+
+const PANEL_CHARTS = {
+  overview:   [['c-hours',hoursChart],['c-mau',mauChart]],
+  engagement: [['c-ret',retChart],['c-len',lenChart],['c-mode',modeChart]],
+  wellbeing:  [['c-mood',moodChart],['c-route',routeChart]],
+  resources:  [['c-res',resChart]],
+  access:     [],
+};
+function drawPanel(name) { PANEL_CHARTS[name].forEach(([id, cfg]) => upsertChart(id, cfg())); }
+
+/* ── tabs ─────────────────────────────────────────────────────────────── */
+let current = 'overview';
+document.getElementById('tabs').addEventListener('click', e => {
+  const btn = e.target.closest('.tab'); if (!btn) return;
+  current = btn.dataset.p;
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('on', t === btn));
+  document.querySelectorAll('.panel').forEach(p => p.classList.toggle('on', p.id === 'p-' + current));
+  drawPanel(current);   // charts are built when their panel is visible, never before
+});
+
+/* ── period filter ────────────────────────────────────────────────────── */
+document.getElementById('period').addEventListener('change', e => {
+  period = e.target.value;
+  renderKpis(); renderExTable(); drawPanel(current);
+});
+
+/* ── export ───────────────────────────────────────────────────────────── */
+document.getElementById('export').addEventListener('click', () => {
+  const x = d();
+  const rows = [
+    ['Phrenly Campus — Northfield State University'],
+    ['Period', document.getElementById('period').selectedOptions[0].text],
+    [],
+    ['Metric','Value'],
+    ['Enrolled', x.enrolled], ['Active students', x.active], ['Sessions', x.sessions],
+    ['Crisis resources surfaced', x.crisis[0]], ['Campus resource click-throughs', x.crisis[1]],
+    [],
+    ['Exercise','Started','Completed','Completion rate'],
+    ...x.ex.map(([n,s,c]) => [n, s, c, (c/s*100).toFixed(1) + '%']),
+  ];
+  const csv = rows.map(r => r.map(v => `"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], { type:'text/csv' }));
+  a.download = 'phrenly-campus.csv';
+  a.click();
+});
+
+/* ── boot ─────────────────────────────────────────────────────────────── */
+renderKpis(); renderExTable(); renderResources(); drawPanel('overview');
+</script>
+</body>
+</html>

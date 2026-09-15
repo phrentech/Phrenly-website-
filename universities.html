@@ -356,6 +356,15 @@ gap: 52px; align-items: center;
 .uni-price { padding: 28px 22px; }
 }
 
+
+.uni-dash-card { background:#12201A; border-radius:18px; padding:32px 34px; color:#E8EEE6; }
+.uni-dash-stats { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:26px; margin-bottom:24px; }
+.uni-dash-stats .n { font-size:clamp(26px,3vw,34px); font-weight:800; letter-spacing:-.03em; color:#fff; line-height:1.15; }
+.uni-dash-stats .l { font-size:13px; color:rgba(232,238,230,.62); margin-top:6px; line-height:1.5; }
+.uni-dash-p { font-size:14px; color:rgba(232,238,230,.72); line-height:1.7; margin:0 0 22px; padding-top:22px; border-top:1px solid rgba(255,255,255,.1); max-width:620px; }
+.uni-dash-cta { display:inline-block; background:#8B9D83; color:#12201A; font-weight:700; font-size:14px; padding:13px 24px; border-radius:100px; text-decoration:none; }
+.uni-dash-cta:hover { background:#9FB097; }
+@media (max-width:768px){ .uni-dash-stats{grid-template-columns:1fr;gap:18px;} .uni-dash-card{padding:24px 22px;} }
 </style>
 
 </head>
@@ -440,6 +449,23 @@ gap: 52px; align-items: center;
 </div>
 
 <!-- PROCUREMENT -->
+<!-- DASHBOARD PREVIEW -->
+<section class="section">
+  <div class="section-lbl">What you get</div>
+  <h2 class="section-h2">A dashboard that answers <em>one question honestly</em></h2>
+  <p class="section-sub">Is this being used, and by how many &mdash; without ever telling you who. Enrolment and active students, when they reach out, which tools they finish, and how often a student moved from a hard moment to one of your own services.</p>
+
+  <div class="uni-dash-card">
+    <div class="uni-dash-stats">
+      <div><div class="n">71%</div><div class="l">of sessions fall outside 9&ndash;5</div></div>
+      <div><div class="n">10pm&ndash;1am</div><div class="l">when students actually reach out</div></div>
+      <div><div class="n">0</div><div class="l">conversations an administrator can read</div></div>
+    </div>
+    <p class="uni-dash-p">Aggregation happens before anything reaches the dashboard. There is no per-student view to be granted, and no setting that would create one.</p>
+    <a href="/campus-dashboard.html" class="uni-dash-cta">Open the live dashboard preview &rarr;</a>
+  </div>
+</section>
+
 <section class="section">
   <div class="section-lbl">For your review process</div>
   <h2 class="section-h2">Privacy, access and <em>compliance</em></h2>
