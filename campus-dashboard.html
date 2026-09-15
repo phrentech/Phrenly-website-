@@ -4,123 +4,168 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Phrenly Campus — Dashboard preview</title>
-<meta name="description" content="A live preview of the Phrenly Campus dashboard: what a counselling centre sees, and what it never can.">
+<meta name="description" content="A working preview of the Phrenly Campus dashboard: what a counselling centre sees, and what it never can.">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
 <style>
-:root {
+:root{
   color-scheme: light;
-  --ink: #16241a; --ink2: #4a5e48; --ink3: #8a9488;
-  --sage: #5C7054; --sage2: #8B9D83; --sage-dim: #F1F4EC; --sage-border: #DCE4D6;
-  --bg: #FBFCFA; --card: #FFFFFF; --border: #E5E9E0;
-  --rose: #E11D48; --rose-dim: #FFF1F3; --rose-border: #FBD5DC;
+  --ink:#111813; --ink2:#5B6660; --ink3:#8E9A93;
+  --line:#E9ECEA; --line2:#F2F4F2;
+  --surface:#FFFFFF; --rail:#FCFDFC;
+  --accent:#4F6B4A; --soft:#EFF3ED; --softline:#DCE5D8;
+  --pos:#2F7D4F; --neg:#B4443C; --warn:#8A6A28;
+  --r:10px;
 }
-* { box-sizing: border-box; }
-body { margin:0; background:var(--bg); color:var(--ink); font-size:15px; line-height:1.6;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif; }
-.wrap { max-width:1180px; margin:0 auto; padding:26px 26px 64px; }
-h1,h2,h3 { letter-spacing:-0.02em; }
+*{box-sizing:border-box;}
+body{margin:0;background:#fff;color:var(--ink);
+  font:400 14px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif;
+  letter-spacing:-0.006em;-webkit-font-smoothing:antialiased;}
+.num{font-variant-numeric:tabular-nums;}
 
-.top { display:flex; align-items:flex-start; justify-content:space-between; gap:20px; flex-wrap:wrap; }
-.brand { display:flex; align-items:center; gap:14px; }
-.mark { width:44px; height:44px; border-radius:13px; flex-shrink:0;
-  background:linear-gradient(135deg,var(--sage2),var(--sage)); display:flex; align-items:center;
-  justify-content:center; color:#fff; font-weight:800; font-size:19px; }
-.brand h1 { font-size:20px; margin:0; }
-.brand .sub { font-size:11.5px; color:var(--ink3); font-weight:700; letter-spacing:.09em; text-transform:uppercase; }
-.demo-badge { display:inline-flex; align-items:center; gap:7px; background:#FFF7ED; border:1px solid #FED7AA;
-  color:#9A3412; padding:7px 14px; border-radius:100px; font-size:12px; font-weight:700; }
-.dot-amber { width:7px; height:7px; border-radius:50%; background:#F59E0B; }
+.app{display:grid;grid-template-columns:238px minmax(0,1fr);min-height:760px;max-width:1240px;margin:0 auto 64px;border:1px solid var(--line);border-radius:14px;overflow:hidden;}
+.bar{position:static !important;}
 
-.inst-bar { display:flex; align-items:center; gap:12px; flex-wrap:wrap; padding:15px 20px;
-  background:var(--card); border:1px solid var(--border); border-radius:14px; margin:18px 0 16px; }
-.inst-bar .name { font-weight:700; font-size:16px; }
-.inst-bar .meta { color:var(--ink3); font-size:13px; }
-.spacer { flex:1; }
-select, button.ghost { font:inherit; font-size:13px; padding:7px 13px; border-radius:9px;
-  border:1px solid var(--border); background:var(--card); color:var(--ink2); cursor:pointer; }
-button.ghost:hover { background:var(--sage-dim); border-color:var(--sage-border); color:var(--sage); }
+/* rail */
+.rail{background:var(--rail);border-right:1px solid var(--line);padding:16px 12px;
+  display:flex;flex-direction:column;gap:18px;}
+.rtop{display:flex;align-items:center;gap:10px;padding:2px 8px 0;}
+.logo{width:28px;height:28px;border-radius:8px;background:var(--accent);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;font-size:13px;}
+.rtop .t{font-weight:600;font-size:14px;letter-spacing:-0.02em;}
+.rtop .s{font-size:11px;color:var(--ink3);line-height:1.2;}
+.org{border:1px solid var(--line);background:var(--surface);border-radius:9px;padding:8px 10px;
+  display:flex;align-items:center;gap:9px;}
+.org .av{width:22px;height:22px;border-radius:6px;background:var(--soft);color:var(--accent);
+  display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:700;flex-shrink:0;}
+.org .n{font-size:12.5px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 
-.tabs { display:flex; gap:4px; border-bottom:1px solid var(--border); margin-bottom:20px; overflow-x:auto; }
-.tab { font:inherit; font-size:13.5px; font-weight:600; padding:11px 16px; border:0; background:none;
-  color:var(--ink3); cursor:pointer; border-bottom:2px solid transparent; white-space:nowrap; }
-.tab:hover { color:var(--ink2); }
-.tab.on { color:var(--sage); border-bottom-color:var(--sage); }
-.panel { display:none; }
-.panel.on { display:block; }
+nav{display:flex;flex-direction:column;gap:1px;overflow-y:auto;}
+.grp{font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--ink3);padding:12px 10px 6px;}
+.grp:first-child{padding-top:0;}
+.it{display:flex;align-items:center;gap:9px;width:100%;text-align:left;font:inherit;font-size:13.5px;
+  color:var(--ink2);background:none;border:0;padding:6.5px 10px;border-radius:7px;cursor:pointer;}
+.it:hover{background:var(--line2);color:var(--ink);}
+.it.on{background:var(--soft);color:var(--accent);font-weight:500;}
+.it svg{width:15px;height:15px;flex-shrink:0;stroke-width:1.6;}
+.it .caret{margin-left:auto;width:11px;height:11px;stroke-width:2;transition:transform .15s;opacity:.55;}
+.it.open .caret{transform:rotate(90deg);}
+.sub{display:none;flex-direction:column;gap:1px;padding:2px 0 4px 0;}
+.sub.open{display:flex;}
+.sit{font:inherit;font-size:12.5px;color:var(--ink3);background:none;border:0;text-align:left;
+  padding:5px 10px 5px 34px;border-radius:7px;cursor:pointer;position:relative;}
+.sit::before{content:"";position:absolute;left:19px;top:0;bottom:0;width:1px;background:var(--line);}
+.sit:hover{color:var(--ink2);background:var(--line2);}
+.sit.on{color:var(--accent);font-weight:500;}
+.sit.on::before{background:var(--accent);width:1.5px;}
+.rfoot{margin-top:auto;padding:12px 10px 0;border-top:1px solid var(--line);}
+.rfoot .who{font-size:12px;color:var(--ink2);}
+.rfoot .role{font-size:11px;color:var(--ink3);}
 
-.kpis { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:13px; margin-bottom:13px; }
-.kpi { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:17px 19px; }
-.kpi .label { font-size:10.5px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--ink3); }
-.kpi .value { font-size:31px; font-weight:800; letter-spacing:-.03em; margin:5px 0 2px; }
-.kpi .note { font-size:12.5px; color:var(--ink2); }
-.kpi .note strong { color:var(--sage); }
+/* main */
+main{min-width:0;display:flex;flex-direction:column;}
+.bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:15px 28px;
+  border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:5;}
+.crumb{font-size:11.5px;color:var(--ink3);}
+.bar h1{font-size:16px;font-weight:600;margin:1px 0 0;letter-spacing:-0.02em;}
+.sp{flex:1;}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:500;
+  background:#FFFBF2;border:1px solid #F2E3C4;color:var(--warn);padding:4px 10px;border-radius:100px;}
+.chip i{width:5px;height:5px;border-radius:50%;background:#D9A441;}
+select,button.btn{font:inherit;font-size:12.5px;padding:6px 11px;border-radius:7px;
+  border:1px solid var(--line);background:#fff;color:var(--ink2);cursor:pointer;}
+select:hover,button.btn:hover{border-color:#D8DCD9;color:var(--ink);}
+.body{padding:22px 28px 60px;}
+.view{display:none;} .view.on{display:block;}
 
-.grid2 { display:grid; grid-template-columns:1.35fr 1fr; gap:13px; margin-bottom:13px; }
-.grid2.even { grid-template-columns:1fr 1fr; }
-.card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:19px 21px; }
-.card h2 { font-size:15px; margin:0 0 3px; }
-.card .cap { font-size:12.5px; color:var(--ink3); margin:0 0 15px; }
-.chart-box { height:236px; position:relative; }
-.insight { margin-top:15px; padding:13px 15px; background:var(--sage-dim); border:1px solid var(--sage-border);
-  border-radius:11px; font-size:13.5px; color:var(--ink2); }
-.insight strong { color:var(--ink); }
+/* blocks */
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-bottom:18px;}
+.kpi{background:#fff;padding:15px 17px;}
+.kpi .l{font-size:11.5px;color:var(--ink3);}
+.kpi .v{font-size:26px;font-weight:600;letter-spacing:-0.035em;margin:4px 0 3px;line-height:1.1;}
+.kpi .d{font-size:11.5px;color:var(--ink3);}
+.delta{font-weight:600;} .delta.up{color:var(--pos);} .delta.down{color:var(--neg);}
 
-table { width:100%; border-collapse:collapse; font-size:13.5px; }
-th { text-align:left; font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink3);
-  font-weight:700; padding:0 8px 9px; cursor:pointer; user-select:none; white-space:nowrap; }
-th:hover { color:var(--sage); }
-th .arrow { opacity:.45; font-size:9px; }
-td { padding:9px 8px; border-top:1px solid #F1F3EF; color:var(--ink2); vertical-align:middle; }
-td.n { text-align:right; font-variant-numeric:tabular-nums; color:var(--ink); font-weight:600; }
-td.name { color:var(--ink); font-weight:500; }
-.bar-track { height:7px; background:#F1F4EC; border-radius:100px; overflow:hidden; min-width:70px; }
-.bar-fill { height:100%; background:linear-gradient(90deg,var(--sage2),var(--sage)); border-radius:100px; }
-.pill { display:inline-block; padding:2px 9px; border-radius:100px; font-size:11px; font-weight:700; }
-.pill.good { background:var(--sage-dim); color:var(--sage); }
-.pill.mid { background:#FEF9EC; color:#A16207; }
+.row{display:grid;gap:13px;margin-bottom:13px;}
+.row.a{grid-template-columns:1.4fr 1fr;} .row.b{grid-template-columns:1fr 1fr;}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;}
+.card h2{font-size:13.5px;font-weight:600;margin:0 0 2px;letter-spacing:-0.01em;}
+.card .cap{font-size:12px;color:var(--ink3);margin:0 0 13px;}
+.chart{height:224px;position:relative;}
+.note{margin-top:12px;padding-top:11px;border-top:1px solid var(--line2);font-size:12.5px;
+  color:var(--ink2);line-height:1.6;}
+.note strong{color:var(--ink);font-weight:600;}
+.flag{display:flex;gap:9px;padding:11px 13px;border-radius:8px;background:#FFFBF2;
+  border:1px solid #F2E3C4;color:var(--warn);font-size:12.5px;line-height:1.55;margin-top:12px;}
 
-.crisis-card { border-color:var(--rose-border); background:linear-gradient(180deg,var(--rose-dim),#fff 60%); }
-.crisis-stat { display:flex; gap:26px; flex-wrap:wrap; margin:13px 0 4px; }
-.crisis-stat .n { font-size:27px; font-weight:800; letter-spacing:-.02em; }
-.crisis-stat .l { font-size:12px; color:var(--ink2); max-width:150px; line-height:1.45; }
+table{width:100%;border-collapse:collapse;font-size:13px;}
+th{text-align:left;font-size:11px;font-weight:600;color:var(--ink3);padding:0 6px 8px;
+  border-bottom:1px solid var(--line);white-space:nowrap;}
+th.s{cursor:pointer;user-select:none;} th.s:hover{color:var(--ink);}
+th.r,td.r{text-align:right;}
+td{padding:9px 6px;border-bottom:1px solid var(--line2);color:var(--ink2);}
+tr:last-child td{border-bottom:0;}
+td.nm{color:var(--ink);font-weight:500;}
+td.r{font-variant-numeric:tabular-nums;color:var(--ink);}
+td.mute{color:var(--ink3);font-style:italic;}
+.rate{display:inline-block;min-width:38px;padding:1.5px 7px;border-radius:5px;font-size:11.5px;font-weight:600;}
+.rate.hi{background:var(--soft);color:var(--accent);} .rate.lo{background:#F6F7F6;color:var(--ink2);}
 
-.res-row { display:flex; align-items:center; gap:12px; padding:12px 0; border-top:1px solid #F1F3EF; }
-.res-row:first-of-type { border-top:0; }
-.res-main { flex:1; min-width:0; }
-.res-main .t { font-weight:600; color:var(--ink); font-size:14px; }
-.res-main .d { font-size:12.5px; color:var(--ink3); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.res-clicks { font-size:12.5px; color:var(--ink2); font-variant-numeric:tabular-nums; white-space:nowrap; }
-input[type=text] { font:inherit; font-size:13.5px; padding:9px 12px; border-radius:9px;
-  border:1px solid var(--border); background:#fff; color:var(--ink); width:100%; }
-input[type=text]:focus { outline:none; border-color:var(--sage2); }
-.add-row { display:flex; gap:8px; margin-top:14px; flex-wrap:wrap; }
-.add-row input { flex:1; min-width:150px; }
-button.primary { font:inherit; font-size:13px; font-weight:700; padding:9px 18px; border-radius:9px;
-  border:0; background:var(--sage); color:#fff; cursor:pointer; white-space:nowrap; }
-button.primary:hover { background:#4a5c44; }
-button.del { border:0; background:none; color:var(--ink3); cursor:pointer; font-size:17px; line-height:1; padding:4px 6px; }
-button.del:hover { color:var(--rose); }
+.res{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--line2);}
+.res:last-of-type{border-bottom:0;}
+.res .m{flex:1;min-width:0;}
+.res .t{font-size:13.5px;font-weight:500;color:var(--ink);}
+.res .d{font-size:12px;color:var(--ink3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.res .c{font-size:12px;color:var(--ink3);font-variant-numeric:tabular-nums;}
+.x{border:0;background:none;color:var(--ink3);cursor:pointer;font-size:15px;padding:3px 5px;border-radius:5px;}
+.x:hover{background:var(--line2);color:var(--neg);}
+.add{display:flex;gap:7px;margin-top:13px;padding-top:13px;border-top:1px solid var(--line2);flex-wrap:wrap;}
+input[type=text]{font:inherit;font-size:13px;padding:7px 10px;border-radius:7px;border:1px solid var(--line);
+  background:#fff;color:var(--ink);flex:1;min-width:130px;}
+input[type=text]:focus{outline:none;border-color:var(--softline);}
+button.go{font:inherit;font-size:12.5px;font-weight:500;padding:7px 15px;border-radius:7px;
+  border:1px solid var(--accent);background:var(--accent);color:#fff;cursor:pointer;}
+button.go:hover{background:#445D40;}
 
-.privacy { background:#12201A; border-radius:16px; padding:27px 29px; color:#E8EEE6; }
-.privacy h2 { color:#fff; font-size:17px; margin:0 0 6px; }
-.privacy .cap { color:rgba(232,238,230,.55); font-size:13px; margin:0 0 19px; }
-.pgrid { display:grid; grid-template-columns:1fr 1fr; gap:26px; }
-.plist { list-style:none; margin:0; padding:0; }
-.plist li { display:flex; gap:10px; align-items:flex-start; padding:6px 0; font-size:13.5px; color:rgba(232,238,230,.88); }
-.tick { color:#8B9D83; font-weight:800; flex-shrink:0; }
-.cross { color:#F87171; font-weight:800; flex-shrink:0; }
-.plabel { font-size:10.5px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:rgba(232,238,230,.45); margin-bottom:6px; }
-.privacy .foot { margin:21px 0 0; padding-top:17px; border-top:1px solid rgba(255,255,255,.1);
-  font-size:13px; color:rgba(232,238,230,.7); }
+.def{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;}
+.def > div{padding:17px 19px;background:#fff;}
+.def > div:first-child{border-right:1px solid var(--line);}
+.def h3{font-size:11.5px;font-weight:600;color:var(--ink3);margin:0 0 11px;}
+.def ul{list-style:none;margin:0;padding:0;}
+.def li{display:flex;gap:9px;padding:5px 0;font-size:13px;color:var(--ink2);}
+.def .y{color:var(--pos);font-weight:600;} .def .n{color:var(--ink3);font-weight:600;}
 
-.seat-bar { height:11px; background:#EEF1EC; border-radius:100px; overflow:hidden; margin:12px 0 8px; }
-.seat-fill { height:100%; background:linear-gradient(90deg,var(--sage2),var(--sage)); border-radius:100px; }
-.code-box { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:19px; font-weight:700;
-  letter-spacing:.14em; background:var(--sage-dim); border:1px dashed var(--sage-border); color:var(--sage);
-  padding:14px 18px; border-radius:11px; text-align:center; margin:12px 0 6px; }
+.seat{height:6px;background:var(--line2);border-radius:100px;overflow:hidden;margin:11px 0 9px;}
+.seat i{display:block;height:100%;background:var(--accent);border-radius:100px;}
+.code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:16px;font-weight:600;
+  letter-spacing:.12em;background:var(--soft);border:1px solid var(--softline);color:var(--accent);
+  padding:11px 15px;border-radius:8px;text-align:center;margin:11px 0 9px;}
+.big{font-size:26px;font-weight:600;letter-spacing:-0.035em;}
+.big span{font-size:15px;color:var(--ink3);font-weight:400;}
+.tier{display:inline-block;padding:2px 8px;border-radius:5px;font-size:11px;font-weight:600;
+  background:var(--soft);color:var(--accent);}
+.tier.off{background:#F6F7F6;color:var(--ink3);}
+.toggle{width:34px;height:20px;border-radius:100px;background:var(--line);border:0;cursor:pointer;
+  position:relative;flex-shrink:0;transition:background .15s;}
+.toggle i{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;
+  transition:transform .15s;box-shadow:0 1px 2px rgba(0,0,0,.12);}
+.toggle.on{background:var(--accent);} .toggle.on i{transform:translateX(14px);}
+.setrow{display:flex;align-items:flex-start;gap:14px;padding:13px 0;border-bottom:1px solid var(--line2);}
+.setrow:last-child{border-bottom:0;}
+.setrow .m{flex:1;}
+.setrow .t{font-size:13.5px;font-weight:500;color:var(--ink);}
+.setrow .d{font-size:12.5px;color:var(--ink3);line-height:1.5;margin-top:2px;}
 
-@media (max-width:900px){ .kpis{grid-template-columns:repeat(2,minmax(0,1fr));}
-  .grid2,.grid2.even{grid-template-columns:1fr;} .pgrid{grid-template-columns:1fr;gap:20px;} }
+@media (max-width:1000px){
+  .app{grid-template-columns:1fr;}
+  .rail{flex-direction:column;border-right:0;border-bottom:1px solid var(--line);}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .row.a,.row.b{grid-template-columns:1fr;}
+  .def{grid-template-columns:1fr;}
+  .def > div:first-child{border-right:0;border-bottom:1px solid var(--line);}
+  .body,.bar{padding-left:16px;padding-right:16px;}
+}
 /* ── NAV ── */
 .nav {
 display: flex; align-items: center; justify-content: space-between;
@@ -153,12 +198,14 @@ cursor: pointer; text-decoration: none; transition: all 0.2s;
 .nav-links { display: none; }
 .footer { flex-direction: column; gap: 20px; text-align: center; padding: 32px 20px; }
 .footer-links { flex-wrap: wrap; justify-content: center; }
-.dash-intro { max-width:1180px; margin:0 auto; padding:34px 26px 0; }
-.dash-intro .lbl { font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--ink3); }
-.dash-intro h1 { font-size:clamp(28px,3.5vw,40px); margin:8px 0 12px; }
-.dash-intro p { font-size:16px; color:var(--ink2); max-width:640px; line-height:1.75; margin:0 0 4px; }
-.dash-intro .back { display:inline-block; margin-top:20px; font-size:13.5px; color:var(--sage); text-decoration:none; font-weight:600; }
-.dash-intro .back:hover { text-decoration:underline; }
+.dash-intro{max-width:1240px;margin:0 auto;padding:40px 24px 26px;}
+.dash-intro .lbl{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8a9488;}
+.dash-intro h1{font-size:clamp(28px,3.5vw,40px);margin:9px 0 13px;letter-spacing:-0.02em;color:#16241a;}
+.dash-intro p{font-size:16px;color:#4a5e48;max-width:660px;line-height:1.75;margin:0 0 6px;}
+.dash-intro .back{display:inline-block;margin-top:20px;font-size:13.5px;color:#5C7054;text-decoration:none;font-weight:600;}
+.dash-intro .back:hover{text-decoration:underline;}
+body{background:#FBFCFA;}
+@media (max-width:1000px){ .app{min-height:0;margin-bottom:40px;} }
 </style>
 </head>
 <body>
@@ -176,217 +223,46 @@ cursor: pointer; text-decoration: none; transition: all 0.2s;
 <div class="dash-intro">
   <div class="lbl">Phrenly Campus</div>
   <h1>What your counselling centre would see</h1>
-  <p>This is the real dashboard, running on sample figures for a university that doesn&rsquo;t exist.
-  Move between the tabs, change the period, add one of your own resources &mdash; it all works.</p>
-  <p>The part worth reading first is <strong>Access &amp; privacy</strong>, because it says plainly
-  what an administrator can never see.</p>
+  <p>The actual dashboard, running on sample figures for a university that doesn&rsquo;t exist. Move
+  through the sections, change the period, add one of your own resources &mdash; all of it works.</p>
+  <p>Two places worth looking first: <strong>Persistence</strong>, where a cohort too small to report
+  is suppressed rather than shown, and <strong>Settings</strong>, where the switch for individual
+  student lookup cannot be turned on because no such view exists.</p>
   <a class="back" href="/universities">&larr; Back to Phrenly for universities</a>
 </div>
 
-<div class="wrap">
+<div class="app">
 
-  <div class="top">
-    <div class="brand">
-      <div class="mark">P</div>
-      <div><h1>Phrenly Campus</h1><div class="sub">Institutional dashboard</div></div>
+  <aside class="rail">
+    <div class="rtop">
+      <div class="logo">P</div>
+      <div><div class="t">Phrenly</div><div class="s">Campus</div></div>
     </div>
-    <div class="demo-badge"><span class="dot-amber"></span> Demo data</div>
-  </div>
+    <div class="org"><div class="av">NS</div><div class="n">Northfield State</div></div>
+    <nav id="nav"></nav>
+    <div class="rfoot">
+      <div class="who">A. Moreau</div>
+      <div class="role">Clinical administrator</div>
+    </div>
+  </aside>
 
-  <div class="inst-bar">
-    <span class="name">Northfield State University</span>
-    <span class="meta">2,400 seats · pilot began 14 Jan 2026</span>
-    <span class="spacer"></span>
-    <select id="period">
-      <option value="30">Last 30 days</option>
-      <option value="90">Last 90 days</option>
-      <option value="all">Full pilot</option>
-    </select>
-    <button class="ghost" id="export">Export CSV</button>
-  </div>
-
-  <div class="tabs" id="tabs">
-    <button class="tab on" data-p="overview">Overview</button>
-    <button class="tab" data-p="engagement">Engagement</button>
-    <button class="tab" data-p="wellbeing">Wellbeing signals</button>
-    <button class="tab" data-p="resources">Campus resources</button>
-    <button class="tab" data-p="access">Access &amp; privacy</button>
-  </div>
-
-  <!-- OVERVIEW -->
-  <div class="panel on" id="p-overview">
-    <div class="kpis" id="kpis"></div>
-    <div class="grid2">
-      <div class="card">
-        <h2>When students actually reach out</h2>
-        <p class="cap">Sessions by hour. Counselling centre hours shaded.</p>
-        <div class="chart-box"><canvas id="c-hours"></canvas></div>
-        <div class="insight">
-          <strong>Peak use is 10pm–1am.</strong> <span id="afterHoursLine"></span> of sessions happen
-          when no one is at the desk — the hours this is meant to cover, not the ones it competes with.
-        </div>
+  <main>
+    <div class="bar">
+      <div>
+        <div class="crumb" id="crumb">Analytics</div>
+        <h1 id="title">Overview</h1>
       </div>
-      <div class="card">
-        <h2>Monthly active students</h2>
-        <p class="cap">Since the pilot began</p>
-        <div class="chart-box"><canvas id="c-mau"></canvas></div>
-        <div class="insight">Growth has been word of mouth. No campus-wide email went out after January.</div>
-      </div>
+      <span class="sp"></span>
+      <span class="chip"><i></i> Demo data</span>
+      <select id="period">
+        <option value="30">Last 30 days</option>
+        <option value="90">Last 90 days</option>
+        <option value="all">Full pilot</option>
+      </select>
+      <button class="btn" id="export">Export</button>
     </div>
-  </div>
-
-  <!-- ENGAGEMENT -->
-  <div class="panel" id="p-engagement">
-    <div class="grid2 even">
-      <div class="card">
-        <h2>Exercise completion</h2>
-        <p class="cap">Click a column to sort</p>
-        <table id="ex-table">
-          <thead><tr>
-            <th data-k="name">Exercise <span class="arrow">▾</span></th>
-            <th data-k="started" style="text-align:right">Started <span class="arrow">▾</span></th>
-            <th data-k="completed" style="text-align:right">Completed <span class="arrow">▾</span></th>
-            <th data-k="rate" style="text-align:right">Rate <span class="arrow">▾</span></th>
-          </tr></thead>
-          <tbody></tbody>
-        </table>
-        <div class="insight">
-          Completion matters more than starts. Grounding and breathing get used in the moment;
-          Thought Record and Safety Plan are started less but finished more reliably.
-        </div>
-      </div>
-      <div class="card">
-        <h2>Returning students</h2>
-        <p class="cap">Of students active in a given month, how many were active the next</p>
-        <div class="chart-box"><canvas id="c-ret"></canvas></div>
-        <div class="insight">
-          Month-over-month return rate. <strong>Retention, not downloads,</strong> is what tells you
-          whether a wellness tool is being used or merely installed.
-        </div>
-      </div>
-    </div>
-    <div class="grid2 even">
-      <div class="card">
-        <h2>Session length</h2>
-        <p class="cap">Distribution across all sessions in period</p>
-        <div class="chart-box"><canvas id="c-len"></canvas></div>
-      </div>
-      <div class="card">
-        <h2>How students use it</h2>
-        <p class="cap">Share of sessions by mode</p>
-        <div class="chart-box"><canvas id="c-mode"></canvas></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- WELLBEING -->
-  <div class="panel" id="p-wellbeing">
-    <div class="grid2">
-      <div class="card">
-        <h2>Aggregate mood trend</h2>
-        <p class="cap">Mean self-reported mood across all students who logged one, by week</p>
-        <div class="chart-box"><canvas id="c-mood"></canvas></div>
-        <div class="insight">
-          Self-reported, aggregate, and <strong>not a clinical measure.</strong> It is useful for
-          spotting a cohort-level dip around exam weeks, and for nothing else.
-        </div>
-      </div>
-      <div class="card crisis-card">
-        <h2>Crisis resource routing</h2>
-        <p class="cap">Counts only — no identities</p>
-        <div class="crisis-stat" id="crisis-stat"></div>
-        <div class="insight" style="background:var(--rose-dim);border-color:var(--rose-border);">
-          Aggregate counts across all enrolled students. You cannot see who they were. If you need
-          per-student intervention, Phrenly is the wrong tool and we will say so.
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <h2>Where students went next</h2>
-      <p class="cap">Click-throughs from a crisis moment to a resource you configured</p>
-      <div class="chart-box" style="height:200px"><canvas id="c-route"></canvas></div>
-    </div>
-  </div>
-
-  <!-- RESOURCES -->
-  <div class="panel" id="p-resources">
-    <div class="grid2">
-      <div class="card">
-        <h2>Your campus resources</h2>
-        <p class="cap">What Phrenly points students toward. Yours, not ours — edit any time.</p>
-        <div id="res-list"></div>
-        <div class="add-row">
-          <input type="text" id="res-name" placeholder="Resource name">
-          <input type="text" id="res-detail" placeholder="Phone, hours or URL">
-          <button class="primary" id="res-add">Add</button>
-        </div>
-        <div class="insight">
-          Phrenly surfaces these alongside national crisis lines. A student at 1am gets
-          <strong>your</strong> after-hours number, not a generic one.
-        </div>
-      </div>
-      <div class="card">
-        <h2>Resource click-throughs</h2>
-        <p class="cap">This period</p>
-        <div class="chart-box"><canvas id="c-res"></canvas></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ACCESS -->
-  <div class="panel" id="p-access">
-    <div class="grid2 even">
-      <div class="card">
-        <h2>Seat usage</h2>
-        <p class="cap">Licensed seats against enrolled students</p>
-        <div style="font-size:31px;font-weight:800;letter-spacing:-.03em;margin-top:8px;">2,412 <span style="font-size:17px;color:var(--ink3);font-weight:600;">/ 2,400</span></div>
-        <div class="seat-bar"><div class="seat-fill" style="width:100%"></div></div>
-        <p style="font-size:13px;color:var(--ink2);margin:0;">
-          At capacity. 148 students are on a waitlist. Seats can be added mid-term without a new agreement.
-        </p>
-      </div>
-      <div class="card">
-        <h2>Enrolment code</h2>
-        <p class="cap">Students enter this once, at signup</p>
-        <div class="code-box">NORTHFIELD26</div>
-        <p style="font-size:13px;color:var(--ink2);margin:0;">
-          No IT integration, no student directory, no SSO required. Distribute it however you already
-          reach students. It can be rotated at any time.
-        </p>
-      </div>
-    </div>
-    <div class="privacy">
-      <h2>What you can and cannot see</h2>
-      <p class="cap">The part worth reading before you decide anything else.</p>
-      <div class="pgrid">
-        <div>
-          <div class="plabel">Available to your institution</div>
-          <ul class="plist">
-            <li><span class="tick">✓</span> Enrolment and active-user counts</li>
-            <li><span class="tick">✓</span> Usage patterns by hour and by week</li>
-            <li><span class="tick">✓</span> Which exercises get completed</li>
-            <li><span class="tick">✓</span> Aggregate crisis-routing counts</li>
-            <li><span class="tick">✓</span> Campus resource click-throughs</li>
-          </ul>
-        </div>
-        <div>
-          <div class="plabel">Never available, to anyone</div>
-          <ul class="plist">
-            <li><span class="cross">✕</span> Any conversation, in whole or in part</li>
-            <li><span class="cross">✕</span> Which student used it, or when</li>
-            <li><span class="cross">✕</span> Which students were flagged for risk</li>
-            <li><span class="cross">✕</span> Mood entries or anything written in an exercise</li>
-            <li><span class="cross">✕</span> Names, emails, or student IDs</li>
-          </ul>
-        </div>
-      </div>
-      <p class="foot">
-        Aggregation happens before data reaches this dashboard, and no per-student view exists to be
-        granted. A student who believes they are being watched does not tell the truth at 1am — which
-        would defeat the point of running the pilot at all.
-      </p>
-    </div>
-  </div>
+    <div class="body" id="body"></div>
+  </main>
 </div>
 <footer class="footer">
   <a href="/" class="footer-logo">Phren<span>ly</span></a>
@@ -400,242 +276,434 @@ cursor: pointer; text-decoration: none; transition: all 0.2s;
 </footer>
 
 <script>
-/* ── data ──────────────────────────────────────────────────────────────────
-   Three periods so the filter does real work rather than decorating the page. */
-const SAGE='#5C7054', SAGE2='#8B9D83', PALE='#D8E0D2', GRID='#EEF1EC', ROSE='#E11D48';
+const ACCENT='#4F6B4A',SOFT='#C9D6C4',GREY='#E4E7E5',GRID='#F1F3F1';
 Chart.defaults.font.family='-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif';
-Chart.defaults.color='#8a9488';
+Chart.defaults.font.size=11; Chart.defaults.color='#8E9A93';
+const fmt=n=>n.toLocaleString();
 
-const DATA = {
-  '30': {
-    enrolled:2412, active:1038, sessions:7914, seats:2400,
-    hours:[186,121,74,41,28,22,31,58,97,142,168,191,204,178,166,182,211,247,318,402,489,571,624,538],
-    mau:{labels:['Jun','Jul','Aug'],v:[812,907,1038]},
-    ex:[['5-4-3-2-1 Grounding',1702,1284],['Box Breathing',1486,1147],['Thought Record',981,706],
-        ['STOP Skill',844,588],['Mindful Minute',712,512],['Worry Time',604,404],
-        ['Self-Kindness',528,371],['What Matters',401,266],['Safety Plan',146,118]],
-    ret:{labels:['Mar','Apr','May','Jun','Jul','Aug'],v:[38,44,47,51,54,58]},
-    len:[1204,2611,2388,1305,406],
-    mode:[62,26,12],
-    mood:{labels:['W1','W2','W3','W4'],v:[6.1,5.8,5.4,5.9]},
-    crisis:[312,94],
-    route:[41,23,18,12]
-  },
-  '90': {
-    enrolled:2412, active:1622, sessions:21486, seats:2400,
-    hours:[502,331,201,112,77,61,86,158,264,388,459,521,556,486,452,497,574,672,864,1092,1328,1551,1694,1462],
-    mau:{labels:['Apr','May','Jun','Jul','Aug'],v:[596,703,812,907,1038]},
-    ex:[['5-4-3-2-1 Grounding',4611,3478],['Box Breathing',4022,3106],['Thought Record',2657,1912],
-        ['STOP Skill',2286,1592],['Mindful Minute',1928,1387],['Worry Time',1636,1094],
-        ['Self-Kindness',1430,1005],['What Matters',1086,720],['Safety Plan',395,319]],
-    ret:{labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug'],v:[22,31,38,44,47,51,54,58]},
-    len:[3268,7086,6481,3542,1102],
-    mode:[59,28,13],
-    mood:{labels:['W1','W3','W5','W7','W9','W11'],v:[5.9,6.0,5.6,5.3,5.7,5.9]},
-    crisis:[847,261],
-    route:[112,64,49,36]
-  },
-  'all': {
-    enrolled:2412, active:1914, sessions:41208, seats:2400,
-    hours:[963,635,386,215,148,117,165,303,506,744,880,999,1066,932,867,953,1101,1289,1657,2094,2547,2975,3249,2804],
-    mau:{labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug'],v:[104,287,441,596,703,812,907,1038]},
-    ex:[['5-4-3-2-1 Grounding',8842,6669],['Box Breathing',7714,5957],['Thought Record',5096,3667],
-        ['STOP Skill',4384,3054],['Mindful Minute',3698,2661],['Worry Time',3138,2098],
-        ['Self-Kindness',2743,1928],['What Matters',2083,1381],['Safety Plan',758,612]],
-    ret:{labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug'],v:[22,31,38,44,47,51,54,58]},
-    len:[6268,13590,12432,6793,2125],
-    mode:[57,29,14],
-    mood:{labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug'],v:[5.7,5.9,6.0,5.6,5.3,5.7,5.9,6.0]},
-    crisis:[1624,503],
-    route:[214,123,94,72]
-  }
+/* ── navigation ─────────────────────────────────────────── */
+const ICON={
+  grid:'<path d="M3 4.5A1.5 1.5 0 014.5 3h4A1.5 1.5 0 0110 4.5v4A1.5 1.5 0 018.5 10h-4A1.5 1.5 0 013 8.5zM14 4.5A1.5 1.5 0 0115.5 3h4A1.5 1.5 0 0121 4.5v1A1.5 1.5 0 0119.5 7h-4A1.5 1.5 0 0114 5.5zM14 12.5A1.5 1.5 0 0115.5 11h4a1.5 1.5 0 011.5 1.5v7a1.5 1.5 0 01-1.5 1.5h-4a1.5 1.5 0 01-1.5-1.5zM3 15.5A1.5 1.5 0 014.5 14h4a1.5 1.5 0 011.5 1.5v4A1.5 1.5 0 018.5 21h-4A1.5 1.5 0 013 19.5z"/>',
+  chart:'<path d="M3 17l5-6 4 4 6-8"/><path d="M21 7h-4"/>',
+  pulse:'<path d="M3 12h4l2-6 4 13 2.5-7H21"/>',
+  users:'<circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0112 0"/><path d="M16 6a3 3 0 010 6M21 20a5.5 5.5 0 00-3-4.9"/>',
+  trend:'<path d="M3 16l5-5 4 3 7-8"/><path d="M15 6h4v4"/>',
+  doc:'<path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/>',
+  clock:'<circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/>',
+  list:'<path d="M4 5h16M4 12h16M4 19h10"/>',
+  key:'<circle cx="8" cy="12" r="4"/><path d="M12 12h9M18 12v3"/>',
+  team:'<circle cx="8" cy="9" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 19a5 5 0 0110 0M15 19a4.5 4.5 0 016 0"/>',
+  gear:'<circle cx="12" cy="12" r="3"/><path d="M12 3v2M12 19v2M4.2 7.5l1.7 1M18.1 15.5l1.7 1M4.2 16.5l1.7-1M18.1 8.5l1.7-1"/>',
 };
-const RES_DEFAULT = [
-  { name:'Counselling & Psychological Services', detail:'(555) 014-2200 · Mon–Fri 9–5', clicks:214 },
-  { name:'After-hours crisis line', detail:'(555) 014-2299 · 24/7', clicks:123 },
-  { name:'Dean of Students', detail:'students@northfield.edu', clicks:94 },
-  { name:'Peer support drop-in', detail:'Student Union, Rm 240 · Tue & Thu evenings', clicks:72 },
+const NAV=[
+  {group:'Analytics',items:[
+    {id:'overview',label:'Overview',icon:'grid'},
+    {id:'engagement',label:'Engagement',icon:'chart',sub:[
+      {id:'eng-usage',label:'Usage'},{id:'eng-exercises',label:'Exercises'},{id:'eng-retention',label:'Retention'}]},
+    {id:'wellbeing',label:'Wellbeing',icon:'pulse',sub:[
+      {id:'wb-mood',label:'Mood'},{id:'wb-crisis',label:'Crisis routing'},{id:'wb-referrals',label:'Referrals'}]},
+    {id:'cohorts',label:'Cohorts',icon:'users'},
+    {id:'persistence',label:'Persistence',icon:'trend'},
+  ]},
+  {group:'Reports',items:[
+    {id:'saved',label:'Saved reports',icon:'doc'},
+    {id:'scheduled',label:'Scheduled delivery',icon:'clock'},
+  ]},
+  {group:'Configuration',items:[
+    {id:'resources',label:'Campus resources',icon:'list'},
+    {id:'enrolment',label:'Enrolment & seats',icon:'key'},
+    {id:'team',label:'Team & permissions',icon:'team'},
+  ]},
+  {group:'',items:[{id:'settings',label:'Settings',icon:'gear'}]},
 ];
-
-let period = '30';
-const d = () => DATA[period];
-const charts = {};
-const fmt = n => n.toLocaleString();
-
-/* ── resources (persisted per viewer) ─────────────────────────────────── */
-let resources = RES_DEFAULT.slice();
-try {
-  const saved = localStorage.getItem('phrenly_campus_resources');
-  if (saved) resources = JSON.parse(saved);
-} catch (e) { /* storage can be unavailable; defaults are fine */ }
-const saveRes = () => {
-  try { localStorage.setItem('phrenly_campus_resources', JSON.stringify(resources)); } catch (e) {}
-};
-
-/* ── renderers ────────────────────────────────────────────────────────── */
-function renderKpis() {
-  const x = d();
-  const after = x.hours.reduce((s,v,h) => s + (h>=9&&h<17 ? 0 : v), 0);
-  const pct = Math.round(after / x.hours.reduce((a,b)=>a+b,0) * 100);
-  document.getElementById('afterHoursLine').textContent = pct + '%';
-  document.getElementById('kpis').innerHTML = `
-    <div class="kpi"><div class="label">Enrolled</div><div class="value">${fmt(x.enrolled)}</div>
-      <div class="note">Of ~14,200 students · <strong>17%</strong></div></div>
-    <div class="kpi"><div class="label">Active students</div><div class="value">${fmt(x.active)}</div>
-      <div class="note"><strong>${Math.round(x.active/x.enrolled*100)}%</strong> of those enrolled</div></div>
-    <div class="kpi"><div class="label">Sessions</div><div class="value">${fmt(x.sessions)}</div>
-      <div class="note">${(x.sessions/x.active).toFixed(1)} per active student</div></div>
-    <div class="kpi"><div class="label">Outside 9–5</div><div class="value">${pct}%</div>
-      <div class="note">When your centre is closed</div></div>`;
-  const c = x.crisis;
-  document.getElementById('crisis-stat').innerHTML = `
-    <div><div class="n">${fmt(c[0])}</div><div class="l">times crisis resources were surfaced</div></div>
-    <div><div class="n">${fmt(c[1])}</div><div class="l">tapped through to a campus resource</div></div>`;
-}
-
-let exSort = { k:'completed', dir:-1 };
-function renderExTable() {
-  const rows = d().ex.map(([name, started, completed]) =>
-    ({ name, started, completed, rate: completed/started*100 }));
-  rows.sort((a,b) => {
-    const k = exSort.k;
-    return (typeof a[k] === 'string' ? a[k].localeCompare(b[k]) : a[k]-b[k]) * exSort.dir;
-  });
-  const max = Math.max(...rows.map(r => r.completed));
-  document.querySelector('#ex-table tbody').innerHTML = rows.map(r => `
-    <tr>
-      <td class="name">${r.name}</td>
-      <td class="n">${fmt(r.started)}</td>
-      <td class="n">
-        <div style="display:flex;align-items:center;gap:9px;justify-content:flex-end;">
-          <span class="bar-track" style="width:60px"><span class="bar-fill" style="width:${(r.completed/max*100).toFixed(0)}%"></span></span>
-          ${fmt(r.completed)}
-        </div>
-      </td>
-      <td class="n"><span class="pill ${r.rate>=72?'good':'mid'}">${r.rate.toFixed(0)}%</span></td>
-    </tr>`).join('');
-}
-document.querySelectorAll('#ex-table th').forEach(th => th.addEventListener('click', () => {
-  const k = th.dataset.k;
-  exSort = { k, dir: exSort.k === k ? -exSort.dir : -1 };
-  renderExTable();
+const CRUMB={}, TITLE={};
+NAV.forEach(g=>g.items.forEach(i=>{
+  CRUMB[i.id]=g.group||'Account'; TITLE[i.id]=i.label;
+  (i.sub||[]).forEach(s=>{CRUMB[s.id]=g.group+' · '+i.label; TITLE[s.id]=s.label;});
 }));
 
-function renderResources() {
-  document.getElementById('res-list').innerHTML = resources.map((r,i) => `
-    <div class="res-row">
-      <div class="res-main"><div class="t">${r.name}</div><div class="d">${r.detail}</div></div>
-      <div class="res-clicks">${fmt(r.clicks||0)} taps</div>
-      <button class="del" data-i="${i}" title="Remove">&times;</button>
-    </div>`).join('') || '<p style="color:var(--ink3);font-size:13.5px;">No resources yet. Add one below.</p>';
-  document.querySelectorAll('#res-list .del').forEach(b => b.addEventListener('click', () => {
-    resources.splice(+b.dataset.i, 1); saveRes(); renderResources(); upsertChart('c-res', resChart());
-  }));
+function buildNav(){
+  const n=document.getElementById('nav');
+  n.innerHTML=NAV.map(g=>{
+    const head=g.group?`<div class="grp">${g.group}</div>`:'<div style="height:10px"></div>';
+    return head+g.items.map(i=>{
+      const caret=i.sub?'<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 6l6 6-6 6"/></svg>':'';
+      const kids=i.sub?`<div class="sub" id="sub-${i.id}">`+i.sub.map(s=>
+        `<button class="sit" data-v="${s.id}">${s.label}</button>`).join('')+'</div>':'';
+      return `<button class="it" data-v="${i.id}" data-has="${!!i.sub}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">${ICON[i.icon]}</svg>${i.label}${caret}</button>${kids}`;
+    }).join('');
+  }).join('');
 }
-document.getElementById('res-add').addEventListener('click', () => {
-  const n = document.getElementById('res-name'), v = document.getElementById('res-detail');
-  if (!n.value.trim()) return;
-  resources.push({ name:n.value.trim(), detail:v.value.trim() || '—', clicks:0 });
-  n.value = ''; v.value = ''; saveRes(); renderResources(); upsertChart('c-res', resChart());
-});
 
-/* ── charts ───────────────────────────────────────────────────────────── */
-const noLegend = { plugins:{ legend:{ display:false } }, responsive:true, maintainAspectRatio:false };
-const yGrid = { grid:{ color:GRID }, border:{ display:false }, ticks:{ font:{ size:10 } } };
-const xBare = { grid:{ display:false }, ticks:{ font:{ size:10 } } };
-
-function upsertChart(id, cfg) {
-  const el = document.getElementById(id);
-  if (!el || !el.offsetParent) return;          // invisible: Chart.js can't size it
-  if (charts[id]) charts[id].destroy();
-  charts[id] = new Chart(el, cfg);
-}
-const hoursChart = () => ({ type:'bar',
-  data:{ labels:['12a','1','2','3','4','5','6','7','8','9a','10','11','12p','1','2','3','4','5','6','7','8','9p','10','11'],
-    datasets:[{ data:d().hours, backgroundColor:d().hours.map((_,h)=> h>=9&&h<17 ? PALE : SAGE), borderRadius:4, borderSkipped:false }] },
-  options:{ ...noLegend, plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:c=>fmt(c.parsed.y)+' sessions' } } },
-    scales:{ x:{ ...xBare, ticks:{ maxRotation:0, autoSkipPadding:8, font:{size:10} } }, y:yGrid } } });
-const mauChart = () => ({ type:'line',
-  data:{ labels:d().mau.labels, datasets:[{ data:d().mau.v, borderColor:SAGE, backgroundColor:'rgba(92,112,84,.10)',
-    fill:true, tension:.35, pointRadius:3, pointBackgroundColor:SAGE, borderWidth:2.5 }] },
-  options:{ ...noLegend, scales:{ x:xBare, y:{ ...yGrid, beginAtZero:true } } } });
-const retChart = () => ({ type:'line',
-  data:{ labels:d().ret.labels, datasets:[{ data:d().ret.v, borderColor:SAGE2, backgroundColor:'rgba(139,157,131,.14)',
-    fill:true, tension:.3, pointRadius:3, pointBackgroundColor:SAGE2, borderWidth:2.5 }] },
-  options:{ ...noLegend, plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:c=>c.parsed.y+'% returned' } } },
-    scales:{ x:xBare, y:{ ...yGrid, beginAtZero:true, max:80, ticks:{ callback:v=>v+'%', font:{size:10} } } } } });
-const lenChart = () => ({ type:'bar',
-  data:{ labels:['<2 min','2–5','5–10','10–20','20+'], datasets:[{ data:d().len, backgroundColor:SAGE2, borderRadius:4 }] },
-  options:{ ...noLegend, plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:c=>fmt(c.parsed.y)+' sessions' } } },
-    scales:{ x:xBare, y:yGrid } } });
-const modeChart = () => ({ type:'doughnut',
-  data:{ labels:['Text chat','Guided exercise','Voice session'], datasets:[{ data:d().mode, backgroundColor:[SAGE,SAGE2,PALE], borderWidth:0 }] },
-  options:{ responsive:true, maintainAspectRatio:false, cutout:'62%',
-    plugins:{ legend:{ position:'bottom', labels:{ boxWidth:10, boxHeight:10, font:{size:11.5}, padding:14 } },
-      tooltip:{ callbacks:{ label:c=>c.label+' · '+c.parsed+'%' } } } } });
-const moodChart = () => ({ type:'line',
-  data:{ labels:d().mood.labels, datasets:[{ data:d().mood.v, borderColor:SAGE, backgroundColor:'rgba(92,112,84,.10)',
-    fill:true, tension:.35, pointRadius:3, pointBackgroundColor:SAGE, borderWidth:2.5 }] },
-  options:{ ...noLegend, plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:c=>'mean '+c.parsed.y+' / 10' } } },
-    scales:{ x:xBare, y:{ ...yGrid, min:1, max:10 } } } });
-const routeChart = () => ({ type:'bar',
-  data:{ labels:resources.map(r=>r.name), datasets:[{ data:d().route.slice(0,resources.length), backgroundColor:ROSE, borderRadius:4 }] },
-  options:{ ...noLegend, indexAxis:'y',
-    plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:c=>fmt(c.parsed.x)+' from a crisis moment' } } },
-    scales:{ x:{ ...yGrid, beginAtZero:true }, y:{ grid:{display:false}, ticks:{ font:{size:11} } } } } });
-const resChart = () => ({ type:'bar',
-  data:{ labels:resources.map(r=>r.name), datasets:[{ data:resources.map(r=>r.clicks||0), backgroundColor:SAGE, borderRadius:4 }] },
-  options:{ ...noLegend, indexAxis:'y', plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:c=>fmt(c.parsed.x)+' taps' } } },
-    scales:{ x:{ ...yGrid, beginAtZero:true }, y:{ grid:{display:false}, ticks:{ font:{size:11} } } } } });
-
-const PANEL_CHARTS = {
-  overview:   [['c-hours',hoursChart],['c-mau',mauChart]],
-  engagement: [['c-ret',retChart],['c-len',lenChart],['c-mode',modeChart]],
-  wellbeing:  [['c-mood',moodChart],['c-route',routeChart]],
-  resources:  [['c-res',resChart]],
-  access:     [],
+/* ── data ───────────────────────────────────────────────── */
+const D={
+ '30':{enrolled:2412,active:1038,sessions:7914,prev:{active:907,sessions:7102},
+  hours:[186,121,74,41,28,22,31,58,97,142,168,191,204,178,166,182,211,247,318,402,489,571,624,538],
+  mau:{l:['Jun','Jul','Aug'],v:[812,907,1038]},
+  ex:[['5-4-3-2-1 Grounding',1702,1284],['Box Breathing',1486,1147],['Thought Record',981,706],
+      ['STOP Skill',844,588],['Mindful Minute',712,512],['Worry Time',604,404],
+      ['Self-Kindness',528,371],['What Matters',401,266],['Safety Plan',146,118]],
+  ret:{l:['Mar','Apr','May','Jun','Jul','Aug'],v:[38,44,47,51,54,58]},
+  len:[1204,2611,2388,1305,406],mode:[62,26,12],
+  mood:{l:['Week 1','Week 2','Week 3','Week 4'],v:[6.1,5.8,5.4,5.9]},
+  crisis:[312,94],route:[41,23,18,12],
+  cohorts:[['First-year',864,412,48],['Sophomore',521,206,40],['Junior / Senior',706,268,38],
+           ['Graduate',231,109,47],['International',90,43,48]],
+  persist:[['Never activated',412,84.2],['1–4 sessions',286,86.7],['5–19 sessions',501,90.8],
+           ['20+ sessions',237,92.4],['International, 20+',7,null]]},
+ '90':{enrolled:2412,active:1622,sessions:21486,prev:{active:1403,sessions:18240},
+  hours:[502,331,201,112,77,61,86,158,264,388,459,521,556,486,452,497,574,672,864,1092,1328,1551,1694,1462],
+  mau:{l:['Apr','May','Jun','Jul','Aug'],v:[596,703,812,907,1038]},
+  ex:[['5-4-3-2-1 Grounding',4611,3478],['Box Breathing',4022,3106],['Thought Record',2657,1912],
+      ['STOP Skill',2286,1592],['Mindful Minute',1928,1387],['Worry Time',1636,1094],
+      ['Self-Kindness',1430,1005],['What Matters',1086,720],['Safety Plan',395,319]],
+  ret:{l:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug'],v:[22,31,38,44,47,51,54,58]},
+  len:[3268,7086,6481,3542,1102],mode:[59,28,13],
+  mood:{l:['W1','W3','W5','W7','W9','W11'],v:[5.9,6.0,5.6,5.3,5.7,5.9]},
+  crisis:[847,261],route:[112,64,49,36],
+  cohorts:[['First-year',864,601,52],['Sophomore',521,318,44],['Junior / Senior',706,412,41],
+           ['Graduate',231,166,49],['International',90,62,51]],
+  persist:[['Never activated',412,84.2],['1–4 sessions',286,86.7],['5–19 sessions',501,90.8],
+           ['20+ sessions',237,92.4],['International, 20+',7,null]]},
+ 'all':{enrolled:2412,active:1914,sessions:41208,prev:null,
+  hours:[963,635,386,215,148,117,165,303,506,744,880,999,1066,932,867,953,1101,1289,1657,2094,2547,2975,3249,2804],
+  mau:{l:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug'],v:[104,287,441,596,703,812,907,1038]},
+  ex:[['5-4-3-2-1 Grounding',8842,6669],['Box Breathing',7714,5957],['Thought Record',5096,3667],
+      ['STOP Skill',4384,3054],['Mindful Minute',3698,2661],['Worry Time',3138,2098],
+      ['Self-Kindness',2743,1928],['What Matters',2083,1381],['Safety Plan',758,612]],
+  ret:{l:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug'],v:[22,31,38,44,47,51,54,58]},
+  len:[6268,13590,12432,6793,2125],mode:[57,29,14],
+  mood:{l:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug'],v:[5.7,5.9,6.0,5.6,5.3,5.7,5.9,6.0]},
+  crisis:[1624,503],route:[214,123,94,72],
+  cohorts:[['First-year',864,708,61],['Sophomore',521,377,49],['Junior / Senior',706,489,44],
+           ['Graduate',231,187,53],['International',90,73,55]],
+  persist:[['Never activated',412,84.2],['1–4 sessions',286,86.7],['5–19 sessions',501,90.8],
+           ['20+ sessions',237,92.4],['International, 20+',7,null]]},
 };
-function drawPanel(name) { PANEL_CHARTS[name].forEach(([id, cfg]) => upsertChart(id, cfg())); }
+const RES0=[{name:'Counselling & Psychological Services',detail:'(555) 014-2200 · Mon–Fri 9–5',clicks:214},
+ {name:'After-hours crisis line',detail:'(555) 014-2299 · 24/7',clicks:123},
+ {name:'Dean of Students',detail:'students@northfield.edu',clicks:94},
+ {name:'Peer support drop-in',detail:'Student Union Rm 240 · Tue & Thu evenings',clicks:72}];
 
-/* ── tabs ─────────────────────────────────────────────────────────────── */
-let current = 'overview';
-document.getElementById('tabs').addEventListener('click', e => {
-  const btn = e.target.closest('.tab'); if (!btn) return;
-  current = btn.dataset.p;
-  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('on', t === btn));
-  document.querySelectorAll('.panel').forEach(p => p.classList.toggle('on', p.id === 'p-' + current));
-  drawPanel(current);   // charts are built when their panel is visible, never before
+let period='30',view='overview',charts={};
+const d=()=>D[period];
+let resources=RES0.slice();
+try{const v=localStorage.getItem('phrenly_campus_resources'); if(v) resources=JSON.parse(v);}catch(e){}
+const saveRes=()=>{try{localStorage.setItem('phrenly_campus_resources',JSON.stringify(resources));}catch(e){}};
+
+function delta(now,then){
+  if(then==null) return '';
+  const p=Math.round((now-then)/then*100);
+  return `<span class="delta ${p>=0?'up':'down'}">${p>=0?'↑':'↓'} ${Math.abs(p)}%</span> vs previous`;
+}
+const afterPct=()=>{const x=d();
+  return Math.round(x.hours.reduce((s,v,h)=>s+(h>=9&&h<17?0:v),0)/x.hours.reduce((a,b)=>a+b,0)*100);};
+
+/* ── chart factories ────────────────────────────────────── */
+const base={responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}}};
+const yAx={grid:{color:GRID},border:{display:false},ticks:{padding:6}};
+const xAx={grid:{display:false},border:{color:GREY},ticks:{padding:4}};
+function mk(id,cfg){const el=document.getElementById(id); if(!el||!el.offsetParent) return;
+  if(charts[id]) charts[id].destroy(); charts[id]=new Chart(el,cfg);}
+const C={
+ hours:()=>({type:'bar',data:{labels:['12a','1','2','3','4','5','6','7','8','9a','10','11','12p','1','2','3','4','5','6','7','8','9p','10','11'],
+   datasets:[{data:d().hours,backgroundColor:d().hours.map((_,h)=>h>=9&&h<17?GREY:ACCENT),borderRadius:3,borderSkipped:false,barPercentage:.8}]},
+   options:{...base,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>fmt(c.parsed.y)+' sessions'}}},
+     scales:{x:{...xAx,ticks:{maxRotation:0,autoSkipPadding:10,padding:4}},y:yAx}}}),
+ line:(l,v,tip,yo)=>({type:'line',data:{labels:l,datasets:[{data:v,borderColor:ACCENT,
+   backgroundColor:'rgba(79,107,74,.07)',fill:true,tension:.35,pointRadius:0,pointHoverRadius:4,borderWidth:2}]},
+   options:{...base,plugins:{legend:{display:false},tooltip:{callbacks:{label:tip}}},
+     scales:{x:xAx,y:yo||{...yAx,beginAtZero:true}}}}),
+ bars:(l,v,col,tip)=>({type:'bar',data:{labels:l,datasets:[{data:v,backgroundColor:col,borderRadius:3,barPercentage:.7}]},
+   options:{...base,plugins:{legend:{display:false},tooltip:{callbacks:{label:tip}}},scales:{x:xAx,y:yAx}}}),
+ barsH:(l,v,col,tip)=>({type:'bar',data:{labels:l,datasets:[{data:v,backgroundColor:col,borderRadius:3,barPercentage:.65}]},
+   options:{...base,indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:tip}}},
+     scales:{x:{...yAx,beginAtZero:true},y:{grid:{display:false},border:{display:false},ticks:{padding:4}}}}}),
+ donut:()=>({type:'doughnut',data:{labels:['Text chat','Guided exercise','Voice session'],
+   datasets:[{data:d().mode,backgroundColor:[ACCENT,SOFT,GREY],borderWidth:0}]},
+   options:{responsive:true,maintainAspectRatio:false,cutout:'70%',
+     plugins:{legend:{position:'bottom',labels:{boxWidth:8,boxHeight:8,padding:14}},
+       tooltip:{callbacks:{label:c=>c.label+' · '+c.parsed+'%'}}}}}),
+};
+
+/* ── views ──────────────────────────────────────────────── */
+const kpi=(l,v,dd)=>`<div class="kpi"><div class="l">${l}</div><div class="v num">${v}</div><div class="d">${dd}</div></div>`;
+const V={};
+
+V.overview=()=>{const x=d(),p=x.prev;
+ return `<div class="kpis">
+   ${kpi('Enrolled students',fmt(x.enrolled),'17% of ~14,200 total')}
+   ${kpi('Active students',fmt(x.active),p?delta(x.active,p.active):Math.round(x.active/x.enrolled*100)+'% of enrolled')}
+   ${kpi('Sessions',fmt(x.sessions),p?delta(x.sessions,p.sessions):(x.sessions/x.active).toFixed(1)+' per active student')}
+   ${kpi('Outside staffed hours',afterPct()+'%','Of all sessions')}</div>
+ <div class="row a">
+   <div class="card"><h2>Sessions by hour</h2><p class="cap">Counselling centre hours in grey</p>
+     <div class="chart"><canvas id="c1"></canvas></div>
+     <p class="note"><strong>Use peaks between 10pm and 1am.</strong> ${afterPct()}% of sessions fall
+     outside staffed hours — the window this covers rather than competes with.</p></div>
+   <div class="card"><h2>Active students</h2><p class="cap">Monthly, since launch</p>
+     <div class="chart"><canvas id="c2"></canvas></div>
+     <p class="note">Growth has been word of mouth. No campus-wide announcement went out after January.</p></div>
+ </div>`;};
+V.overview.charts=()=>{mk('c1',C.hours());mk('c2',C.line(d().mau.l,d().mau.v,c=>fmt(c.parsed.y)+' active'));};
+
+V['eng-usage']=()=>`<div class="row b">
+  <div class="card"><h2>Sessions by hour</h2><p class="cap">Counselling centre hours in grey</p>
+    <div class="chart"><canvas id="c1"></canvas></div></div>
+  <div class="card"><h2>Session length</h2><p class="cap">Distribution across the period</p>
+    <div class="chart"><canvas id="c2"></canvas></div></div></div>
+ <div class="row b">
+  <div class="card"><h2>Mode of use</h2><p class="cap">Share of sessions</p>
+    <div class="chart"><canvas id="c3"></canvas></div></div>
+  <div class="card"><h2>Active students</h2><p class="cap">Monthly</p>
+    <div class="chart"><canvas id="c4"></canvas></div></div></div>`;
+V['eng-usage'].charts=()=>{mk('c1',C.hours());
+  mk('c2',C.bars(['<2 min','2–5','5–10','10–20','20+'],d().len,SOFT,c=>fmt(c.parsed.y)+' sessions'));
+  mk('c3',C.donut()); mk('c4',C.line(d().mau.l,d().mau.v,c=>fmt(c.parsed.y)+' active'));};
+
+let sort={k:'completed',dir:-1};
+V['eng-exercises']=()=>{
+  const rows=d().ex.map(([name,started,completed])=>({name,started,completed,rate:completed/started*100}));
+  rows.sort((a,b)=>{const k=sort.k;return (typeof a[k]==='string'?a[k].localeCompare(b[k]):a[k]-b[k])*sort.dir;});
+  return `<div class="row a"><div class="card"><h2>Exercise completion</h2>
+    <p class="cap">Select a column to sort</p>
+    <table id="ex"><thead><tr><th class="s" data-k="name">Exercise</th>
+      <th class="s r" data-k="started">Started</th><th class="s r" data-k="completed">Completed</th>
+      <th class="s r" data-k="rate">Rate</th></tr></thead><tbody>
+      ${rows.map(r=>`<tr><td class="nm">${r.name}</td><td class="r">${fmt(r.started)}</td>
+        <td class="r">${fmt(r.completed)}</td>
+        <td class="r"><span class="rate ${r.rate>=72?'hi':'lo'}">${r.rate.toFixed(0)}%</span></td></tr>`).join('')}
+    </tbody></table>
+    <p class="note">Grounding and breathing are used in the moment. Thought Record and Safety Plan are
+    started less often but <strong>finished more reliably.</strong></p></div>
+    <div class="card"><h2>Completions</h2><p class="cap">This period</p>
+    <div class="chart" style="height:300px"><canvas id="c1"></canvas></div></div></div>`;};
+V['eng-exercises'].charts=()=>{
+  mk('c1',C.barsH(d().ex.map(e=>e[0]),d().ex.map(e=>e[2]),ACCENT,c=>fmt(c.parsed.x)+' completed'));
+  document.querySelectorAll('#ex th.s').forEach(th=>th.addEventListener('click',()=>{
+    const k=th.dataset.k; sort={k,dir:sort.k===k?-sort.dir:-1}; render();}));};
+
+V['eng-retention']=()=>`<div class="row a">
+  <div class="card"><h2>Return rate</h2><p class="cap">Active one month, active the next</p>
+    <div class="chart"><canvas id="c1"></canvas></div>
+    <p class="note"><strong>Retention, not installs.</strong> The figure that distinguishes a tool
+    students use from one they downloaded.</p></div>
+  <div class="card"><h2>Active students</h2><p class="cap">Monthly</p>
+    <div class="chart"><canvas id="c2"></canvas></div></div></div>`;
+V['eng-retention'].charts=()=>{
+  mk('c1',C.line(d().ret.l,d().ret.v,c=>c.parsed.y+'% returned',{...yAx,beginAtZero:true,max:80,ticks:{callback:v=>v+'%',padding:6}}));
+  mk('c2',C.line(d().mau.l,d().mau.v,c=>fmt(c.parsed.y)+' active'));};
+
+V['wb-mood']=()=>`<div class="row a">
+  <div class="card"><h2>Mood, aggregated</h2><p class="cap">Mean self-reported score among students who logged one</p>
+    <div class="chart"><canvas id="c1"></canvas></div>
+    <p class="note">Self-reported and aggregate. <strong>Not a clinical measure.</strong> Useful for
+    spotting a cohort-level dip around exam weeks, and little else.</p></div>
+  <div class="card"><h2>Participation</h2><p class="cap">Students logging mood</p>
+    <div style="padding:8px 0"><div class="big num">${Math.round(d().active*0.41).toLocaleString()}</div>
+    <div style="font-size:12.5px;color:var(--ink3);margin-top:4px">41% of active students</div></div>
+    <p class="note">Mood logging is optional and always has been. A low rate is not a data problem.</p></div></div>`;
+V['wb-mood'].charts=()=>mk('c1',C.line(d().mood.l,d().mood.v,c=>'mean '+c.parsed.y+' of 10',{...yAx,min:1,max:10}));
+
+V['wb-crisis']=()=>{const x=d();
+ return `<div class="kpis">
+   ${kpi('Crisis resources surfaced',fmt(x.crisis[0]),'Aggregate count, no identities')}
+   ${kpi('Referred to your services',fmt(x.crisis[1]),Math.round(x.crisis[1]/x.crisis[0]*100)+'% handoff rate')}
+   ${kpi('Students enrolled',fmt(x.enrolled),'Denominator for all rates')}
+   ${kpi('Identifiable students','0','By design, not by policy')}</div>
+ <div class="row a">
+  <div class="card"><h2>Where students went next</h2><p class="cap">Click-throughs from a crisis moment</p>
+    <div class="chart"><canvas id="c1"></canvas></div></div>
+  <div class="card"><h2>What this records</h2><p class="cap">And what it deliberately does not</p>
+   <div class="note" style="border:0;padding:0;margin:0">
+   Crisis events are written with an institution identifier and <strong>no student identifier at
+   all.</strong> There is no table that could be joined to produce a name, here or anywhere else.
+   <br><br>A university needs the count. It does not need the person, and making that structurally
+   impossible is worth more than promising it.</div></div></div>`;};
+V['wb-crisis'].charts=()=>mk('c1',C.barsH(resources.map(r=>r.name),d().route.slice(0,resources.length),ACCENT,c=>fmt(c.parsed.x)+' referrals'));
+
+V['wb-referrals']=()=>`<div class="row a">
+  <div class="card"><h2>Referrals by resource</h2><p class="cap">From a crisis moment to one of your services</p>
+    <div class="chart"><canvas id="c1"></canvas></div>
+    <p class="note">This is the number that shows Phrenly <strong>feeds</strong> your counselling
+    centre rather than diverting from it.</p></div>
+  <div class="card"><h2>All click-throughs</h2><p class="cap">Any context, not only crisis</p>
+    <div class="chart"><canvas id="c2"></canvas></div></div></div>`;
+V['wb-referrals'].charts=()=>{
+  mk('c1',C.barsH(resources.map(r=>r.name),d().route.slice(0,resources.length),ACCENT,c=>fmt(c.parsed.x)+' referrals'));
+  mk('c2',C.barsH(resources.map(r=>r.name),resources.map(r=>r.clicks||0),SOFT,c=>fmt(c.parsed.x)+' taps'));};
+
+V.cohorts=()=>`<div class="row a">
+  <div class="card"><h2>Uptake by cohort</h2><p class="cap">Enrolled and active students within each group</p>
+   <table><thead><tr><th>Cohort</th><th class="r">Enrolled</th><th class="r">Active</th><th class="r">Uptake</th></tr></thead>
+   <tbody>${d().cohorts.map(([n,e,a,p])=>`<tr><td class="nm">${n}</td><td class="r">${fmt(e)}</td>
+     <td class="r">${fmt(a)}</td><td class="r"><span class="rate ${p>=48?'hi':'lo'}">${p}%</span></td></tr>`).join('')}</tbody></table>
+   <p class="note">Cohorts are academic groupings supplied by your roster file. <strong>No demographic
+   breakdown is available</strong> — not because we haven't built it, but because we won't.</p></div>
+  <div class="card"><h2>Uptake</h2><p class="cap">Active as a share of enrolled</p>
+   <div class="chart" style="height:280px"><canvas id="c1"></canvas></div></div></div>`;
+V.cohorts.charts=()=>mk('c1',C.barsH(d().cohorts.map(c=>c[0]),d().cohorts.map(c=>c[3]),ACCENT,c=>c.parsed.x+'% uptake'));
+
+V.persistence=()=>{const rows=d().persist;
+ return `<div class="row a">
+  <div class="card"><h2>Persistence by usage</h2><p class="cap">Students still enrolled the following term</p>
+   <table><thead><tr><th>Usage in term</th><th class="r">Students</th><th class="r">Still enrolled</th></tr></thead>
+   <tbody>${rows.map(([n,s,p])=>`<tr><td class="nm">${n}</td><td class="r">${fmt(s)}</td>
+     ${p===null?'<td class="r mute">Not enough data</td>':`<td class="r">${p}%</td>`}</tr>`).join('')}</tbody></table>
+   <div class="flag"><span>⚠</span><span><strong>Association, not causation.</strong> Students who
+   choose to engage with a wellbeing tool differ from those who don't in ways this table cannot see.
+   Read it as a signal worth investigating, not as evidence of effect.</span></div>
+   <p class="note">Any group under 10 students is suppressed, because a small cohort plus a small count
+   is identifying. That threshold is not adjustable.</p></div>
+  <div class="card"><h2>Still enrolled next term</h2><p class="cap">By usage tier</p>
+   <div class="chart" style="height:250px"><canvas id="c1"></canvas></div>
+   <p class="note">Computed from your nightly roster file. Phrenly never receives a student name,
+   email or ID — only a hash your own system generates.</p></div></div>`;};
+V.persistence.charts=()=>{const r=d().persist.filter(x=>x[2]!==null);
+  mk('c1',C.bars(r.map(x=>x[0]),r.map(x=>x[2]),ACCENT,c=>c.parsed.y+'% still enrolled'));
+  if(charts.c1) charts.c1.options.scales.y={...yAx,min:75,max:100,ticks:{callback:v=>v+'%',padding:6}},charts.c1.update();};
+
+V.saved=()=>`<div class="card"><h2>Saved reports</h2><p class="cap">Report definitions you've created</p>
+ <table><thead><tr><th>Report</th><th>Contents</th><th>Last run</th><th class="r">Format</th></tr></thead><tbody>
+ <tr><td class="nm">Term utilisation summary</td><td>Enrolment, active users, sessions, after-hours share</td><td>2 Sep 2026</td><td class="r">PDF</td></tr>
+ <tr><td class="nm">Cabinet one-pager</td><td>Headline figures only, no charts</td><td>1 Sep 2026</td><td class="r">PDF</td></tr>
+ <tr><td class="nm">Crisis routing detail</td><td>Aggregate counts and referral destinations</td><td>28 Aug 2026</td><td class="r">CSV</td></tr>
+ <tr><td class="nm">Exercise completion</td><td>Started, completed and rate by exercise</td><td>28 Aug 2026</td><td class="r">CSV</td></tr>
+ </tbody></table>
+ <p class="note">Reports contain the same aggregates as the dashboard. There is no report that
+ exposes anything the dashboard won't.</p></div>`;
+
+V.scheduled=()=>`<div class="card"><h2>Scheduled delivery</h2><p class="cap">Emailed automatically, to whoever needs them</p>
+ <table><thead><tr><th>Report</th><th>Cadence</th><th>Recipients</th><th class="r">Next</th></tr></thead><tbody>
+ <tr><td class="nm">Term utilisation summary</td><td>Monthly, 1st</td><td>a.moreau@northfield.edu</td><td class="r">1 Oct</td></tr>
+ <tr><td class="nm">Cabinet one-pager</td><td>Each term</td><td>3 recipients</td><td class="r">15 Dec</td></tr>
+ <tr><td class="nm">Crisis routing detail</td><td>Weekly, Monday</td><td>a.moreau@northfield.edu</td><td class="r">22 Sep</td></tr>
+ </tbody></table>
+ <p class="note">Most institutions report upward once a term. Scheduling it means the figure in the
+ cabinet paper is the same one on this screen, which is <strong>not usually true</strong> when
+ someone is copying numbers by hand the night before.</p></div>`;
+
+V.resources=()=>`<div class="row a">
+ <div class="card"><h2>Your campus resources</h2><p class="cap">What Phrenly points students toward. Yours to edit at any time.</p>
+  <div id="rl"></div>
+  <div class="add"><input type="text" id="rn" placeholder="Resource name">
+   <input type="text" id="rd" placeholder="Phone, hours or URL"><button class="go" id="ra">Add</button></div>
+  <p class="note">These appear alongside national crisis lines. A student at 1am is given
+  <strong>your</strong> after-hours number first.</p></div>
+ <div class="card"><h2>Click-throughs</h2><p class="cap">This period</p>
+  <div class="chart"><canvas id="c1"></canvas></div></div></div>`;
+V.resources.charts=()=>{renderRes();
+  mk('c1',C.barsH(resources.map(r=>r.name),resources.map(r=>r.clicks||0),SOFT,c=>fmt(c.parsed.x)+' taps'));};
+
+V.enrolment=()=>`<div class="row b">
+ <div class="card"><h2>Seats</h2><p class="cap">Licensed against enrolled</p>
+  <div class="big num">2,412 <span>/ 2,400</span></div><div class="seat"><i style="width:100%"></i></div>
+  <p class="note" style="border:0;padding:0;margin-top:2px">At capacity, with 148 students waitlisted.
+  Seats can be added mid-term without a new agreement.</p></div>
+ <div class="card"><h2>Enrolment code</h2><p class="cap">Entered once, at signup</p>
+  <div class="code">NORTHFIELD26</div>
+  <p class="note" style="border:0;padding:0;margin-top:2px">No directory integration, no SSO, nothing
+  required from IT. Rotate it whenever you like.</p></div></div>
+ <div class="card"><h2>Data integration</h2><p class="cap">How much of your data Phrenly receives</p>
+  <table><thead><tr><th>Tier</th><th>Method</th><th>Unlocks</th><th class="r">Status</th></tr></thead><tbody>
+  <tr><td class="nm">Tier 0</td><td>Enrolment code</td><td>Utilisation, exercises, crisis routing</td><td class="r"><span class="tier">Active</span></td></tr>
+  <tr><td class="nm">Tier 1</td><td>Nightly roster file over SFTP</td><td>Persistence, cohorts</td><td class="r"><span class="tier">Active</span></td></tr>
+  <tr><td class="nm">Tier 2</td><td>Campus SSO (SAML / LTI 1.3)</td><td>Removes the code, auto-deprovisioning</td><td class="r"><span class="tier off">Available</span></td></tr>
+  <tr><td class="nm">Tier 3</td><td>Live API (Ethos / Workday)</td><td>Real-time status</td><td class="r"><span class="tier off">On request</span></td></tr>
+  </tbody></table>
+  <p class="note">Your roster file sends four columns: a <strong>hash your system generates</strong>,
+  term, status and cohort. The salt stays on your side. Phrenly cannot reverse it, and if you rotate
+  the salt the link simply breaks.</p></div>`;
+
+V.team=()=>`<div class="card"><h2>Team</h2><p class="cap">Who can see what</p>
+ <table><thead><tr><th>Person</th><th>Role</th><th>Access</th><th class="r">Added</th></tr></thead><tbody>
+ <tr><td class="nm">A. Moreau</td><td>Clinical administrator</td><td>All analytics, crisis routing, resources</td><td class="r">Jan 2026</td></tr>
+ <tr><td class="nm">J. Okafor</td><td>Clinical administrator</td><td>All analytics, crisis routing, resources</td><td class="r">Feb 2026</td></tr>
+ <tr><td class="nm">R. Lindqvist</td><td>Organisational administrator</td><td>Utilisation and seats only</td><td class="r">Jan 2026</td></tr>
+ <tr><td class="nm">M. Bassey</td><td>Reporting only</td><td>Scheduled reports, no dashboard</td><td class="r">Mar 2026</td></tr>
+ </tbody></table>
+ <p class="note">Two administrator types, matching how counselling centres actually work. An
+ <strong>organisational</strong> administrator handling the contract sees utilisation and seats.
+ Crisis routing is visible only to <strong>clinical</strong> administrators.</p></div>`;
+
+V.settings=()=>`<div class="row b">
+ <div class="card"><h2>Institution</h2><p class="cap">Displayed across the dashboard and in reports</p>
+  <div class="setrow"><div class="m"><div class="t">Northfield State University</div>
+   <div class="d">2,400 licensed seats · pilot began 14 January 2026</div></div></div>
+  <div class="setrow"><div class="m"><div class="t">Academic calendar</div>
+   <div class="d">Semester · Fall, Spring, Summer</div></div></div>
+  <div class="setrow"><div class="m"><div class="t">Time zone</div>
+   <div class="d">America/Chicago — hourly charts are rendered in local time</div></div></div></div>
+ <div class="card"><h2>Privacy controls</h2><p class="cap">Some of these cannot be switched on</p>
+  <div class="setrow"><div class="m"><div class="t">Minimum cohort size</div>
+   <div class="d">Suppress any figure below 10 students. Fixed — not adjustable by anyone, including us.</div></div>
+   <button class="toggle on" disabled><i></i></button></div>
+  <div class="setrow"><div class="m"><div class="t">Show persistence analysis</div>
+   <div class="d">Requires a Tier 1 roster file. Turn off to hide it from all administrators.</div></div>
+   <button class="toggle on" data-t="1"><i></i></button></div>
+  <div class="setrow"><div class="m"><div class="t">Individual student lookup</div>
+   <div class="d">Not available. No per-student view exists in the product to be enabled.</div></div>
+   <button class="toggle" disabled><i></i></button></div></div></div>`;
+
+/* ── render ─────────────────────────────────────────────── */
+function renderRes(){
+  const el=document.getElementById('rl'); if(!el) return;
+  el.innerHTML=resources.map((r,i)=>`<div class="res"><div class="m"><div class="t">${r.name}</div>
+    <div class="d">${r.detail}</div></div><div class="c">${fmt(r.clicks||0)}</div>
+    <button class="x" data-i="${i}">&times;</button></div>`).join('')||'<p class="cap" style="margin:0">Nothing configured yet.</p>';
+  el.querySelectorAll('.x').forEach(b=>b.addEventListener('click',()=>{
+    resources.splice(+b.dataset.i,1); saveRes(); render();}));
+  const add=document.getElementById('ra');
+  if(add) add.onclick=()=>{const n=document.getElementById('rn'),v=document.getElementById('rd');
+    if(!n.value.trim()) return;
+    resources.push({name:n.value.trim(),detail:v.value.trim()||'—',clicks:0}); saveRes(); render();};
+}
+function render(){
+  Object.values(charts).forEach(c=>c.destroy()); charts={};
+  document.getElementById('crumb').textContent=CRUMB[view]||'';
+  document.getElementById('title').textContent=TITLE[view]||'';
+  document.getElementById('body').innerHTML=(V[view]||(()=>'<div class="card"><p class="cap" style="margin:0">Nothing here yet.</p></div>'))();
+  if(V[view]&&V[view].charts) V[view].charts();
+  document.querySelectorAll('.toggle[data-t]').forEach(t=>t.onclick=()=>t.classList.toggle('on'));
+}
+function setView(id){
+  view=id;
+  document.querySelectorAll('.it,.sit').forEach(b=>b.classList.toggle('on',b.dataset.v===id));
+  // keep a parent highlighted and its children open when a child is selected
+  NAV.forEach(g=>g.items.forEach(i=>{
+    if(!i.sub) return;
+    const open=i.id===id||i.sub.some(s=>s.id===id);
+    document.getElementById('sub-'+i.id).classList.toggle('open',open);
+    const btn=document.querySelector(`.it[data-v="${i.id}"]`);
+    btn.classList.toggle('open',open);
+    if(i.sub.some(s=>s.id===id)) btn.classList.add('on');
+  }));
+  render();
+}
+buildNav();
+document.getElementById('nav').addEventListener('click',e=>{
+  const b=e.target.closest('.it,.sit'); if(!b) return;
+  const id=b.dataset.v;
+  // a parent with children opens its first child rather than a blank page
+  const parent=NAV.flatMap(g=>g.items).find(i=>i.id===id&&i.sub);
+  setView(parent?parent.sub[0].id:id);
 });
-
-/* ── period filter ────────────────────────────────────────────────────── */
-document.getElementById('period').addEventListener('change', e => {
-  period = e.target.value;
-  renderKpis(); renderExTable(); drawPanel(current);
+document.getElementById('period').addEventListener('change',e=>{period=e.target.value;render();});
+document.getElementById('export').addEventListener('click',()=>{
+  const x=d(),rows=[['Phrenly Campus — Northfield State University'],
+    ['Period',document.getElementById('period').selectedOptions[0].text],['View',TITLE[view]],[],
+    ['Metric','Value'],['Enrolled',x.enrolled],['Active students',x.active],['Sessions',x.sessions],
+    ['Outside staffed hours',afterPct()+'%'],
+    ['Crisis resources surfaced',x.crisis[0]],['Referred to campus services',x.crisis[1]],[],
+    ['Exercise','Started','Completed','Rate'],...x.ex.map(([n,s,c])=>[n,s,c,(c/s*100).toFixed(1)+'%']),[],
+    ['Cohort','Enrolled','Active','Uptake'],...x.cohorts.map(c=>[c[0],c[1],c[2],c[3]+'%'])];
+  const csv=rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
+  a.download='phrenly-campus.csv'; a.click();
 });
-
-/* ── export ───────────────────────────────────────────────────────────── */
-document.getElementById('export').addEventListener('click', () => {
-  const x = d();
-  const rows = [
-    ['Phrenly Campus — Northfield State University'],
-    ['Period', document.getElementById('period').selectedOptions[0].text],
-    [],
-    ['Metric','Value'],
-    ['Enrolled', x.enrolled], ['Active students', x.active], ['Sessions', x.sessions],
-    ['Crisis resources surfaced', x.crisis[0]], ['Campus resource click-throughs', x.crisis[1]],
-    [],
-    ['Exercise','Started','Completed','Completion rate'],
-    ...x.ex.map(([n,s,c]) => [n, s, c, (c/s*100).toFixed(1) + '%']),
-  ];
-  const csv = rows.map(r => r.map(v => `"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([csv], { type:'text/csv' }));
-  a.download = 'phrenly-campus.csv';
-  a.click();
-});
-
-/* ── boot ─────────────────────────────────────────────────────────────── */
-renderKpis(); renderExTable(); renderResources(); drawPanel('overview');
+setView('overview');
 </script>
 </body>
 </html>
