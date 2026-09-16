@@ -198,13 +198,20 @@ cursor: pointer; text-decoration: none; transition: all 0.2s;
 .nav-links { display: none; }
 .footer { flex-direction: column; gap: 20px; text-align: center; padding: 32px 20px; }
 .footer-links { flex-wrap: wrap; justify-content: center; }
-.dash-intro{max-width:1240px;margin:0 auto;padding:40px 24px 26px;}
-.dash-intro .lbl{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8a9488;}
-.dash-intro h1{font-size:clamp(28px,3.5vw,40px);margin:9px 0 13px;letter-spacing:-0.02em;color:#16241a;}
-.dash-intro p{font-size:16px;color:#4a5e48;max-width:660px;line-height:1.75;margin:0 0 6px;}
-.dash-intro .back{display:inline-block;margin-top:20px;font-size:13.5px;color:#5C7054;text-decoration:none;font-weight:600;}
-.dash-intro .back:hover{text-decoration:underline;}
+.dash-hero{background:#12201A;color:#E8EEE6;padding:52px 24px 48px;margin-bottom:34px;}
+.dash-hero .inner{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1.25fr 1fr;gap:56px;align-items:end;}
+.dash-hero .lbl{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#8B9D83;margin-bottom:12px;}
+.dash-hero h1{font-size:clamp(30px,3.6vw,44px);line-height:1.12;margin:0 0 16px;letter-spacing:-0.025em;color:#fff;font-weight:600;}
+.dash-hero p{font-size:16px;line-height:1.72;color:rgba(232,238,230,.72);margin:0;}
+.dash-hero .aside{border-left:1px solid rgba(255,255,255,.13);padding-left:28px;}
+.dash-hero .aside p{font-size:14.5px;line-height:1.7;color:rgba(232,238,230,.62);margin:0 0 18px;}
+.dash-hero .aside strong{color:#fff;font-weight:600;}
+.dash-hero .back{display:inline-block;font-size:13px;color:#8B9D83;text-decoration:none;font-weight:600;}
+.dash-hero .back:hover{color:#fff;}
 body{background:#FBFCFA;}
+@media (max-width:860px){ .dash-hero .inner{grid-template-columns:1fr;gap:28px;align-items:start;}
+  .dash-hero .aside{border-left:0;border-top:1px solid rgba(255,255,255,.13);padding-left:0;padding-top:22px;}
+  .dash-hero{padding:38px 18px 34px;margin-bottom:24px;} }
 @media (max-width:1000px){ .app{min-height:0;margin-bottom:40px;} }
 </style>
 </head>
@@ -220,15 +227,22 @@ body{background:#FBFCFA;}
   <a href="mailto:universities@phrentech.com" class="nav-cta">Talk to us</a>
 </nav>
 
-<div class="dash-intro">
-  <div class="lbl">Phrenly Campus</div>
-  <h1>What your counselling centre would see</h1>
-  <p>The actual dashboard, running on sample figures for a university that doesn&rsquo;t exist. Move
-  through the sections, change the period, add one of your own resources &mdash; all of it works.</p>
-  <p>Two places worth looking first: <strong>Persistence</strong>, where a cohort too small to report
-  is suppressed rather than shown, and <strong>Settings</strong>, where the switch for individual
-  student lookup cannot be turned on because no such view exists.</p>
-  <a class="back" href="/universities">&larr; Back to Phrenly for universities</a>
+<div class="dash-hero">
+  <div class="inner">
+    <div>
+      <div class="lbl">Phrenly Campus</div>
+      <h1>What your counselling centre would see</h1>
+      <p>The actual dashboard, running on sample figures for a university that doesn&rsquo;t exist.
+      Move through the sections, change the period, add one of your own resources &mdash; all of it
+      works.</p>
+    </div>
+    <div class="aside">
+      <p>Two places worth looking first. <strong>Persistence</strong>, where a cohort too small to
+      report is suppressed rather than shown. And <strong>Settings</strong>, where the switch for
+      individual student lookup cannot be turned on, because no such view exists.</p>
+      <a class="back" href="/universities">&larr; Back to Phrenly for universities</a>
+    </div>
+  </div>
 </div>
 
 <div class="app">
