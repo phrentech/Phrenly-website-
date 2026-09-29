@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Phrenly Campus — Dashboard preview</title>
-<meta name="description" content="A working preview of the Phrenly Campus dashboard: what a counselling centre sees, and what it never can.">
+<meta name="description" content="A working preview of the Phrenly Campus dashboard: what a counseling center sees, and what it never can.">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
 <style>
 :root{
@@ -231,7 +231,7 @@ body{background:#FBFCFA;}
   <div class="inner">
     <div>
       <div class="lbl">Phrenly Campus</div>
-      <h1>What your counselling centre would see</h1>
+      <h1>What your counseling center would see</h1>
       <p>The actual dashboard, running on sample figures for a university that doesn&rsquo;t exist.
       Move through the sections, change the period, add one of your own resources &mdash; all of it
       works.</p>
@@ -325,7 +325,7 @@ const NAV=[
   ]},
   {group:'Configuration',items:[
     {id:'resources',label:'Campus resources',icon:'list'},
-    {id:'enrolment',label:'Enrolment & seats',icon:'key'},
+    {id:'enrollment',label:'Enrollment & seats',icon:'key'},
     {id:'team',label:'Team & permissions',icon:'team'},
   ]},
   {group:'',items:[{id:'settings',label:'Settings',icon:'gear'}]},
@@ -395,7 +395,7 @@ const D={
   persist:[['Never activated',412,84.2],['1–4 sessions',286,86.7],['5–19 sessions',501,90.8],
            ['20+ sessions',237,92.4],['International, 20+',7,null]]},
 };
-const RES0=[{name:'Counselling & Psychological Services',detail:'(555) 014-2200 · Mon–Fri 9–5',clicks:214},
+const RES0=[{name:'Counseling & Psychological Services',detail:'(555) 014-2200 · Mon–Fri 9–5',clicks:214},
  {name:'After-hours crisis line',detail:'(555) 014-2299 · 24/7',clicks:123},
  {name:'Dean of Students',detail:'students@northfield.edu',clicks:94},
  {name:'Peer support drop-in',detail:'Student Union Rm 240 · Tue & Thu evenings',clicks:72}];
@@ -452,7 +452,7 @@ V.overview=()=>{const x=d(),p=x.prev;
    ${kpi('Sessions',fmt(x.sessions),p?delta(x.sessions,p.sessions):(x.sessions/x.active).toFixed(1)+' per active student')}
    ${kpi('Outside staffed hours',afterPct()+'%','Of all sessions')}</div>
  <div class="row a">
-   <div class="card"><h2>Sessions by hour</h2><p class="cap">Counselling centre hours in grey</p>
+   <div class="card"><h2>Sessions by hour</h2><p class="cap">Counseling center hours in grey</p>
      <div class="chart"><canvas id="c1"></canvas></div>
      <p class="note"><strong>Use peaks between 10pm and 1am.</strong> ${afterPct()}% of sessions fall
      outside staffed hours — the window this covers rather than competes with.</p></div>
@@ -463,7 +463,7 @@ V.overview=()=>{const x=d(),p=x.prev;
 V.overview.charts=()=>{mk('c1',C.hours());mk('c2',C.line(d().mau.l,d().mau.v,c=>fmt(c.parsed.y)+' active'));};
 
 V['eng-usage']=()=>`<div class="row b">
-  <div class="card"><h2>Sessions by hour</h2><p class="cap">Counselling centre hours in grey</p>
+  <div class="card"><h2>Sessions by hour</h2><p class="cap">Counseling center hours in grey</p>
     <div class="chart"><canvas id="c1"></canvas></div></div>
   <div class="card"><h2>Session length</h2><p class="cap">Distribution across the period</p>
     <div class="chart"><canvas id="c2"></canvas></div></div></div>
@@ -540,8 +540,8 @@ V['wb-crisis'].charts=()=>mk('c1',C.barsH(resources.map(r=>r.name),d().route.sli
 V['wb-referrals']=()=>`<div class="row a">
   <div class="card"><h2>Referrals by resource</h2><p class="cap">From a crisis moment to one of your services</p>
     <div class="chart"><canvas id="c1"></canvas></div>
-    <p class="note">This is the number that shows Phrenly <strong>feeds</strong> your counselling
-    centre rather than diverting from it.</p></div>
+    <p class="note">This is the number that shows Phrenly <strong>feeds</strong> your counseling
+    center rather than diverting from it.</p></div>
   <div class="card"><h2>All click-throughs</h2><p class="cap">Any context, not only crisis</p>
     <div class="chart"><canvas id="c2"></canvas></div></div></div>`;
 V['wb-referrals'].charts=()=>{
@@ -580,7 +580,7 @@ V.persistence.charts=()=>{const r=d().persist.filter(x=>x[2]!==null);
 
 V.saved=()=>`<div class="card"><h2>Saved reports</h2><p class="cap">Report definitions you've created</p>
  <table><thead><tr><th>Report</th><th>Contents</th><th>Last run</th><th class="r">Format</th></tr></thead><tbody>
- <tr><td class="nm">Term utilisation summary</td><td>Enrolment, active users, sessions, after-hours share</td><td>2 Sep 2026</td><td class="r">PDF</td></tr>
+ <tr><td class="nm">Term utilization summary</td><td>Enrollment, active users, sessions, after-hours share</td><td>2 Sep 2026</td><td class="r">PDF</td></tr>
  <tr><td class="nm">Cabinet one-pager</td><td>Headline figures only, no charts</td><td>1 Sep 2026</td><td class="r">PDF</td></tr>
  <tr><td class="nm">Crisis routing detail</td><td>Aggregate counts and referral destinations</td><td>28 Aug 2026</td><td class="r">CSV</td></tr>
  <tr><td class="nm">Exercise completion</td><td>Started, completed and rate by exercise</td><td>28 Aug 2026</td><td class="r">CSV</td></tr>
@@ -590,7 +590,7 @@ V.saved=()=>`<div class="card"><h2>Saved reports</h2><p class="cap">Report defin
 
 V.scheduled=()=>`<div class="card"><h2>Scheduled delivery</h2><p class="cap">Emailed automatically, to whoever needs them</p>
  <table><thead><tr><th>Report</th><th>Cadence</th><th>Recipients</th><th class="r">Next</th></tr></thead><tbody>
- <tr><td class="nm">Term utilisation summary</td><td>Monthly, 1st</td><td>a.moreau@northfield.edu</td><td class="r">1 Oct</td></tr>
+ <tr><td class="nm">Term utilization summary</td><td>Monthly, 1st</td><td>a.moreau@northfield.edu</td><td class="r">1 Oct</td></tr>
  <tr><td class="nm">Cabinet one-pager</td><td>Each term</td><td>3 recipients</td><td class="r">15 Dec</td></tr>
  <tr><td class="nm">Crisis routing detail</td><td>Weekly, Monday</td><td>a.moreau@northfield.edu</td><td class="r">22 Sep</td></tr>
  </tbody></table>
@@ -610,18 +610,18 @@ V.resources=()=>`<div class="row a">
 V.resources.charts=()=>{renderRes();
   mk('c1',C.barsH(resources.map(r=>r.name),resources.map(r=>r.clicks||0),SOFT,c=>fmt(c.parsed.x)+' taps'));};
 
-V.enrolment=()=>`<div class="row b">
+V.enrollment=()=>`<div class="row b">
  <div class="card"><h2>Seats</h2><p class="cap">Licensed against enrolled</p>
   <div class="big num">2,412 <span>/ 2,400</span></div><div class="seat"><i style="width:100%"></i></div>
   <p class="note" style="border:0;padding:0;margin-top:2px">At capacity, with 148 students waitlisted.
   Seats can be added mid-term without a new agreement.</p></div>
- <div class="card"><h2>Enrolment code</h2><p class="cap">Entered once, at signup</p>
+ <div class="card"><h2>Enrollment code</h2><p class="cap">Entered once, at signup</p>
   <div class="code">NORTHFIELD26</div>
   <p class="note" style="border:0;padding:0;margin-top:2px">No directory integration, no SSO, nothing
   required from IT. Rotate it whenever you like.</p></div></div>
  <div class="card"><h2>Data integration</h2><p class="cap">How much of your data Phrenly receives</p>
   <table><thead><tr><th>Tier</th><th>Method</th><th>Unlocks</th><th class="r">Status</th></tr></thead><tbody>
-  <tr><td class="nm">Tier 0</td><td>Enrolment code</td><td>Utilisation, exercises, crisis routing</td><td class="r"><span class="tier">Active</span></td></tr>
+  <tr><td class="nm">Tier 0</td><td>Enrollment code</td><td>Utilization, exercises, crisis routing</td><td class="r"><span class="tier">Active</span></td></tr>
   <tr><td class="nm">Tier 1</td><td>Nightly roster file over SFTP</td><td>Persistence, cohorts</td><td class="r"><span class="tier">Active</span></td></tr>
   <tr><td class="nm">Tier 2</td><td>Campus SSO (SAML / LTI 1.3)</td><td>Removes the code, auto-deprovisioning</td><td class="r"><span class="tier off">Available</span></td></tr>
   <tr><td class="nm">Tier 3</td><td>Live API (Ethos / Workday)</td><td>Real-time status</td><td class="r"><span class="tier off">On request</span></td></tr>
@@ -634,11 +634,11 @@ V.team=()=>`<div class="card"><h2>Team</h2><p class="cap">Who can see what</p>
  <table><thead><tr><th>Person</th><th>Role</th><th>Access</th><th class="r">Added</th></tr></thead><tbody>
  <tr><td class="nm">A. Moreau</td><td>Clinical administrator</td><td>All analytics, crisis routing, resources</td><td class="r">Jan 2026</td></tr>
  <tr><td class="nm">J. Okafor</td><td>Clinical administrator</td><td>All analytics, crisis routing, resources</td><td class="r">Feb 2026</td></tr>
- <tr><td class="nm">R. Lindqvist</td><td>Organisational administrator</td><td>Utilisation and seats only</td><td class="r">Jan 2026</td></tr>
+ <tr><td class="nm">R. Lindqvist</td><td>Organizational administrator</td><td>Utilization and seats only</td><td class="r">Jan 2026</td></tr>
  <tr><td class="nm">M. Bassey</td><td>Reporting only</td><td>Scheduled reports, no dashboard</td><td class="r">Mar 2026</td></tr>
  </tbody></table>
- <p class="note">Two administrator types, matching how counselling centres actually work. An
- <strong>organisational</strong> administrator handling the contract sees utilisation and seats.
+ <p class="note">Two administrator types, matching how counseling centers actually work. An
+ <strong>organizational</strong> administrator handling the contract sees utilization and seats.
  Crisis routing is visible only to <strong>clinical</strong> administrators.</p></div>`;
 
 V.settings=()=>`<div class="row b">
