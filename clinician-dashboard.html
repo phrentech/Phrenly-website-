@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phrenly for Clinicians — Dashboard preview</title>
+<meta name="description" content="A working preview of the Phrenly clinician dashboard: the client-approved progress a therapist sees between sessions, and the message content they never can."/>
+<meta name="keywords" content="clinician dashboard, therapist dashboard, client progress between sessions, mood tracking for therapists, homework completion dashboard"/>
+<link rel="canonical" href="https://phrenly.com/clinician-dashboard.html"/>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Phrenly"/>
+<meta property="og:title" content="Phrenly for Clinicians — Dashboard preview"/>
+<meta property="og:description" content="The client-approved progress a therapist sees between sessions — skills practiced and mood trend — and the message content they never can."/>
+<meta property="og:url" content="https://phrenly.com/clinician-dashboard.html"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Phrenly for Clinicians — Dashboard preview"/>
+<meta name="twitter:description" content="The client-approved progress a therapist sees between sessions, and the message content they never can."/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
+<style>
+:root{
+  color-scheme: light;
+  --ink:#111813; --ink2:#5B6660; --ink3:#8E9A93;
+  --line:#E9ECEA; --line2:#F2F4F2;
+  --surface:#FFFFFF; --rail:#FCFDFC;
+  --accent:#4F6B4A; --soft:#EFF3ED; --softline:#DCE5D8;
+  --pos:#2F7D4F; --neg:#B4443C; --warn:#8A6A28;
+  --r:10px;
+}
+*{box-sizing:border-box;}
+body{margin:0;background:#fff;color:var(--ink);padding:40px 20px;
+  font:400 14px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif;
+  letter-spacing:-0.006em;-webkit-font-smoothing:antialiased;}
+.num{font-variant-numeric:tabular-nums;}
+a{color:var(--accent);}
+
+.lead{max-width:1240px;margin:0 auto 20px;}
+.lead .back{font-size:12.5px;color:var(--ink3);text-decoration:none;}
+.lead h1.page{font-size:22px;font-weight:700;letter-spacing:-0.03em;margin:10px 0 4px;}
+.lead p.page{font-size:14px;color:var(--ink2);margin:0;max-width:720px;}
+
+.app{display:grid;grid-template-columns:230px minmax(0,1fr);min-height:720px;max-width:1240px;
+  margin:0 auto 28px;border:1px solid var(--line);border-radius:14px;overflow:hidden;}
+
+/* rail */
+.rail{background:var(--rail);border-right:1px solid var(--line);padding:16px 12px;
+  display:flex;flex-direction:column;gap:16px;}
+.rtop{display:flex;align-items:center;gap:10px;padding:2px 8px 0;}
+.logo{width:28px;height:28px;border-radius:8px;background:var(--accent);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px;}
+.rtop .t{font-weight:600;font-size:14px;letter-spacing:-0.02em;}
+.rtop .s{font-size:11px;color:var(--ink3);line-height:1.2;}
+.grp{font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--ink3);padding:4px 10px 4px;}
+.cli{display:flex;align-items:center;gap:9px;width:100%;text-align:left;font:inherit;font-size:13px;
+  color:var(--ink2);background:none;border:0;padding:7px 10px;border-radius:7px;cursor:default;}
+.cli .av{width:24px;height:24px;border-radius:50%;background:var(--soft);color:var(--accent);
+  display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:700;flex-shrink:0;}
+.cli.on{background:var(--soft);color:var(--accent);font-weight:600;}
+.cli.mut{opacity:.5;}
+.rfoot{margin-top:auto;padding:12px 10px 0;border-top:1px solid var(--line);}
+.rfoot .who{font-size:12px;color:var(--ink2);font-weight:500;}
+.rfoot .role{font-size:11px;color:var(--ink3);}
+
+/* main */
+main{min-width:0;display:flex;flex-direction:column;}
+.bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:15px 24px;
+  border-bottom:1px solid var(--line);background:#fff;}
+.crumb{font-size:11.5px;color:var(--ink3);}
+.bar h2.title{font-size:16px;font-weight:600;margin:1px 0 0;letter-spacing:-0.02em;}
+.sp{flex:1;}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:500;
+  background:#FFFBF2;border:1px solid #F2E3C4;color:var(--warn);padding:4px 10px;border-radius:100px;}
+.chip i{width:5px;height:5px;border-radius:50%;background:#D9A441;}
+.chip.ok{background:var(--soft);border-color:var(--softline);color:var(--accent);}
+.chip.ok i{background:var(--accent);}
+.body{padding:20px 24px 44px;}
+
+.consent{display:flex;gap:11px;align-items:flex-start;padding:13px 15px;border-radius:10px;
+  background:var(--soft);border:1px solid var(--softline);color:var(--ink2);font-size:13px;
+  line-height:1.55;margin-bottom:18px;}
+.consent b{color:var(--accent);}
+.consent .ic{width:18px;height:18px;flex-shrink:0;color:var(--accent);margin-top:1px;}
+
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-bottom:16px;}
+.kpi{background:#fff;padding:14px 16px;}
+.kpi .l{font-size:11.5px;color:var(--ink3);}
+.kpi .v{font-size:25px;font-weight:600;letter-spacing:-0.035em;margin:4px 0 3px;line-height:1.1;}
+.kpi .d{font-size:11.5px;color:var(--ink3);}
+.delta{font-weight:600;} .delta.up{color:var(--pos);} .delta.down{color:var(--neg);}
+
+.row{display:grid;gap:13px;margin-bottom:13px;}
+.row.a{grid-template-columns:1.5fr 1fr;} .row.b{grid-template-columns:1fr 1fr;}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;}
+.card h3{font-size:13.5px;font-weight:600;margin:0 0 2px;letter-spacing:-0.01em;}
+.card .cap{font-size:12px;color:var(--ink3);margin:0 0 13px;}
+.chart{height:220px;position:relative;}
+
+.skill{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line2);}
+.skill:last-child{border-bottom:0;}
+.skill .nm{font-size:13px;color:var(--ink);font-weight:500;flex:1;}
+.skill .meter{width:84px;height:6px;border-radius:4px;background:var(--line2);overflow:hidden;}
+.skill .meter i{display:block;height:100%;background:var(--accent);border-radius:4px;}
+.skill .ct{font-size:12px;color:var(--ink3);width:30px;text-align:right;font-variant-numeric:tabular-nums;}
+
+.theme{display:flex;gap:9px;padding:7px 0;font-size:13px;color:var(--ink2);line-height:1.5;}
+.theme .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:7px;}
+
+.cant{list-style:none;margin:0;padding:0;}
+.cant li{display:flex;gap:9px;padding:7px 0;font-size:13px;color:var(--ink3);border-bottom:1px solid var(--line2);}
+.cant li:last-child{border-bottom:0;}
+.cant .x{width:16px;height:16px;flex-shrink:0;color:var(--neg);opacity:.7;margin-top:1px;}
+
+.note{margin-top:4px;padding:13px 15px;border-radius:8px;background:var(--line2);font-size:12.5px;
+  color:var(--ink2);line-height:1.6;}
+.note strong{color:var(--ink);font-weight:600;}
+
+@media (max-width:860px){
+  .app{grid-template-columns:1fr;}
+  .rail{flex-direction:row;flex-wrap:wrap;border-right:0;border-bottom:1px solid var(--line);}
+  .rfoot{margin:0;border:0;padding:0;}
+  .kpis{grid-template-columns:repeat(2,1fr);}
+  .row.a,.row.b{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="lead">
+  <a class="back" href="/for-clinicians.html">&larr; Back to Phrenly for Clinicians</a>
+  <h1 class="page">The clinician dashboard</h1>
+  <p class="page">A working preview of what a therapist sees when a client chooses to share their Phrenly progress &mdash; built on sample data for a client who doesn&rsquo;t exist. You see skills and mood, never message content.</p>
+</div>
+
+<div class="app">
+  <!-- rail -->
+  <aside class="rail">
+    <div class="rtop">
+      <div class="logo">P</div>
+      <div><div class="t">Phrenly</div><div class="s">Clinician view</div></div>
+    </div>
+    <div>
+      <div class="grp">Clients sharing with you</div>
+      <div class="cli on"><div class="av">JM</div><div>J. M.</div></div>
+      <div class="cli mut"><div class="av">AR</div><div>A. R.</div></div>
+      <div class="cli mut"><div class="av">TK</div><div>T. K.</div></div>
+      <div class="grp" style="margin-top:6px;">Not sharing</div>
+      <div class="cli mut"><div class="av">&mdash;</div><div style="font-size:12px;">4 clients &middot; private</div></div>
+    </div>
+    <div class="rfoot">
+      <div class="who">Dr. Sample Clinician</div>
+      <div class="role">LCSW &middot; Private practice</div>
+    </div>
+  </aside>
+
+  <!-- main -->
+  <main>
+    <div class="bar">
+      <div>
+        <div class="crumb">Clients / J. M.</div>
+        <h2 class="title">J. M. — last 8 weeks</h2>
+      </div>
+      <div class="sp"></div>
+      <span class="chip"><i></i> Demo data</span>
+      <span class="chip ok"><i></i> Client-shared &middot; consent on</span>
+    </div>
+
+    <div class="body">
+
+      <div class="consent">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+        <div><b>J. M. chose to share their progress with you.</b> They can turn this off at any time from the app. You see the summary below &mdash; skills practiced and a mood trend &mdash; and never the content of a single conversation.</div>
+      </div>
+
+      <div class="kpis">
+        <div class="kpi"><div class="l">Check-ins this week</div><div class="v num">5</div><div class="d"><span class="delta up">+2</span> vs last week</div></div>
+        <div class="kpi"><div class="l">Skills practiced (8 wks)</div><div class="v num">20</div><div class="d">across 6 exercises</div></div>
+        <div class="kpi"><div class="l">Mood trend</div><div class="v" style="color:var(--pos);">Improving</div><div class="d">4.2 &rarr; 6.4 / 10</div></div>
+        <div class="kpi"><div class="l">Longest streak</div><div class="v num">9 <span style="font-size:14px;font-weight:500;color:var(--ink3);">days</span></div><div class="d">current: 5 days</div></div>
+      </div>
+
+      <div class="row a">
+        <div class="card">
+          <h3>Weekly mood</h3>
+          <p class="cap">Self-reported wellbeing, 0&ndash;10, averaged per week. Shared by J. M.</p>
+          <div class="chart"><canvas id="moodChart"></canvas></div>
+        </div>
+        <div class="card">
+          <h3>Skills practiced</h3>
+          <p class="cap">Which exercises J. M. completed, last 8 weeks.</p>
+          <div class="skill"><div class="nm">Box Breathing</div><div class="meter"><i style="width:100%"></i></div><div class="ct num">6</div></div>
+          <div class="skill"><div class="nm">Thought Record</div><div class="meter"><i style="width:67%"></i></div><div class="ct num">4</div></div>
+          <div class="skill"><div class="nm">Self-Kindness</div><div class="meter"><i style="width:50%"></i></div><div class="ct num">3</div></div>
+          <div class="skill"><div class="nm">5-4-3-2-1 Grounding</div><div class="meter"><i style="width:50%"></i></div><div class="ct num">3</div></div>
+          <div class="skill"><div class="nm">Worry Time</div><div class="meter"><i style="width:34%"></i></div><div class="ct num">2</div></div>
+          <div class="skill"><div class="nm">STOP Skill</div><div class="meter"><i style="width:34%"></i></div><div class="ct num">2</div></div>
+        </div>
+      </div>
+
+      <div class="row b">
+        <div class="card">
+          <h3>Session-ready summary</h3>
+          <p class="cap">Client-approved themes J. M. flagged to bring to therapy. Never raw transcripts.</p>
+          <div class="theme"><div class="dot"></div>Recurring work stress around one deadline; used grounding before two difficult conversations.</div>
+          <div class="theme"><div class="dot"></div>Sleep improved after starting the wind-down routine; mood lifts most on days with a morning check-in.</div>
+          <div class="theme"><div class="dot"></div>Wants to work on the self-critical thoughts that show up on Sunday evenings.</div>
+        </div>
+        <div class="card">
+          <h3>What you can&rsquo;t see</h3>
+          <p class="cap">By design. This is a companion, not a monitoring tool.</p>
+          <ul class="cant">
+            <li><svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>The content of any conversation J. M. had with Phrenly</li>
+            <li><svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>Anything from before they turned sharing on</li>
+            <li><svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>Anything at all, the moment they turn sharing off</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="note">
+        <strong>This is a product preview with sample data.</strong> J. M. is not a real person. Phrenly is a wellness companion, not a medical record or a diagnostic tool &mdash; the dashboard supplements your clinical judgment and never replaces it. Sharing is opt-in, client-controlled, and revocable at any time.
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script>
+(function(){
+  var el = document.getElementById('moodChart');
+  if(!el || typeof Chart === 'undefined') return;
+  var ctx = el.getContext('2d');
+  var grad = ctx.createLinearGradient(0,0,0,220);
+  grad.addColorStop(0,'rgba(79,107,74,0.18)');
+  grad.addColorStop(1,'rgba(79,107,74,0.00)');
+  new Chart(ctx, {
+    type:'line',
+    data:{
+      labels:['Wk 1','Wk 2','Wk 3','Wk 4','Wk 5','Wk 6','Wk 7','Wk 8'],
+      datasets:[{
+        data:[4.2,3.8,4.5,5.1,4.9,5.6,6.0,6.4],
+        borderColor:'#4F6B4A', borderWidth:2,
+        backgroundColor:grad, fill:true, tension:0.35,
+        pointRadius:3, pointBackgroundColor:'#4F6B4A', pointBorderColor:'#fff', pointBorderWidth:1.5
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{display:false}, tooltip:{callbacks:{label:function(c){return c.parsed.y+' / 10';}}}},
+      scales:{
+        y:{min:0,max:10,ticks:{stepSize:2,color:'#8E9A93',font:{size:11}},grid:{color:'#F2F4F2'}},
+        x:{ticks:{color:'#8E9A93',font:{size:11}},grid:{display:false}}
+      }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
