@@ -299,6 +299,18 @@ gap: 52px; align-items: center;
 .footer-pt a { color: inherit; text-decoration: none; }
 /* VOICE */
 .voice-wrap { padding: 0 48px 88px; max-width: 1100px; margin: 0 auto; }
+/* PHRENLY VR */
+.vr-wrap { padding: 0 48px 88px; max-width: 1100px; margin: 0 auto; }
+.vr-card { display: grid; grid-template-columns: 1.1fr 1fr; background: var(--ink); border-radius: 28px; overflow: hidden; text-decoration: none; transition: transform 0.3s, box-shadow 0.3s; }
+.vr-card:hover { transform: translateY(-3px); box-shadow: 0 18px 50px rgba(26,35,24,0.2); }
+.vr-card img { width: 100%; height: 100%; object-fit: cover; min-height: 280px; }
+.vr-body { padding: 44px 44px 40px; display: flex; flex-direction: column; justify-content: center; }
+.vr-badge { align-self: flex-start; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sage-light); border: 1px solid rgba(180,196,168,0.3); padding: 5px 12px; border-radius: 100px; margin-bottom: 18px; }
+.vr-body h2 { font-size: clamp(22px,2.6vw,34px); color: #f1f5f9; margin-bottom: 14px; }
+.vr-body h2 em { color: var(--sage-light); font-style: normal; }
+.vr-body p { font-size: 15px; color: rgba(241,245,249,0.6); line-height: 1.75; margin-bottom: 20px; }
+.vr-link { font-size: 14px; font-weight: 700; color: var(--sage-light); }
+@media (max-width: 768px) { .vr-wrap { padding: 0 20px 56px; } .vr-card { grid-template-columns: 1fr; } .vr-card img { min-height: 200px; } .vr-body { padding: 28px 22px 30px; } }
 .voice-card { background: var(--ink); border-radius: 28px; padding: 56px 52px; }
 .voice-card h2 { font-size: clamp(24px,3vw,40px); color: #f1f5f9; margin-bottom: 16px; }
 .voice-card h2 em { color: var(--sage-light); font-style: normal; }
@@ -376,6 +388,7 @@ gap: 52px; align-items: center;
 <li><a href="#pricing">Pricing</a></li>
 <li><a href="/universities">For universities</a></li>
 <li><a href="/for-clinicians">For clinicians</a></li>
+<li><a href="/vr">Phrenly VR</a></li>
 <li><a href="https://phrentech.com">PhrenTech</a></li>
 </ul>
 <a href="https://app.phrenly.com" class="nav-cta">Try Phrenly now</a>
@@ -668,6 +681,19 @@ gap: 52px; align-items: center;
 </section>
 </div>
 
+<!-- PHRENLY VR -->
+<div class="vr-wrap">
+<a class="vr-card" href="/vr">
+<img src="/vr/lobby.jpg" alt="The Phrenly VR waiting room, with Aria at the reception desk" loading="lazy"/>
+<div class="vr-body">
+<div class="vr-badge">New · Phrenly VR</div>
+<h2>When you're ready to see a therapist, <em>meet somewhere calm.</em></h2>
+<p>Phrenly VR is a virtual waiting room and therapy space. Check in with Aria, breathe on a quiet beach while you wait, then sit down with your therapist in the place you choose. In a headset, on a laptop or on your phone.</p>
+<span class="vr-link">Look around in 360° →</span>
+</div>
+</a>
+</div>
+
 <!-- PRICING -->
 <section class="section" id="pricing">
 <div class="section-lbl">Pricing</div>
@@ -736,6 +762,7 @@ gap: 52px; align-items: center;
 <li><a href="/terms.html">Terms</a></li>
 <li><a href="/universities">For universities</a></li>
 <li><a href="/for-clinicians">For clinicians</a></li>
+<li><a href="/vr">Phrenly VR</a></li>
 <li><a href="https://phrentech.com">PhrenTech</a></li>
 <li><a href="mailto:hello@phrentech.com">Contact</a></li>
 </ul>
