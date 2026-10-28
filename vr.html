@@ -114,6 +114,22 @@ img { display: block; max-width: 100%; }
 .cta-card h2 { font-size: clamp(26px,3vw,40px); margin-bottom: 14px; }
 .cta-card h2 em { color: var(--sage-light); font-style: normal; }
 .cta-card p { color: rgba(241,245,249,0.6); max-width: 560px; margin: 0 auto 26px; }
+.pilot { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 34px; text-align: left; }
+.pilot-card { background: rgba(241,245,249,0.06); border: 1px solid rgba(241,245,249,0.12); border-radius: 20px; padding: 26px; }
+.pilot-card h3 { font-size: 18px; margin-bottom: 8px; color: #f1f5f9; }
+.pilot-card p { margin: 0 0 14px; max-width: none; font-size: 14px; }
+.pilot-card .price { color: var(--sage-light); font-weight: 700; }
+.pilot-card a { color: var(--sage-light); font-weight: 600; }
+.pilot-form { display: grid; gap: 10px; }
+.pilot-form label { font-size: 12px; font-weight: 600; color: rgba(241,245,249,0.7); display: grid; gap: 5px; }
+.pilot-form input, .pilot-form select, .pilot-form textarea { font: inherit; font-size: 14px; padding: 11px 14px; border-radius: 12px; border: 1px solid rgba(241,245,249,0.18); background: rgba(255,255,255,0.08); color: #f1f5f9; width: 100%; }
+.pilot-form select option { color: var(--ink); }
+.pilot-form textarea { min-height: 70px; resize: vertical; }
+.pilot-form .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.pilot-form .btn-primary { justify-self: start; margin-top: 4px; }
+.pilot-msg { font-size: 14px; min-height: 1.2em; }
+.pilot-msg.ok { color: var(--sage-light); font-weight: 600; }
+.pilot-msg.err { color: #f4b8b0; }
 .care { font-size: 12px; color: var(--ink3); text-align: center; padding: 0 48px 48px; }
 
 /* ── FOOTER ── */
@@ -125,7 +141,7 @@ img { display: block; max-width: 100%; }
 .footer-links a:hover { color: rgba(255,255,255,0.6); }
 
 @media (max-width: 900px) {
-  .steps, .facts { grid-template-columns: 1fr; }
+  .steps, .facts, .pilot { grid-template-columns: 1fr; }
   .places { grid-template-columns: repeat(2, minmax(0,1fr)); }
 }
 @media (max-width: 768px) {
@@ -152,15 +168,16 @@ img { display: block; max-width: 100%; }
     <li><a href="/vr">Phrenly VR</a></li>
     <li><a href="https://phrentech.com">PhrenTech</a></li>
   </ul>
-  <a href="#preview" class="nav-cta">Try the preview</a>
+  <a href="#pilot" class="nav-cta">Join the pilot</a>
 </nav>
 
 <header class="hero">
-  <div class="badge"><span class="live-dot"></span> Phrenly VR · Preview</div>
+  <div class="badge"><span class="live-dot"></span> Phrenly VR · Pilot now open</div>
   <h1>Therapy in a place that <em>feels calm.</em></h1>
   <p class="hero-p">Phrenly VR is a virtual waiting room and therapy space. Check in with Aria, wait somewhere peaceful, then meet your therapist on a quiet beach, in a forest, a zen garden or a cozy office. In a headset, on a laptop or on your phone.</p>
   <div class="cta-row">
     <a href="#preview" class="btn-primary">Look around in 360°</a>
+    <a href="#pilot" class="btn-outline">Join the pilot</a>
     <a href="#tour" class="btn-outline">Watch the tour</a>
   </div>
 </header>
@@ -244,13 +261,36 @@ img { display: block; max-width: 100%; }
   </div>
 </section>
 
-<section class="section" style="padding-top:0">
+<section class="section" style="padding-top:0" id="pilot">
   <div class="cta-card">
-    <h2>Bring Phrenly VR <em>to your practice.</em></h2>
-    <p>We're opening Phrenly VR to a small group of practices and clinics. Tell us about yours.</p>
-    <div class="cta-row">
-      <a href="mailto:hello@phrentech.com?subject=Phrenly%20VR" class="btn-primary">Talk to us</a>
-      <a href="#preview" class="btn-outline" style="color:#f1f5f9;border-color:rgba(241,245,249,0.25)">Try the preview</a>
+    <h2>Join the <em>Phrenly VR pilot.</em></h2>
+    <p>We're opening Phrenly VR to a first group of therapists and their clients.</p>
+    <div class="pilot">
+      <div class="pilot-card">
+        <h3>For therapists</h3>
+        <p><span class="price">60 days free</span>, then $75 a month. No fee splitting: you keep what your clients pay you. Invite your own clients and meet them in the waiting room and calm places, over secure video.</p>
+        <p>Apply with the form. We check your license, then send your sign-up link. Already approved? <a href="https://vr.phrenly.com/signup?role=therapist">Create your account</a>.</p>
+        <h3 style="margin-top:22px">For clients</h3>
+        <p>Invited by your therapist? Use the link they sent you: meeting them in Phrenly VR is free. No therapist yet? Join the list and we'll let you know as therapists join. <span class="price">VR Plus</span> ($50 a month) adds every calm place, all the guided exercises and your Phrenly AI companion.</p>
+        <p><a href="https://vr.phrenly.com/login">Sign in to Phrenly VR →</a></p>
+      </div>
+      <form class="pilot-card pilot-form" id="pilot-form" novalidate>
+        <label>I am
+          <select name="role" required>
+            <option value="therapist">A therapist</option>
+            <option value="client">Looking for therapy</option>
+            <option value="organization">A clinic or organization</option>
+          </select>
+        </label>
+        <label>Name <input name="name" autocomplete="name" maxlength="120"/></label>
+        <label>Email <input name="email" type="email" autocomplete="email" required maxlength="254"/></label>
+        <label><span>Anything we should know? <span style="font-weight:400">(optional)</span></span>
+          <textarea name="note" maxlength="1000" placeholder="Your practice, state, or what you're looking for"></textarea>
+        </label>
+        <div class="hp" aria-hidden="true"><label>Website <input name="website" tabindex="-1" autocomplete="off"/></label></div>
+        <button class="btn-primary" type="submit">Join the pilot</button>
+        <div class="pilot-msg" id="pilot-msg" role="status" aria-live="polite"></div>
+      </form>
     </div>
   </div>
 </section>
@@ -281,6 +321,36 @@ img { display: block; max-width: 100%; }
     var stage = document.getElementById('stage');
     stage.replaceChildren(frame);
   });
+  // The pilot form goes to Phrenly VR's waitlist.
+  var form = document.getElementById('pilot-form');
+  var msg = document.getElementById('pilot-msg');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var data = Object.fromEntries(new FormData(form));
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((data.email || '').trim())) {
+      msg.className = 'pilot-msg err';
+      msg.textContent = 'Please enter a valid email address.';
+      return;
+    }
+    data.source = 'phrenly.com/vr';
+    var button = form.querySelector('button');
+    button.disabled = true;
+    msg.className = 'pilot-msg';
+    msg.textContent = 'Sending…';
+    fetch('https://vr.phrenly.com/api/waitlist', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(data) })
+      .then(function (res) { return res.json().catch(function () { return {}; }).then(function (body) { if (!res.ok) throw new Error(body.error || ''); }); })
+      .then(function () {
+        form.reset();
+        msg.className = 'pilot-msg ok';
+        msg.textContent = data.role === 'therapist' ? "Thank you. We'll be in touch about your pilot." : "You're on the list. We'll be in touch.";
+      })
+      .catch(function () {
+        msg.className = 'pilot-msg err';
+        msg.innerHTML = 'We couldn\'t send that just now. Please email <a href="mailto:hello@phrentech.com?subject=Phrenly%20VR%20pilot">hello@phrentech.com</a>.';
+      })
+      .then(function () { button.disabled = false; });
+  });
+
   // Hide the tour until its video has been added.
   fetch('/vr/tour.mp4', { method: 'HEAD' })
     .then(function (res) { return res.ok && (res.headers.get('content-type') || '').indexOf('video/') === 0; })
