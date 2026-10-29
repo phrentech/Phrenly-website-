@@ -175,16 +175,16 @@ img { display: block; max-width: 100%; }
     <li><a href="/vr">Phrenly VR</a></li>
     <li><a href="https://phrentech.com">PhrenTech</a></li>
   </ul>
-  <a href="#pilot" class="nav-cta">Join the pilot</a>
+  <a href="#pilot" class="nav-cta">Join the waitlist</a>
 </nav>
 
 <header class="hero">
-  <div class="badge"><span class="live-dot"></span> Phrenly VR · Pilot now open</div>
+  <div class="badge"><span class="live-dot"></span> Phrenly VR · Waitlist open</div>
   <h1>Therapy, <em>your way.</em></h1>
   <p class="hero-p">Phrenly VR is a virtual waiting room and therapy space. Check in with Aria, wait somewhere peaceful, then meet your therapist on a quiet beach, in a forest, a zen garden or a cozy office. In a headset, on a laptop or on your phone.</p>
   <div class="cta-row">
     <a href="#preview" class="btn-primary">Look around in 360°</a>
-    <a href="#pilot" class="btn-outline">Join the pilot</a>
+    <a href="#pilot" class="btn-outline">Join the waitlist</a>
     <a href="#tour" class="btn-outline">Watch the tour</a>
   </div>
 </header>
@@ -293,15 +293,15 @@ img { display: block; max-width: 100%; }
 
 <section class="section" style="padding-top:0" id="pilot">
   <div class="cta-card">
-    <h2>Join the <em>Phrenly VR pilot.</em></h2>
+    <h2>Join the <em>Phrenly VR waitlist.</em></h2>
     <p>We're opening Phrenly VR to a first group of therapists and their clients.</p>
     <div class="pilot">
       <div class="pilot-card">
         <h3>For therapists</h3>
-        <p><span class="price">60 days free</span>, then $75 a month. No fee splitting: you keep what your clients pay you. Invite your own clients and meet them in the waiting room and calm places, over secure video.</p>
-        <p>Apply with the form. We check your license, then send your sign-up link. Already approved? <a href="https://vr.phrenly.com/signup?role=therapist">Create your account</a>.</p>
+        <p><span class="price">Founding therapists</span> get early access and help shape what we build. Invite your own clients and meet them in the waiting room and calm places, over secure video.</p>
+        <p>Join the waitlist with the form. We check your license, then send your sign-up link. Already approved? <a href="https://vr.phrenly.com/signup?role=therapist">Create your account</a>.</p>
         <h3 style="margin-top:22px">For clients</h3>
-        <p>Invited by your therapist? Use the link they sent you: meeting them in Phrenly VR is free. No therapist yet? Join the list and we'll let you know as therapists join. <span class="price">VR Plus</span> ($50 a month, after the waitlist) includes Phrenly Plus, every calm place and guided exercise, and soon your Phrenly AI companion inside VR.</p>
+        <p>Invited by your therapist? Use the link they sent you. No therapist yet? Join the waitlist and we'll let you know as therapists join.</p>
         <p><a href="https://vr.phrenly.com/login">Sign in to Phrenly VR →</a></p>
       </div>
       <form class="pilot-card pilot-form" id="pilot-form" novalidate>
@@ -318,7 +318,7 @@ img { display: block; max-width: 100%; }
           <textarea name="note" maxlength="1000" placeholder="Your practice, state, or what you're looking for"></textarea>
         </label>
         <div class="hp" aria-hidden="true"><label>Website <input name="website" tabindex="-1" autocomplete="off"/></label></div>
-        <button class="btn-primary" type="submit">Join the pilot</button>
+        <button class="btn-primary" type="submit">Join the waitlist</button>
         <div class="pilot-msg" id="pilot-msg" role="status" aria-live="polite"></div>
       </form>
     </div>
@@ -372,11 +372,11 @@ img { display: block; max-width: 100%; }
       .then(function () {
         form.reset();
         msg.className = 'pilot-msg ok';
-        msg.textContent = data.role === 'therapist' ? "Thank you. We'll be in touch about your pilot." : "You're on the list. We'll be in touch.";
+        msg.textContent = data.role === 'therapist' ? "Thank you. We'll be in touch soon." : "You're on the list. We'll be in touch.";
       })
       .catch(function () {
         msg.className = 'pilot-msg err';
-        msg.innerHTML = 'We couldn\'t send that just now. Please email <a href="mailto:hello@phrentech.com?subject=Phrenly%20VR%20pilot">hello@phrentech.com</a>.';
+        msg.innerHTML = 'We couldn\'t send that just now. Please email <a href="mailto:hello@phrentech.com?subject=Phrenly%20VR%20waitlist">hello@phrentech.com</a>.';
       })
       .then(function () { button.disabled = false; });
   });
