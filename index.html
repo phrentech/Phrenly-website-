@@ -70,7 +70,7 @@ h3 { font-size: 22px; letter-spacing: -0.02em; line-height: 1.2; }
 .settle.in { opacity: 1; transform: none; }
 
 /* hero */
-.hero { padding-top: 84px; }
+.hero { padding-top: 64px; }
 .orb { width: 84px; height: 84px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #e4ecdf, var(--sage) 60%, var(--sage2)); box-shadow: 0 10px 40px rgba(107,128,96,0.35); animation: breathe 5s ease-in-out infinite alternate; margin-bottom: 26px; }
 @keyframes breathe { from { transform: scale(0.9); } to { transform: scale(1.08); } }
 .cta { margin-top: 30px; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 14px 26px; }
@@ -105,6 +105,38 @@ h3 { font-size: 22px; letter-spacing: -0.02em; line-height: 1.2; }
 .ex li::before { content: counter(s); flex: none; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 700; background: var(--sage-pale); color: var(--sage2); transition: background 0.4s, color 0.4s; }
 .ex li.now { color: var(--ink); font-weight: 500; }
 .ex li.now::before { background: var(--sage2); color: #fff; }
+
+/* hero: two doors */
+.hero h1 { font-size: clamp(38px, 5.2vw, 72px); }
+.duo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; text-align: left; margin-top: 44px; }
+.door { position: relative; border-radius: 40px; overflow: hidden; min-height: 700px; padding: 44px; display: flex; flex-direction: column; align-items: flex-start; gap: 14px; text-decoration: none; isolation: isolate; }
+.door h2 { font-size: clamp(30px, 3.3vw, 46px); }
+.door p { font-size: 17px; max-width: 440px; }
+.kicker { font-size: 13px; font-weight: 600; padding: 7px 15px; border-radius: 999px; }
+.door-ai { background: linear-gradient(160deg, #e9f0e5 0%, #cfdcc8 55%, #b9cbb1 100%); }
+.door-ai .kicker { background: rgba(255,255,255,0.7); color: var(--sage3); }
+.door-ai p { color: var(--ink2); }
+.door-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; margin-top: 6px; }
+.door-cta .text-link { font-size: 15px; }
+.door-ai .card { margin-top: auto; width: min(440px, 100%); align-self: center; }
+.door-ai .msgs { min-height: 232px; }
+.offer { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 18px 18px; padding: 12px 14px 12px 16px; border-radius: 18px; background: var(--sage-pale); }
+.offer strong { display: block; font-size: 15px; font-weight: 600; }
+.offer span { font-size: 12px; color: var(--ink3); }
+.offer em { font-style: normal; font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: 999px; background: var(--ink); color: #fff; }
+.door-vr { color: #fff; background: var(--ink); }
+.door-vr > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.4s ease; z-index: -2; }
+.door-vr > img.on { opacity: 1; }
+.door-vr::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(15,22,14,0.28) 0%, rgba(15,22,14,0) 26%, rgba(15,22,14,0.2) 48%, rgba(15,22,14,0.86) 100%); }
+.door-vr .kicker { background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.32); -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%); }
+.door-foot { margin-top: auto; display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+.door-vr h2 { color: #fff; }
+.door-vr p { color: rgba(255,255,255,0.9); }
+.shots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; text-align: left; }
+.shots figure { border-radius: 32px; overflow: hidden; background: var(--off); }
+.shots img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.shots figcaption { padding: 22px 28px 26px; font-size: 16px; color: var(--ink2); }
+.shots strong { display: block; font-size: 20px; font-weight: 600; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 4px; }
 
 /* frameworks */
 .three { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; text-align: left; }
@@ -210,7 +242,10 @@ h3 { font-size: 22px; letter-spacing: -0.02em; line-height: 1.2; }
 @media (max-width: 900px) {
   .nav ul { display: none; }
   .sec { padding-top: 96px; }
-  .three, .tools, .styles, .facts, .plans { grid-template-columns: 1fr; }
+  .three, .tools, .styles, .facts, .plans, .duo, .shots { grid-template-columns: 1fr; }
+  .door { min-height: 0; padding: 28px 22px; border-radius: 28px; }
+  .door-vr { min-height: 600px; }
+  .shots figure { border-radius: 24px; }
   .safe { grid-template-columns: 1fr; }
   .safe > div, .safe > .big, .safe > .half { grid-column: auto; }
   .stage { padding: 28px 14px; border-radius: 28px; min-height: 0; }
@@ -225,7 +260,7 @@ h3 { font-size: 22px; letter-spacing: -0.02em; line-height: 1.2; }
   .settle { opacity: 1; transform: none; transition: none; }
   .style-show .w { animation: none; opacity: 1; }
   .breath-orb { transition: none; }
-  .vr > img { transition: none; }
+  .vr > img, .door-vr > img { transition: none; }
 }
 </style>
 <script type="application/ld+json">
@@ -275,39 +310,56 @@ h3 { font-size: 22px; letter-spacing: -0.02em; line-height: 1.2; }
 
 <main>
 <section class="sec hero">
-  <div class="orb" aria-hidden="true"></div>
-  <h1>Support that's there when you are.</h1>
-  <p class="lede">Phrenly is an AI wellness partner grounded in CBT, DBT and ACT. Talk by text or out loud, at any hour, and practice real skills. It supports your care and never replaces it.</p>
-  <div class="cta">
-    <a href="https://app.phrenly.com" class="pill pill-dark pill-l">Try Phrenly free</a>
-    <a href="/vr#try" class="text-link">Try Phrenly VR now</a>
-  </div>
-  <div class="badges">
-    <a href="https://apps.apple.com/us/app/phrenly-ai-wellness-partner/id6751132542" aria-label="Download Phrenly on the App Store"><img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us" alt="Download on the App Store" width="132" height="44"/></a>
-    <a class="gp" href="https://play.google.com/store/apps/details?id=com.phrentech.phrenly" aria-label="Get Phrenly on Google Play"><img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Get it on Google Play"/></a>
-  </div>
-  <p class="note">Free to start. No referral. No waitlist.</p>
-
-  <div class="stage wide settle" id="stage">
-    <div class="card">
-      <div class="chat-top"><i aria-hidden="true"></i><div>Phrenly<small>Here for you</small></div></div>
-      <div class="msgs">
-        <div class="b b-ai">You've mentioned work stress a few times this week. Want to look at the thought behind it together?</div>
-        <div class="b b-me">Ok, I'm willing to try that.</div>
-        <div class="b b-ai">Good. First, what is the specific thought showing up most? Name it as exactly as you can.</div>
+  <h1>Support that meets you where you are.</h1>
+  <p class="lede">On your phone at 2am, or on a quiet beach with your therapist. Phrenly and Phrenly VR are built on the same foundations: CBT, DBT and ACT, real skills, and safety first.</p>
+  <div class="duo wide">
+    <div class="door door-ai" id="stage">
+      <span class="kicker">Phrenly, the AI wellness partner</span>
+      <h2>Talk it through, any hour.</h2>
+      <p>By text or out loud, with guided exercises when they help. It supports your care and never replaces it.</p>
+      <div class="door-cta">
+        <a href="https://app.phrenly.com" class="pill pill-dark pill-l">Try Phrenly free</a>
+        <a href="https://apps.apple.com/us/app/phrenly-ai-wellness-partner/id6751132542" class="text-link">App Store</a>
+        <a href="https://play.google.com/store/apps/details?id=com.phrentech.phrenly" class="text-link">Google Play</a>
+      </div>
+      <div class="card">
+        <div class="chat-top"><i aria-hidden="true"></i><div>Phrenly<small>Here for you</small></div></div>
+        <div class="msgs">
+          <div class="b b-ai">You've mentioned work stress a few times this week. Want to look at the thought behind it together?</div>
+          <div class="b b-me">Ok, I'm willing to try that.</div>
+          <div class="b b-ai">Good. Let's start a Thought Record. It takes about five minutes.</div>
+        </div>
+        <div class="ex offer"><div><strong>Thought Record</strong><span>A CBT exercise, guided step by step</span></div><em>Start</em></div>
       </div>
     </div>
-    <div class="card ex">
-      <div class="ex-tag">CBT exercise</div>
-      <h3>Thought Record</h3>
-      <ol>
-        <li class="now">Name the thought: "I'm going to fail this presentation"</li>
-        <li>Spot the pattern. Catastrophizing? All or nothing?</li>
-        <li>Write a more balanced thought</li>
-        <li>Rate how you feel, before and after</li>
-      </ol>
-    </div>
+    <a class="door door-vr" href="/vr#try" id="vr">
+      <img class="on" src="/vr/shots/beach.jpg" alt="The beach at sunset in Phrenly VR"/>
+      <img src="/vr/shots/forest.jpg" alt="The forest trail in Phrenly VR" loading="lazy"/>
+      <img src="/vr/shots/clouds.jpg" alt="Above the clouds in Phrenly VR" loading="lazy"/>
+      <img src="/vr/shots/zen.jpg" alt="The zen garden in Phrenly VR" loading="lazy"/>
+      <img src="/vr/shots/office.jpg" alt="The garden office in Phrenly VR" loading="lazy"/>
+      <span class="kicker">Phrenly VR, our flagship</span>
+      <div class="door-foot">
+        <h2>Step inside. Therapy, your way.</h2>
+        <p>Meet your own therapist somewhere peaceful. Between sessions, sit with an AI wellness companion. In a headset, on a laptop or on your phone.</p>
+        <div class="faces" aria-hidden="true"><img src="/vr/companions/w1.jpg" alt=""/><img src="/vr/companions/m1.jpg" alt=""/><img src="/vr/companions/w2.jpg" alt=""/><img src="/vr/companions/m2.jpg" alt=""/><img src="/vr/companions/w3.jpg" alt=""/><img src="/vr/companions/m3.jpg" alt=""/><img src="/vr/companions/w4.jpg" alt=""/><img src="/vr/companions/m4.jpg" alt=""/><span>Eight AI wellness companions</span></div>
+        <span class="pill pill-light pill-l">Try Phrenly VR now</span>
+      </div>
+    </a>
   </div>
+  <p class="note">Use one or both. Phrenly is free to start, with no referral and no waitlist. The Phrenly VR preview is free, and its waitlist is open.</p>
+</section>
+
+<section class="sec" id="inside-vr">
+  <h2>Inside Phrenly VR.</h2>
+  <p class="lede">A virtual waiting room and therapy space you can walk into from any browser.</p>
+  <div class="shots wide">
+    <figure class="settle"><img src="/vr/shots/waiting-room.jpg" alt="Aria at the reception desk in the Phrenly VR waiting room" loading="lazy"/><figcaption><strong>Check in with Aria</strong>Your AI receptionist welcomes you and can book a session.</figcaption></figure>
+    <figure class="settle"><img src="/vr/shots/exercise.jpg" alt="Box Breathing running on the forest trail" loading="lazy"/><figcaption><strong>Do a self-care exercise</strong>Guided breathing, grounding and meditations made for each place.</figcaption></figure>
+    <figure class="settle"><img src="/vr/shots/companions.jpg" alt="The eight AI wellness companions to choose from" loading="lazy"/><figcaption><strong>Sit with a companion</strong>Eight AI wellness companions to talk things through with. They are AI, not therapists.</figcaption></figure>
+    <figure class="settle"><img src="/vr/shots/session.jpg" alt="A sample therapist joining by video in the garden office" loading="lazy"/><figcaption><strong>Meet your therapist</strong>Your own therapist joins you by secure video, in the place you choose. The one shown is a sample.</figcaption></figure>
+  </div>
+  <div class="cta"><a href="/vr#try" class="pill pill-dark pill-l">Try Phrenly VR now</a><a href="/vr" class="text-link">See everything in Phrenly VR</a></div>
 </section>
 
 <section class="sec" id="clinical">
@@ -393,22 +445,6 @@ h3 { font-size: 22px; letter-spacing: -0.02em; line-height: 1.2; }
   <p class="crisis"><strong>In crisis? Call or text 988 (US) or your local emergency number.</strong></p>
 </section>
 
-<section class="sec">
-  <a class="vr wide settle" href="/vr#try" id="vr" style="margin-top: 0">
-    <img class="on" src="/vr/beach.jpg" alt="The beach at sunset in Phrenly VR" loading="lazy"/>
-    <img src="/vr/forest.jpg" alt="The forest trail in Phrenly VR" loading="lazy"/>
-    <img src="/vr/abstract.jpg" alt="Above the clouds in Phrenly VR" loading="lazy"/>
-    <img src="/vr/zen.jpg" alt="The zen garden in Phrenly VR" loading="lazy"/>
-    <div class="vr-in">
-      <div class="faces" aria-hidden="true"><img src="/vr/companions/w1.jpg" alt="" loading="lazy"/><img src="/vr/companions/m1.jpg" alt="" loading="lazy"/><img src="/vr/companions/w2.jpg" alt="" loading="lazy"/><img src="/vr/companions/m2.jpg" alt="" loading="lazy"/><img src="/vr/companions/w3.jpg" alt="" loading="lazy"/><img src="/vr/companions/m3.jpg" alt="" loading="lazy"/><img src="/vr/companions/w4.jpg" alt="" loading="lazy"/><img src="/vr/companions/m4.jpg" alt="" loading="lazy"/><span>Eight AI wellness companions</span></div>
-      <h2>Phrenly VR. Therapy, your way.</h2>
-      <p>Meet your therapist on a beach, in a forest or above the clouds. Between sessions, sit with an AI wellness companion and talk things through. In a headset, on a laptop or on your phone.</p>
-      <span class="pill pill-light pill-l">Try Phrenly VR now</span>
-      <span class="fine" style="color: rgba(255,255,255,0.8)">A free preview in your browser. The waitlist is open.</span>
-    </div>
-  </a>
-</section>
-
 <section class="sec" id="pricing">
   <h2>Start free.</h2>
   <p class="lede">No strings, and no card to begin.</p>
@@ -475,7 +511,7 @@ h3 { font-size: 22px; letter-spacing: -0.02em; line-height: 1.2; }
     var list = stage.querySelector('.msgs');
     var bubbles = Array.prototype.slice.call(list.querySelectorAll('.b'));
     var ex = stage.querySelector('.ex');
-    var steps = Array.prototype.slice.call(ex.querySelectorAll('li'));
+    var steps = [];
     stage.classList.add('play');
     bubbles.forEach(function (b) { b.hidden = true; });
     var typing = document.createElement('div');
@@ -492,7 +528,7 @@ h3 { font-size: 22px; letter-spacing: -0.02em; line-height: 1.2; }
         setTimeout(function () { show(i + 1); }, ai ? 900 : 700);
       }, ai ? 1300 : 600);
     }
-    setTimeout(function () { show(0); }, 900);
+    setTimeout(function () { show(0); }, 700);
   })();
 
   // Box Breathing you can actually do: four counts in, hold, out, hold.
