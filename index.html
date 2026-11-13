@@ -22,7 +22,7 @@
 <meta name="twitter:description" content="Phrenly is a clinically-grounded AI wellness partner built on CBT, DBT, and ACT frameworks. 97 languages, crisis resources for your country, available 24/7."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" rel="stylesheet"/>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { background: #FFFFFF !important; color-scheme: light !important; }
@@ -45,7 +45,7 @@ html, body { background: #FFFFFF !important; color-scheme: light !important; }
 }
 html { scroll-behavior: smooth; color-scheme: light only; }
 body {
-font-family: 'Plus Jakarta Sans', sans-serif;
+font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
 font-weight: 400;
 font-size: 15px;
 line-height: 1.65;
@@ -54,7 +54,7 @@ background: #FFFFFF;
 -webkit-font-smoothing: antialiased;
 }
 h1, h2, h3 {
-font-family: 'Plus Jakarta Sans', sans-serif;
+font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
 font-weight: 800;
 letter-spacing: -0.03em;
 line-height: 1.05;
@@ -65,7 +65,7 @@ display: flex; align-items: center; justify-content: space-between;
 padding: 16px 48px;
 border-bottom: 0.5px solid var(--border);
 position: sticky; top: 0; z-index: 100;
-background: #FFFFFF;
+background: rgba(255,255,255,0.72); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px);
 }
 .nav-logo { font-weight: 800; font-size: 20px; letter-spacing: -0.03em; color: var(--ink); text-decoration: none; }
 .nav-logo span { color: var(--sage); }
@@ -147,6 +147,17 @@ font-size: 13px; font-weight: 800; color: #fff;
 .bubble { max-width: 85%; font-size: 13px; padding: 11px 15px; border-radius: 16px; line-height: 1.55; }
 .bubble-ai { background: var(--off); color: var(--ink); align-self: flex-start; border-bottom-left-radius: 4px; border: 1px solid var(--border); }
 .bubble-user { background: var(--sage); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
+.js-play .bubble, .js-play .ex-card { opacity: 0; transform: translateY(8px); }
+.js-play .bubble.in, .js-play .ex-card.in { opacity: 1; transform: none; transition: opacity 0.45s ease, transform 0.45s ease; }
+.typing { align-self: flex-start; display: inline-flex; gap: 4px; padding: 13px 15px; border-radius: 16px; border-bottom-left-radius: 4px; background: var(--off); border: 1px solid var(--border); }
+.typing i { width: 6px; height: 6px; border-radius: 50%; background: var(--ink3); animation: dot 1s ease-in-out infinite; }
+.typing i:nth-child(2) { animation-delay: 0.15s; } .typing i:nth-child(3) { animation-delay: 0.3s; }
+@keyframes dot { 0%,100% { opacity: 0.3; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-3px); } }
+.chat-messages { min-height: 236px; }
+.step-num, .ex-step span { transition: background 0.4s, color 0.4s; }
+.ex-step.now .step-num { background: var(--sage); color: #fff; border-color: transparent; }
+.ex-step.now > span { color: var(--ink); font-weight: 600; }
+@media (prefers-reduced-motion: reduce) { .typing i, .live-dot { animation: none; } html { scroll-behavior: auto; } .vr-shots img { transition: none; } }
 .ex-card {
 background: #FFFFFF;
 border-radius: 20px;
@@ -303,14 +314,22 @@ gap: 52px; align-items: center;
 .vr-wrap { padding: 0 48px 88px; max-width: 1100px; margin: 0 auto; }
 .vr-card { display: grid; grid-template-columns: 1.1fr 1fr; background: var(--ink); border-radius: 28px; overflow: hidden; text-decoration: none; transition: transform 0.3s, box-shadow 0.3s; }
 .vr-card:hover { transform: translateY(-3px); box-shadow: 0 18px 50px rgba(26,35,24,0.2); }
-.vr-card img { width: 100%; height: 100%; object-fit: cover; min-height: 280px; }
+.vr-shots { position: relative; min-height: 340px; }
+.vr-shots > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.2s ease; }
+.vr-shots > img.on { opacity: 1; }
+.vr-faces { position: absolute; left: 18px; bottom: 18px; right: 18px; display: flex; align-items: center; padding: 8px 14px 8px 10px; border-radius: 100px; width: fit-content; max-width: calc(100% - 36px); background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.3); -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%); }
+.vr-faces img { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,255,255,0.9); margin-left: -8px; }
+.vr-faces img:first-child { margin-left: 0; }
+.vr-faces span { margin-left: 10px; font-size: 12px; font-weight: 700; color: #fff; text-shadow: 0 1px 6px rgba(0,0,0,0.4); white-space: nowrap; }
 .vr-body { padding: 44px 44px 40px; display: flex; flex-direction: column; justify-content: center; }
 .vr-badge { align-self: flex-start; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sage-light); border: 1px solid rgba(180,196,168,0.3); padding: 5px 12px; border-radius: 100px; margin-bottom: 18px; }
 .vr-body h2 { font-size: clamp(22px,2.6vw,34px); color: #f1f5f9; margin-bottom: 14px; }
 .vr-body h2 em { color: var(--sage-light); font-style: normal; }
 .vr-body p { font-size: 15px; color: rgba(241,245,249,0.6); line-height: 1.75; margin-bottom: 20px; }
-.vr-link { font-size: 14px; font-weight: 700; color: var(--sage-light); }
-@media (max-width: 768px) { .vr-wrap { padding: 0 20px 56px; } .vr-card { grid-template-columns: 1fr; } .vr-card img { min-height: 200px; } .vr-body { padding: 28px 22px 30px; } }
+.vr-link { font-size: 13px; font-weight: 500; color: rgba(241,245,249,0.6); }
+.vr-try { align-self: flex-start; font-size: 16px; font-weight: 700; padding: 15px 32px; border-radius: 100px; background: #fff; color: var(--sage3); margin-bottom: 12px; transition: background 0.2s; }
+.vr-card:hover .vr-try { background: var(--sage-pale); }
+@media (max-width: 768px) { .vr-wrap { padding: 0 20px 56px; } .vr-card { grid-template-columns: 1fr; } .vr-shots { min-height: 240px; } .vr-faces span { display: none; } .vr-body { padding: 28px 22px 30px; } }
 .voice-card { background: var(--ink); border-radius: 28px; padding: 56px 52px; }
 .voice-card h2 { font-size: clamp(24px,3vw,40px); color: #f1f5f9; margin-bottom: 16px; }
 .voice-card h2 em { color: var(--sage-light); font-style: normal; }
@@ -383,7 +402,7 @@ gap: 52px; align-items: center;
 </script>
 </head>
 <body>
-<a class="vr-bar" href="/vr"><strong>New · Phrenly VR</strong> &nbsp;Therapy, your way. The waitlist is open. <span>Take a look →</span></a>
+<a class="vr-bar" href="/vr#try"><strong>New · Phrenly VR</strong> &nbsp;Now with AI wellness companions. <span>Try it now →</span></a>
 <!-- NAV -->
 <nav class="nav">
 <a href="/" class="nav-logo">Phren<span>ly</span></a>
@@ -422,7 +441,7 @@ gap: 52px; align-items: center;
 <span class="fw-tag">Crisis detection</span>
 </div>
 </div>
-<div class="hero-visual animate-float">
+<div class="hero-visual" id="hero-visual">
 <div class="chat-card">
 <div class="chat-header">
 <div class="chat-avatar">P</div>
@@ -688,13 +707,20 @@ gap: 52px; align-items: center;
 
 <!-- PHRENLY VR -->
 <div class="vr-wrap">
-<a class="vr-card" href="/vr">
-<img src="/vr/lobby.jpg" alt="The Phrenly VR waiting room, with Aria at the reception desk" loading="lazy"/>
+<a class="vr-card" href="/vr#try">
+<div class="vr-shots" id="vr-shots">
+<img class="on" src="/vr/lobby.jpg" alt="The Phrenly VR waiting room, with Aria at the reception desk" loading="lazy"/>
+<img src="/vr/beach.jpg" alt="The beach at sunset in Phrenly VR" loading="lazy"/>
+<img src="/vr/forest.jpg" alt="The forest trail in Phrenly VR" loading="lazy"/>
+<img src="/vr/zen.jpg" alt="The zen garden in Phrenly VR" loading="lazy"/>
+<div class="vr-faces" aria-hidden="true"><img src="/vr/companions/w1.jpg" alt="" loading="lazy"/><img src="/vr/companions/m1.jpg" alt="" loading="lazy"/><img src="/vr/companions/w2.jpg" alt="" loading="lazy"/><img src="/vr/companions/m2.jpg" alt="" loading="lazy"/><img src="/vr/companions/w3.jpg" alt="" loading="lazy"/><img src="/vr/companions/m3.jpg" alt="" loading="lazy"/><img src="/vr/companions/w4.jpg" alt="" loading="lazy"/><img src="/vr/companions/m4.jpg" alt="" loading="lazy"/><span>Eight AI wellness companions</span></div>
+</div>
 <div class="vr-body">
 <div class="vr-badge">New · Phrenly VR</div>
 <h2>Phrenly VR: therapy, <em>your way.</em></h2>
-<p>Phrenly VR is a virtual waiting room and therapy space. Check in with Aria, breathe on a quiet beach while you wait, then sit down with your therapist in the place you choose. In a headset, on a laptop or on your phone.</p>
-<span class="vr-link">Look around in 360° →</span>
+<p>Phrenly VR is a virtual waiting room and therapy space. Check in with Aria, then sit down with your therapist in the place you choose. Between sessions, sit with an AI wellness companion on a quiet beach and talk things through, hands free. In a headset, on a laptop or on your phone.</p>
+<span class="vr-try">Try Phrenly VR now</span>
+<span class="vr-link">Free preview in your browser. No account needed.</span>
 </div>
 </a>
 </div>
@@ -740,7 +766,7 @@ gap: 52px; align-items: center;
 <ul class="pricing-features">
 <li><div class="pf-check"><div class="pf-check-dot"></div></div>Everything in Plus</li>
 <li><div class="pf-check"><div class="pf-check-dot"></div></div><span><a href="/vr" style="color:inherit;">Phrenly VR</a>: every calm place and guided exercise</span></li>
-<li><div class="pf-check"><div class="pf-check-dot"></div></div>Your Phrenly AI companion inside VR (coming soon)</li>
+<li><div class="pf-check"><div class="pf-check-dot"></div></div><span>AI wellness companions in VR: choose from eight, and how they speak to you</span></li>
 <li><div class="pf-check"><div class="pf-check-dot"></div></div>Clinician-ready progress reports</li>
 <li><div class="pf-check"><div class="pf-check-dot"></div></div>Priority access to new features</li>
 <li><div class="pf-check"><div class="pf-check-dot"></div></div>Wearable integration (coming soon)</li>
@@ -775,5 +801,47 @@ gap: 52px; align-items: center;
 </ul>
 <div class="footer-pt">A <a href="https://phrentech.com">PhrenTech</a> product · © 2026 PhrenTech</div>
 </footer>
+
+<script>
+// The hero conversation plays out once, then the exercise steps follow.
+(function () {
+  var box = document.getElementById('hero-visual');
+  if (!box || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+  var list = box.querySelector('.chat-messages');
+  var bubbles = Array.prototype.slice.call(list.querySelectorAll('.bubble'));
+  var card = box.querySelector('.ex-card');
+  var steps = Array.prototype.slice.call(card.querySelectorAll('.ex-step'));
+  box.classList.add('js-play');
+  bubbles.forEach(function (b) { b.hidden = true; });
+  var typing = document.createElement('div');
+  typing.className = 'typing'; typing.setAttribute('aria-hidden', 'true');
+  typing.innerHTML = '<i></i><i></i><i></i>';
+  function show(i) {
+    if (i >= bubbles.length) { exercise(); return; }
+    var b = bubbles[i], ai = b.classList.contains('bubble-ai');
+    if (ai) list.appendChild(typing);
+    setTimeout(function () {
+      if (typing.parentNode) typing.remove();
+      b.hidden = false; list.appendChild(b);
+      requestAnimationFrame(function () { requestAnimationFrame(function () { b.classList.add('in'); }); });
+      setTimeout(function () { show(i + 1); }, ai ? 900 : 700);
+    }, ai ? 1300 : 600);
+  }
+  function exercise() {
+    card.classList.add('in');
+    steps.forEach(function (step, i) { if (i) setTimeout(function () { step.classList.add('now'); }, 1400 * i); });
+  }
+  setTimeout(function () { show(0); }, 500);
+})();
+// The Phrenly VR card moves between places.
+(function () {
+  var shots = document.querySelectorAll('#vr-shots > img');
+  if (shots.length < 2 || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+  var at = 0;
+  setInterval(function () {
+    shots[at].classList.remove('on'); at = (at + 1) % shots.length; shots[at].classList.add('on');
+  }, 4500);
+})();
+</script>
 </body>
 </html>
