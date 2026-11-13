@@ -326,7 +326,9 @@ gap: 52px; align-items: center;
 .vr-body h2 { font-size: clamp(22px,2.6vw,34px); color: #f1f5f9; margin-bottom: 14px; }
 .vr-body h2 em { color: var(--sage-light); font-style: normal; }
 .vr-body p { font-size: 15px; color: rgba(241,245,249,0.6); line-height: 1.75; margin-bottom: 20px; }
-.vr-link { font-size: 14px; font-weight: 700; color: var(--sage-light); }
+.vr-link { font-size: 13px; font-weight: 500; color: rgba(241,245,249,0.6); }
+.vr-try { align-self: flex-start; font-size: 16px; font-weight: 700; padding: 15px 32px; border-radius: 100px; background: #fff; color: var(--sage3); margin-bottom: 12px; transition: background 0.2s; }
+.vr-card:hover .vr-try { background: var(--sage-pale); }
 @media (max-width: 768px) { .vr-wrap { padding: 0 20px 56px; } .vr-card { grid-template-columns: 1fr; } .vr-shots { min-height: 240px; } .vr-faces span { display: none; } .vr-body { padding: 28px 22px 30px; } }
 .voice-card { background: var(--ink); border-radius: 28px; padding: 56px 52px; }
 .voice-card h2 { font-size: clamp(24px,3vw,40px); color: #f1f5f9; margin-bottom: 16px; }
@@ -400,7 +402,7 @@ gap: 52px; align-items: center;
 </script>
 </head>
 <body>
-<a class="vr-bar" href="/vr"><strong>New · Phrenly VR</strong> &nbsp;Therapy, your way. The waitlist is open. <span>Take a look →</span></a>
+<a class="vr-bar" href="/vr#try"><strong>New · Phrenly VR</strong> &nbsp;Now with AI wellness companions. <span>Try it now →</span></a>
 <!-- NAV -->
 <nav class="nav">
 <a href="/" class="nav-logo">Phren<span>ly</span></a>
@@ -705,7 +707,7 @@ gap: 52px; align-items: center;
 
 <!-- PHRENLY VR -->
 <div class="vr-wrap">
-<a class="vr-card" href="/vr">
+<a class="vr-card" href="/vr#try">
 <div class="vr-shots" id="vr-shots">
 <img class="on" src="/vr/lobby.jpg" alt="The Phrenly VR waiting room, with Aria at the reception desk" loading="lazy"/>
 <img src="/vr/beach.jpg" alt="The beach at sunset in Phrenly VR" loading="lazy"/>
@@ -717,7 +719,8 @@ gap: 52px; align-items: center;
 <div class="vr-badge">New · Phrenly VR</div>
 <h2>Phrenly VR: therapy, <em>your way.</em></h2>
 <p>Phrenly VR is a virtual waiting room and therapy space. Check in with Aria, then sit down with your therapist in the place you choose. Between sessions, sit with an AI wellness companion on a quiet beach and talk things through, hands free. In a headset, on a laptop or on your phone.</p>
-<span class="vr-link">Meet the companions and look around in 360° →</span>
+<span class="vr-try">Try Phrenly VR now</span>
+<span class="vr-link">Free preview in your browser. No account needed.</span>
 </div>
 </a>
 </div>

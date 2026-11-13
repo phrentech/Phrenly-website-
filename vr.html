@@ -66,10 +66,15 @@ img { display: block; max-width: 100%; }
 .btn-primary:hover { background: var(--sage2); transform: translateY(-1px); }
 .btn-outline { font-size: 14px; font-weight: 500; padding: 14px 26px; color: var(--ink2); border: 1.5px solid var(--border2); border-radius: 100px; text-decoration: none; transition: all 0.2s; display: inline-block; }
 .btn-outline:hover { border-color: var(--sage); color: var(--sage2); }
-.cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.cta-row { display: flex; gap: 12px; justify-content: center; align-items: center; flex-wrap: wrap; }
+.btn-try { font-size: 17px; padding: 17px 38px; background: var(--sage3); box-shadow: 0 10px 30px rgba(74,93,67,0.32); }
+.btn-try:hover { background: var(--ink); }
+.try-note { font-size: 13px; color: var(--ink3); margin-top: 14px; }
+.cta-try { margin-bottom: 8px; background: #fff; color: var(--sage3); }
+.cta-try:hover { background: var(--sage-pale); }
 
 /* ── 360° PREVIEW ── */
-.stage-wrap { max-width: 1200px; margin: 0 auto; padding: 24px 48px 0; }
+.stage-wrap { scroll-margin-top: 84px; max-width: 1200px; margin: 0 auto; padding: 24px 48px 0; }
 .stage { position: relative; aspect-ratio: 16 / 9; border-radius: 28px; overflow: hidden; background: var(--ink); box-shadow: 0 24px 80px rgba(26,35,24,0.18); }
 .stage img, .stage iframe { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border: 0; }
 .stage-start { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: linear-gradient(to top, rgba(26,35,24,0.55), rgba(26,35,24,0.05) 60%); border: 0; cursor: pointer; color: #fff; font-family: inherit; }
@@ -227,10 +232,11 @@ img { display: block; max-width: 100%; }
     <li><a href="/#exercises">The tools</a></li>
     <li><a href="#companions">Companions</a></li>
     <li><a href="#places">Places</a></li>
+    <li><a href="#pilot">Waitlist</a></li>
     <li><a href="/for-clinicians">For clinicians</a></li>
     <li><a href="https://phrentech.com">PhrenTech</a></li>
   </ul>
-  <a href="#pilot" class="nav-cta">Join the waitlist</a>
+  <a href="#preview" class="nav-cta" data-try>Try Phrenly VR now</a>
 </nav>
 
 <header class="hero">
@@ -238,11 +244,12 @@ img { display: block; max-width: 100%; }
   <h1>Therapy, <em>your way.</em></h1>
   <p class="hero-p">Phrenly VR is a virtual waiting room and therapy space. Check in with Aria, meet your therapist on a quiet beach, in a forest, a zen garden or a cozy office, and sit with an AI wellness companion on the days in between. In a headset, on a laptop or on your phone.</p>
   <div class="cta-row">
-    <a href="#preview" class="btn-primary">Look around in 360°</a>
+    <a href="#preview" class="btn-primary btn-try" data-try>Try Phrenly VR now</a>
     <a href="#companions" class="btn-outline">Meet the companions</a>
     <a href="#pilot" class="btn-outline">Join the waitlist</a>
     <a href="#tour" class="btn-outline">Watch the tour</a>
   </div>
+  <p class="try-note">Opens the live preview right here on the page. No account and nothing to install.</p>
 </header>
 
 <section class="stage-wrap" id="preview" aria-label="Interactive 360° preview">
@@ -422,7 +429,8 @@ img { display: block; max-width: 100%; }
 <section class="section" style="padding-top:0" id="pilot">
   <div class="cta-card">
     <h2>Join the <em>Phrenly VR waitlist.</em></h2>
-    <p>We're opening Phrenly VR to a first group of therapists and their clients.</p>
+    <p>We're opening Phrenly VR to a first group of therapists and their clients. You can try the preview today.</p>
+    <a href="#preview" class="btn-primary cta-try" data-try>Try Phrenly VR now</a>
     <div class="pilot">
       <div class="pilot-card">
         <h3>For therapists</h3>
@@ -470,7 +478,8 @@ img { display: block; max-width: 100%; }
 <script>
   // The preview is a full 3D scene, so it only loads when asked for.
   var DEMO_URL = 'https://vr.phrenly.com/demo';
-  document.getElementById('start').addEventListener('click', function () {
+  function startPreview() {
+    if (document.querySelector('#stage iframe')) return;
     var frame = document.createElement('iframe');
     frame.src = DEMO_URL;
     frame.title = 'Phrenly VR preview';
@@ -478,7 +487,12 @@ img { display: block; max-width: 100%; }
     frame.allowFullscreen = true;
     var stage = document.getElementById('stage');
     stage.replaceChildren(frame);
-  });
+  }
+  document.getElementById('start').addEventListener('click', startPreview);
+  // Every "Try Phrenly VR now" button scrolls to the preview and starts it.
+  document.querySelectorAll('[data-try]').forEach(function (link) { link.addEventListener('click', startPreview); });
+  // Links from other pages (/vr#try) do the same.
+  if (location.hash === '#try') { startPreview(); document.getElementById('preview').scrollIntoView(); }
   // The pilot form goes to Phrenly VR's waitlist.
   var form = document.getElementById('pilot-form');
   var msg = document.getElementById('pilot-msg');
