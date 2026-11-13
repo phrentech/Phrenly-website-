@@ -6,20 +6,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Phrenly VR — therapy, your way</title>
 <meta name="color-scheme" content="light only"/>
-<meta name="description" content="Phrenly VR is a virtual waiting room and therapy space. Check in with Aria, wait somewhere peaceful, then meet your therapist on a beach, in a forest, a zen garden or a cozy office. Try the 360° preview in your browser."/>
+<meta name="description" content="Phrenly VR is a virtual waiting room and therapy space. Check in with Aria, sit with an AI wellness companion between sessions, then meet your therapist on a beach, in a forest, a zen garden or a cozy office. Try the 360° preview in your browser."/>
 <link rel="canonical" href="https://phrenly.com/vr"/>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="Phrenly"/>
 <meta property="og:title" content="Phrenly VR — therapy, your way"/>
-<meta property="og:description" content="A virtual waiting room and therapy space. Wait somewhere peaceful, then meet your therapist in the place you choose."/>
+<meta property="og:description" content="A virtual waiting room and therapy space. Sit with an AI wellness companion between sessions, then meet your therapist in the place you choose."/>
 <meta property="og:url" content="https://phrenly.com/vr"/>
 <meta property="og:image" content="https://phrenly.com/vr/lobby.jpg"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://phrenly.com/vr/lobby.jpg"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" rel="stylesheet"/>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -40,12 +40,12 @@
 }
 
 html { scroll-behavior: smooth; color-scheme: light only; }
-body { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; line-height: 1.65; color: var(--ink); background: #FFFFFF; -webkit-font-smoothing: antialiased; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif; font-size: 15px; line-height: 1.65; color: var(--ink); background: #FFFFFF; -webkit-font-smoothing: antialiased; }
 h1, h2, h3 { font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; }
 img { display: block; max-width: 100%; }
 
 /* ── NAV ── */
-.nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 48px; border-bottom: 0.5px solid var(--border); position: sticky; top: 0; z-index: 100; background: #FFFFFF; }
+.nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 48px; border-bottom: 0.5px solid var(--border); position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.72); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px); }
 .nav-logo { font-weight: 800; font-size: 20px; letter-spacing: -0.03em; color: var(--ink); text-decoration: none; }
 .nav-logo span { color: var(--sage); }
 .nav-links { display: flex; gap: 28px; list-style: none; font-size: 13px; font-weight: 500; color: var(--ink3); }
@@ -82,7 +82,7 @@ img { display: block; max-width: 100%; }
 .stage-actions a { color: var(--sage2); font-weight: 600; text-decoration: none; }
 
 /* ── SECTIONS ── */
-.section { padding: 88px 48px; max-width: 1100px; margin: 0 auto; }
+.section { padding: 88px 48px; max-width: 1100px; margin: 0 auto; scroll-margin-top: 64px; }
 .section-lbl { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink3); margin-bottom: 10px; }
 .section-h2 { font-size: clamp(28px,3.5vw,44px); margin-bottom: 14px; }
 .section-h2 em { color: var(--sage); font-style: normal; }
@@ -137,6 +137,60 @@ img { display: block; max-width: 100%; }
 .stat cite { font-size: 12px; font-style: normal; color: var(--ink3); }
 .stat cite a { color: inherit; }
 .evidence-note { font-size: 13px; color: var(--ink3); margin-top: 18px; max-width: 760px; }
+
+/* ── COMPANIONS ── */
+.studio { position: relative; border-radius: 28px; overflow: hidden; background: var(--ink); color: #fff; display: grid; grid-template-columns: minmax(0,1.05fr) minmax(0,1fr); gap: 28px; padding: 36px; box-shadow: 0 24px 80px rgba(26,35,24,0.18); isolation: isolate; }
+.studio-bg { position: absolute; inset: 0; z-index: -2; }
+.studio-bg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.9s ease; }
+.studio-bg img.on { opacity: 1; }
+.studio::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(100deg, rgba(20,28,18,0.62), rgba(20,28,18,0.28) 55%, rgba(20,28,18,0.5)); }
+.glass { background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.28); -webkit-backdrop-filter: blur(22px) saturate(160%); backdrop-filter: blur(22px) saturate(160%); border-radius: 22px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 10px 40px rgba(0,0,0,0.18); }
+.seat { display: flex; flex-direction: column; gap: 14px; min-height: 520px; }
+.seat-who { display: flex; align-items: center; gap: 16px; }
+.seat-photo { width: 104px; height: 104px; border-radius: 50%; object-fit: cover; border: 3px solid rgba(255,255,255,0.85); box-shadow: 0 10px 34px rgba(0,0,0,0.35); flex: none; }
+.seat-name { font-size: 30px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; text-shadow: 0 1px 12px rgba(0,0,0,0.35); }
+.seat-blurb { font-size: 14px; opacity: 0.9; text-shadow: 0 1px 8px rgba(0,0,0,0.4); }
+.seat-tag { display: inline-block; margin-top: 6px; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 100px; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); }
+.talk { margin-top: auto; display: flex; flex-direction: column; gap: 10px; }
+.line { padding: 14px 18px; font-size: 15px; line-height: 1.55; max-width: 92%; }
+.line-you { align-self: flex-end; background: rgba(139,157,131,0.82); border-color: rgba(255,255,255,0.3); border-bottom-right-radius: 6px; }
+.line-them { align-self: flex-start; border-bottom-left-radius: 6px; min-height: 5.6em; }
+.line-them .w { opacity: 0; animation: word 0.35s ease forwards; }
+@keyframes word { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+.offer { align-self: flex-start; display: flex; align-items: center; gap: 14px; padding: 12px 14px 12px 18px; font-size: 14px; }
+.offer strong { display: block; font-size: 15px; }
+.offer span { opacity: 0.8; font-size: 12px; }
+.offer i { font-style: normal; font-weight: 700; font-size: 13px; padding: 7px 16px; border-radius: 100px; background: #fff; color: var(--sage3); }
+.talk-note { font-size: 12px; opacity: 0.8; text-shadow: 0 1px 6px rgba(0,0,0,0.5); }
+.picker { padding: 24px; display: flex; flex-direction: column; gap: 20px; align-self: start; }
+.picker h3 { font-size: 13px; font-weight: 700; letter-spacing: 0; margin-bottom: 10px; opacity: 0.85; }
+.faces { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px; }
+.face { background: none; border: 0; color: inherit; font: inherit; font-size: 12px; font-weight: 600; cursor: pointer; display: grid; justify-items: center; gap: 5px; padding: 4px 0; border-radius: 14px; }
+.face img { width: 58px; height: 58px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,255,255,0.35); transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; }
+.face:hover img { transform: scale(1.06); }
+.face[aria-pressed="true"] img { border-color: #fff; box-shadow: 0 0 0 3px rgba(180,196,168,0.9); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font: inherit; font-size: 13px; font-weight: 600; color: #fff; padding: 8px 14px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.08); cursor: pointer; transition: background 0.2s, color 0.2s; }
+.chip:hover { background: rgba(255,255,255,0.2); }
+.chip[aria-pressed="true"] { background: #fff; color: var(--sage3); border-color: #fff; }
+.style-desc { font-size: 13px; opacity: 0.9; margin-top: 10px; min-height: 2.9em; line-height: 1.5; }
+.face:focus-visible, .chip:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.studio-go { display: inline-block; font-size: 14px; font-weight: 700; padding: 12px 22px; border-radius: 100px; background: #fff; color: var(--sage3); text-decoration: none; text-align: center; }
+.studio-go:hover { background: var(--sage-pale); }
+.comp-facts { margin-top: 20px; }
+.comp-facts .fact { background: #fff; border: 1px solid var(--sage-border); }
+@media (max-width: 900px) {
+  .studio { grid-template-columns: 1fr; padding: 20px; border-radius: 20px; }
+  .seat { min-height: 0; } .talk { margin-top: 18px; }
+  .seat-photo { width: 76px; height: 76px; } .seat-name { font-size: 24px; }
+  .face img { width: 52px; height: 52px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .line-them .w { animation: none; opacity: 1; }
+  .studio-bg img { transition: none; }
+  .live-dot { animation: none; }
+}
 .care { font-size: 12px; color: var(--ink3); text-align: center; padding: 0 48px 48px; }
 
 /* ── FOOTER ── */
@@ -171,8 +225,9 @@ img { display: block; max-width: 100%; }
   <ul class="nav-links">
     <li><a href="/#clinical">How it works</a></li>
     <li><a href="/#exercises">The tools</a></li>
+    <li><a href="#companions">Companions</a></li>
+    <li><a href="#places">Places</a></li>
     <li><a href="/for-clinicians">For clinicians</a></li>
-    <li><a href="/vr">Phrenly VR</a></li>
     <li><a href="https://phrentech.com">PhrenTech</a></li>
   </ul>
   <a href="#pilot" class="nav-cta">Join the waitlist</a>
@@ -181,9 +236,10 @@ img { display: block; max-width: 100%; }
 <header class="hero">
   <div class="badge"><span class="live-dot"></span> Phrenly VR · Waitlist open</div>
   <h1>Therapy, <em>your way.</em></h1>
-  <p class="hero-p">Phrenly VR is a virtual waiting room and therapy space. Check in with Aria, wait somewhere peaceful, then meet your therapist on a quiet beach, in a forest, a zen garden or a cozy office. In a headset, on a laptop or on your phone.</p>
+  <p class="hero-p">Phrenly VR is a virtual waiting room and therapy space. Check in with Aria, meet your therapist on a quiet beach, in a forest, a zen garden or a cozy office, and sit with an AI wellness companion on the days in between. In a headset, on a laptop or on your phone.</p>
   <div class="cta-row">
     <a href="#preview" class="btn-primary">Look around in 360°</a>
+    <a href="#companions" class="btn-outline">Meet the companions</a>
     <a href="#pilot" class="btn-outline">Join the waitlist</a>
     <a href="#tour" class="btn-outline">Watch the tour</a>
   </div>
@@ -222,7 +278,7 @@ img { display: block; max-width: 100%; }
       <div class="step-body">
         <div class="step-num">Step 2</div>
         <h3>Wait somewhere calm</h3>
-        <p>Try a guided breathing exercise, sit on the beach with a meditation, or simply listen to the forest until it's time.</p>
+        <p>Try a guided breathing exercise, sit on the beach with a meditation, or talk things through with a companion until it's time.</p>
       </div>
     </article>
     <article class="step">
@@ -233,6 +289,78 @@ img { display: block; max-width: 100%; }
         <p>When they're ready, step through to the place you chose. Your therapist joins you there by video.</p>
       </div>
     </article>
+  </div>
+</section>
+
+<section class="section" id="companions" style="padding-top:0">
+  <div class="section-lbl">AI wellness companions</div>
+  <h2 class="section-h2">Someone to sit with, <em>between sessions.</em></h2>
+  <p class="section-sub">Your therapist can't be there every hour. On the days in between, sit down with an AI wellness companion in any of the calm places and talk things through. Choose who you sit with, how they speak to you and where. Try it here.</p>
+  <div class="studio" id="studio">
+    <div class="studio-bg" aria-hidden="true">
+      <img src="/vr/beach.jpg" alt="" data-place="beach" class="on"/>
+      <img src="/vr/forest.jpg" alt="" data-place="forest" loading="lazy"/>
+      <img src="/vr/zen.jpg" alt="" data-place="zen" loading="lazy"/>
+      <img src="/vr/session.jpg" alt="" data-place="office" loading="lazy"/>
+      <img src="/vr/abstract.jpg" alt="" data-place="abstract" loading="lazy"/>
+    </div>
+    <div class="seat">
+      <div class="seat-who">
+        <img class="seat-photo" id="seat-photo" src="/vr/companions/w1.jpg" alt="" width="104" height="104"/>
+        <div>
+          <div class="seat-name" id="seat-name">Nia</div>
+          <div class="seat-blurb" id="seat-blurb">A soft, warm voice</div>
+          <span class="seat-tag">AI wellness companion</span>
+        </div>
+      </div>
+      <div class="talk">
+        <div class="line line-you glass">I've been dreading tomorrow all day.</div>
+        <div class="line line-them glass" id="seat-reply" aria-live="polite"></div>
+        <div class="offer glass"><div><strong id="offer-title">Ocean Breath</strong><span id="offer-note">A 5 minute guided rest, suggested for the beach</span></div><i aria-hidden="true">Start</i></div>
+        <p class="talk-note">An example, to show how each speaking style sounds. Real conversations follow what you say.</p>
+      </div>
+    </div>
+    <div class="picker glass">
+      <div>
+        <h3 id="lbl-who">Who you sit with</h3>
+        <div class="faces" role="group" aria-labelledby="lbl-who">
+          <button class="face" type="button" data-id="w1" data-name="Nia" data-blurb="A soft, warm voice" aria-pressed="true"><img src="/vr/companions/w1.jpg" alt="" width="58" height="58" loading="lazy"/>Nia</button>
+          <button class="face" type="button" data-id="w2" data-name="Claire" data-blurb="A bright, clear voice" aria-pressed="false"><img src="/vr/companions/w2.jpg" alt="" width="58" height="58" loading="lazy"/>Claire</button>
+          <button class="face" type="button" data-id="w3" data-name="Hana" data-blurb="A gentle, steady voice" aria-pressed="false"><img src="/vr/companions/w3.jpg" alt="" width="58" height="58" loading="lazy"/>Hana</button>
+          <button class="face" type="button" data-id="w4" data-name="Camila" data-blurb="A light, kind voice" aria-pressed="false"><img src="/vr/companions/w4.jpg" alt="" width="58" height="58" loading="lazy"/>Camila</button>
+          <button class="face" type="button" data-id="m1" data-name="Marcus" data-blurb="A deep, calm voice" aria-pressed="false"><img src="/vr/companions/m1.jpg" alt="" width="58" height="58" loading="lazy"/>Marcus</button>
+          <button class="face" type="button" data-id="m2" data-name="Diego" data-blurb="A relaxed, friendly voice" aria-pressed="false"><img src="/vr/companions/m2.jpg" alt="" width="58" height="58" loading="lazy"/>Diego</button>
+          <button class="face" type="button" data-id="m3" data-name="Jun" data-blurb="A warm, even voice" aria-pressed="false"><img src="/vr/companions/m3.jpg" alt="" width="58" height="58" loading="lazy"/>Jun</button>
+          <button class="face" type="button" data-id="m4" data-name="Owen" data-blurb="A clear, easy voice" aria-pressed="false"><img src="/vr/companions/m4.jpg" alt="" width="58" height="58" loading="lazy"/>Owen</button>
+        </div>
+      </div>
+      <div>
+        <h3 id="lbl-style">How they speak to you</h3>
+        <div class="chips" role="group" aria-labelledby="lbl-style">
+          <button class="chip" type="button" data-style="warm" aria-pressed="true">Warm &amp; Gentle</button>
+          <button class="chip" type="button" data-style="direct" aria-pressed="false">Direct &amp; Grounded</button>
+          <button class="chip" type="button" data-style="reflective" aria-pressed="false">Reflective &amp; Open</button>
+          <button class="chip" type="button" data-style="cultural" aria-pressed="false">Culturally Attuned</button>
+        </div>
+        <p class="style-desc" id="style-desc"></p>
+      </div>
+      <div>
+        <h3 id="lbl-place">Where you sit</h3>
+        <div class="chips" role="group" aria-labelledby="lbl-place">
+          <button class="chip" type="button" data-place="beach" aria-pressed="true">Beach</button>
+          <button class="chip" type="button" data-place="forest" aria-pressed="false">Forest trail</button>
+          <button class="chip" type="button" data-place="zen" aria-pressed="false">Zen garden</button>
+          <button class="chip" type="button" data-place="office" aria-pressed="false">Cozy office</button>
+          <button class="chip" type="button" data-place="abstract" aria-pressed="false">Above the clouds</button>
+        </div>
+      </div>
+      <a class="studio-go" id="studio-go" href="https://vr.phrenly.com/demo?place=beach&amp;companion=1" target="_blank" rel="noopener">Sit down with a companion in the preview</a>
+    </div>
+  </div>
+  <div class="facts comp-facts">
+    <div class="fact"><h3>Just talk</h3><p>No button to hold. Your companion listens, waits for you to finish your thought, and stops when you start speaking. You can type instead if you prefer.</p></div>
+    <div class="fact"><h3>Exercises when they help</h3><p>Box Breathing, 4-7-8 Breathing, 5-4-3-2-1 Grounding, a body scan, kind words, or a meditation made for the place you're in. You choose whether to begin.</p></div>
+    <div class="fact"><h3>Honest about what it is</h3><p>A companion is AI, not a therapist, and it supports your care without replacing it. If you may be in danger, it stops and shows crisis lines such as 988.</p></div>
   </div>
 </section>
 
@@ -250,7 +378,7 @@ img { display: block; max-width: 100%; }
 <section class="section" id="places">
   <div class="section-lbl">The places</div>
   <h2 class="section-h2">Choose where you <em>feel most at ease.</em></h2>
-  <p class="section-sub">Visit any of them on your own to breathe, meditate or just sit, or choose one for your session. Each has its own sounds: waves, birdsong, wind chimes over water.</p>
+  <p class="section-sub">Visit any of them on your own to breathe, meditate or sit with a companion, or choose one for your session. Each has its own sounds: waves, birdsong, wind chimes over water.</p>
   <div class="places">
     <figure class="place"><img src="/vr/beach.jpg" alt="Beach at sunset" loading="lazy"/><span>Beach</span></figure>
     <figure class="place"><img src="/vr/forest.jpg" alt="Mossy forest trail" loading="lazy"/><span>Forest trail</span></figure>
@@ -280,13 +408,13 @@ img { display: block; max-width: 100%; }
       <cite><a href="https://www.elsevier.es/es-revista-international-journal-clinical-health-psychology-355-articulo-mind-nature-virtual-reality-nature-S1697260025000936" target="_blank" rel="noopener">International Journal of Clinical and Health Psychology, 2025</a></cite>
     </div>
   </div>
-  <p class="evidence-note">Today Phrenly VR offers calm places, guided breathing and meditation, and video sessions with your own therapist. Therapist-guided immersive exposure is on our roadmap.</p>
+  <p class="evidence-note">Today Phrenly VR offers calm places, guided breathing and meditation, AI wellness companions, and video sessions with your own therapist. Therapist-guided immersive exposure is on our roadmap.</p>
 </section>
 
 <section class="section" style="padding-top:0">
   <div class="facts">
     <div class="fact"><h3>Any device</h3><p>Runs in the browser: Meta Quest, desktop and mobile. No app to install.</p></div>
-    <div class="fact"><h3>A real person</h3><p>Aria is an AI receptionist. Your sessions are always with your therapist, over secure video.</p></div>
+    <div class="fact"><h3>A real person</h3><p>Aria and the companions are AI, and they say so. Your sessions are always with your own therapist, over secure video.</p></div>
     <div class="fact"><h3>Calm by design</h3><p>Soft light, real places and natural sound, with guided breathing and meditations matched to each place.</p></div>
   </div>
 </section>
@@ -380,6 +508,74 @@ img { display: block; max-width: 100%; }
       })
       .then(function () { button.disabled = false; });
   });
+
+  // The companion picker: choose who, how they speak and where.
+  (function () {
+    var STYLES = {
+      warm: { desc: 'Soft, affirming and unhurried. Leads with comfort when you need to feel held.', line: "That sounds like a heavy thing to carry all day. We don't have to solve it right now. I'm here, and we can take this slowly." },
+      direct: { desc: 'Clear and honest, with concrete steps and gentle accountability. For moving forward.', line: "Let's make tomorrow smaller. Which part are you dreading most? We'll start there and pick one step you can take tonight." },
+      reflective: { desc: 'Spacious and curious. Lots of open questions to help you sit with and explore.', line: 'Dread can fill a whole day. When you picture tomorrow, what do you notice first, in your thoughts or in your body?' },
+      cultural: { desc: 'Sensitive to your identity, family and community context, without assumptions.', line: "Thank you for telling me. Are there family, work or community expectations that are part of how tomorrow feels? I'd like to understand your world, not assume it." }
+    };
+    var PLACES = {
+      beach: ['Ocean Breath', 'the beach'], forest: ['Forest Grounding', 'the forest trail'], zen: ['Still Garden', 'the zen garden'],
+      office: ['Quiet Room', 'the cozy office'], abstract: ['Above the Clouds', 'above the clouds']
+    };
+    var studio = document.getElementById('studio');
+    if (!studio) return;
+    var reply = document.getElementById('seat-reply');
+    function press(group, button) {
+      group.forEach(function (b) { b.setAttribute('aria-pressed', b === button ? 'true' : 'false'); });
+    }
+    function say(text) {
+      reply.textContent = '';
+      text.split(' ').forEach(function (word, i) {
+        var span = document.createElement('span');
+        span.className = 'w';
+        span.style.animationDelay = (i * 55) + 'ms';
+        span.textContent = word + ' ';
+        reply.appendChild(span);
+      });
+    }
+    var faces = Array.prototype.slice.call(studio.querySelectorAll('.face'));
+    var styles = Array.prototype.slice.call(studio.querySelectorAll('[data-style]'));
+    var places = Array.prototype.slice.call(studio.querySelectorAll('.chip[data-place]'));
+    var style = 'warm';
+    faces.forEach(function (b) {
+      b.addEventListener('click', function () {
+        press(faces, b);
+        document.getElementById('seat-photo').src = '/vr/companions/' + b.dataset.id + '.jpg';
+        document.getElementById('seat-name').textContent = b.dataset.name;
+        document.getElementById('seat-blurb').textContent = b.dataset.blurb;
+        say(STYLES[style].line);
+      });
+    });
+    function setStyle(id, button) {
+      style = id;
+      if (button) press(styles, button);
+      document.getElementById('style-desc').textContent = STYLES[id].desc;
+      say(STYLES[id].line);
+    }
+    styles.forEach(function (b) { b.addEventListener('click', function () { setStyle(b.dataset.style, b); }); });
+    places.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var id = b.dataset.place;
+        press(places, b);
+        studio.querySelectorAll('.studio-bg img').forEach(function (img) { img.classList.toggle('on', img.dataset.place === id); });
+        document.getElementById('offer-title').textContent = PLACES[id][0];
+        document.getElementById('offer-note').textContent = 'A 5 minute guided rest, suggested for ' + PLACES[id][1];
+        document.getElementById('studio-go').href = 'https://vr.phrenly.com/demo?place=' + id + '&companion=1';
+      });
+    });
+    document.getElementById('style-desc').textContent = STYLES.warm.desc;
+    // The first reply plays when the section scrolls into view.
+    if ('IntersectionObserver' in window) {
+      var seen = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) { say(STYLES.warm.line); seen.disconnect(); }
+      }, { threshold: 0.35 });
+      seen.observe(studio);
+    } else { say(STYLES.warm.line); }
+  })();
 
   // Hide the tour until its video has been added.
   fetch('/vr/tour.mp4', { method: 'HEAD' })
